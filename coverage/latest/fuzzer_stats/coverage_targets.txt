@@ -1,3 +1,4 @@
 fuzz_arbitrary_json
 query_fuzz_arbitrary_bytes
+query_fuzz_round_trip
 fuzz_arbitrary_bytes

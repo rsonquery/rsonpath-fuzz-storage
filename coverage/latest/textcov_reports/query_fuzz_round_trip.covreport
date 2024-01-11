@@ -1,0 +1,26 @@
+LLVMFuzzerInitialize:
+   79|      1|pub fn initialize(_argc: *const isize, _argv: *const *const *const u8) -> isize {
+   80|      1|    // Registers a panic hook that aborts the process before unwinding.
+   81|      1|    // It is useful to abort before unwinding so that the fuzzer will then be
+   82|      1|    // able to analyse the process stack frames to tell different bugs appart.
+   83|      1|    //
+   84|      1|    // HACK / FIXME: it would be better to use `-C panic=abort` but it's currently
+   85|      1|    // impossible to build code using compiler plugins with this flag.
+   86|      1|    // We will be able to remove this code when
+   87|      1|    // https://github.com/rust-lang/cargo/issues/5423 is fixed.
+   88|      1|    let default_hook = ::std::panic::take_hook();
+   89|      1|    ::std::panic::set_hook(Box::new(move |panic_info| {
+   90|       |        default_hook(panic_info);
+   91|       |        ::std::process::abort();
+   92|      1|    }));
+   93|       |
+   94|       |    // Initialize the `RUST_LIBFUZZER_DEBUG_PATH` cell with the path so it can be
+   95|       |    // reused with little overhead.
+   96|      1|    if let Ok(path) = std::env::var("RUST_LIBFUZZER_DEBUG_PATH") {
+   97|      0|        RUST_LIBFUZZER_DEBUG_PATH
+   98|      0|            .set(path)
+   99|      0|            .expect("Since this is initialize it is only called once so can never fail");
+  100|      1|    }
+  101|      1|    0
+  102|      1|}
+
