@@ -1,326 +1,326 @@
 _RNvXsa_Cs6flZAYNibw_9arbitraryINtNtCshJIxznpEM8j_5alloc3vec3VecNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentENtB5_9Arbitrary9size_hintCshcHWsNMhkOo_21query_fuzz_round_trip:
-  688|  3.35k|    fn size_hint(_depth: usize) -> (usize, Option<usize>) {
-  689|  3.35k|        (0, None)
-  690|  3.35k|    }
+  688|  3.06k|    fn size_hint(_depth: usize) -> (usize, Option<usize>) {
+  689|  3.06k|        (0, None)
+  690|  3.06k|    }
 _RNvXsa_Cs6flZAYNibw_9arbitraryINtNtCshJIxznpEM8j_5alloc3vec3VecNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorENtB5_9Arbitrary9arbitraryB11_:
-  679|  25.0k|    fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
-  680|  25.0k|        u.arbitrary_iter()?.collect()
-  681|  25.0k|    }
+  679|  30.4k|    fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
+  680|  30.4k|        u.arbitrary_iter()?.collect()
+  681|  30.4k|    }
 _RNvXsa_Cs6flZAYNibw_9arbitraryINtNtCshJIxznpEM8j_5alloc3vec3VecNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentENtB5_9Arbitrary19arbitrary_take_restB11_:
-  683|  3.35k|    fn arbitrary_take_rest(u: Unstructured<'a>) -> Result<Self> {
-  684|  3.35k|        u.arbitrary_take_rest_iter()?.collect()
-  685|  3.35k|    }
+  683|  3.06k|    fn arbitrary_take_rest(u: Unstructured<'a>) -> Result<Self> {
+  684|  3.06k|        u.arbitrary_take_rest_iter()?.collect()
+  685|  3.06k|    }
+_RNvXsI_Cs6flZAYNibw_9arbitraryhNtB5_9Arbitrary9arbitrary:
+  309|   445k|                fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
+  310|   445k|                    let mut buf = [0; mem::size_of::<$ty>()];
+  311|   445k|                    u.fill_buffer(&mut buf)?;
+  312|   445k|                    let mut x: $unsigned = 0;
+  313|   445k|                    for i in 0..mem::size_of::<$ty>() {
+  314|   445k|                        x |= buf[i] as $unsigned << (i * 8);
+  315|   445k|                    }
+  316|   445k|                    Ok(x as $ty)
+  317|   445k|                }
+_RNvXsK_Cs6flZAYNibw_9arbitrarymNtB5_9Arbitrary9arbitrary:
+  309|   408k|                fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
+  310|   408k|                    let mut buf = [0; mem::size_of::<$ty>()];
+  311|   408k|                    u.fill_buffer(&mut buf)?;
+  312|   408k|                    let mut x: $unsigned = 0;
+  313|  1.63M|                    for i in 0..mem::size_of::<$ty>() {
+  314|  1.63M|                        x |= buf[i] as $unsigned << (i * 8);
+  315|  1.63M|                    }
+  316|   408k|                    Ok(x as $ty)
+  317|   408k|                }
 _RNvXs0_Cs6flZAYNibw_9arbitrarycNtB5_9Arbitrary9arbitrary:
-  368|   348k|    fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
+  368|   222k|    fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
   369|       |        use std::char;
   370|       |        // The highest unicode code point is 0x11_FFFF
   371|       |        const CHAR_END: u32 = 0x11_0000;
   372|       |        // The size of the surrogate blocks
   373|       |        const SURROGATES_START: u32 = 0xD800;
-  374|   348k|        let mut c = <u32 as Arbitrary<'a>>::arbitrary(u)? % CHAR_END;
-  375|   348k|        if let Some(c) = char::from_u32(c) {
-  376|   340k|            Ok(c)
+  374|   222k|        let mut c = <u32 as Arbitrary<'a>>::arbitrary(u)? % CHAR_END;
+  375|   222k|        if let Some(c) = char::from_u32(c) {
+  376|   219k|            Ok(c)
   377|       |        } else {
   378|       |            // We found a surrogate, wrap and try again
-  379|  7.51k|            c -= SURROGATES_START;
-  380|  7.51k|            Ok(char::from_u32(c)
-  381|  7.51k|                .expect("Generated character should be valid! This is a bug in arbitrary-rs"))
+  379|  3.63k|            c -= SURROGATES_START;
+  380|  3.63k|            Ok(char::from_u32(c)
+  381|  3.63k|                .expect("Generated character should be valid! This is a bug in arbitrary-rs"))
   382|       |        }
-  383|   348k|    }
+  383|   222k|    }
 _RNvXs_Cs6flZAYNibw_9arbitrarybNtB4_9Arbitrary9arbitrary:
-  295|   626k|    fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
-  296|   626k|        Ok(<u8 as Arbitrary<'a>>::arbitrary(u)? & 1 == 1)
-  297|   626k|    }
-_RNvXsK_Cs6flZAYNibw_9arbitrarymNtB5_9Arbitrary9arbitrary:
-  309|   582k|                fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
-  310|   582k|                    let mut buf = [0; mem::size_of::<$ty>()];
-  311|   582k|                    u.fill_buffer(&mut buf)?;
-  312|   582k|                    let mut x: $unsigned = 0;
-  313|  2.32M|                    for i in 0..mem::size_of::<$ty>() {
-  314|  2.32M|                        x |= buf[i] as $unsigned << (i * 8);
-  315|  2.32M|                    }
-  316|   582k|                    Ok(x as $ty)
-  317|   582k|                }
-_RNvXsI_Cs6flZAYNibw_9arbitraryhNtB5_9Arbitrary9arbitrary:
-  309|   626k|                fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
-  310|   626k|                    let mut buf = [0; mem::size_of::<$ty>()];
-  311|   626k|                    u.fill_buffer(&mut buf)?;
-  312|   626k|                    let mut x: $unsigned = 0;
-  313|   626k|                    for i in 0..mem::size_of::<$ty>() {
-  314|   626k|                        x |= buf[i] as $unsigned << (i * 8);
-  315|   626k|                    }
-  316|   626k|                    Ok(x as $ty)
-  317|   626k|                }
+  295|   445k|    fn arbitrary(u: &mut Unstructured<'a>) -> Result<Self> {
+  296|   445k|        Ok(<u8 as Arbitrary<'a>>::arbitrary(u)? & 1 == 1)
+  297|   445k|    }
 
 _RNvNtCs6flZAYNibw_9arbitrary9size_hint3andCshcHWsNMhkOo_21query_fuzz_round_trip:
-   26|  3.35k|pub fn and(lhs: (usize, Option<usize>), rhs: (usize, Option<usize>)) -> (usize, Option<usize>) {
-   27|  3.35k|    let lower = lhs.0 + rhs.0;
-   28|  3.35k|    let upper = lhs.1.and_then(|lhs| rhs.1.map(|rhs| lhs + rhs));
-   29|  3.35k|    (lower, upper)
-   30|  3.35k|}
+   26|  3.06k|pub fn and(lhs: (usize, Option<usize>), rhs: (usize, Option<usize>)) -> (usize, Option<usize>) {
+   27|  3.06k|    let lower = lhs.0 + rhs.0;
+   28|  3.06k|    let upper = lhs.1.and_then(|lhs| rhs.1.map(|rhs| lhs + rhs));
+   29|  3.06k|    (lower, upper)
+   30|  3.06k|}
 _RNvNtCs6flZAYNibw_9arbitrary9size_hint7and_allCshcHWsNMhkOo_21query_fuzz_round_trip:
-   37|  3.35k|pub fn and_all(hints: &[(usize, Option<usize>)]) -> (usize, Option<usize>) {
-   38|  3.35k|    hints.iter().copied().fold((0, Some(0)), and)
-   39|  3.35k|}
+   37|  3.06k|pub fn and_all(hints: &[(usize, Option<usize>)]) -> (usize, Option<usize>) {
+   38|  3.06k|    hints.iter().copied().fold((0, Some(0)), and)
+   39|  3.06k|}
 _RNCNvNtCs6flZAYNibw_9arbitrary9size_hint3and0CshcHWsNMhkOo_21query_fuzz_round_trip:
-   28|  3.35k|    let upper = lhs.1.and_then(|lhs| rhs.1.map(|rhs| lhs + rhs));
+   28|  3.06k|    let upper = lhs.1.and_then(|lhs| rhs.1.map(|rhs| lhs + rhs));
 _RINvNtCs6flZAYNibw_9arbitrary9size_hint15recursion_guardNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs0_1__NtBZ_13JsonPathQueryNtB4_9Arbitrary9size_hint0ECshcHWsNMhkOo_21query_fuzz_round_trip:
-   12|  3.35k|pub fn recursion_guard(
-   13|  3.35k|    depth: usize,
-   14|  3.35k|    f: impl FnOnce(usize) -> (usize, Option<usize>),
-   15|  3.35k|) -> (usize, Option<usize>) {
-   16|  3.35k|    const MAX_DEPTH: usize = 20;
-   17|  3.35k|    if depth > MAX_DEPTH {
+   12|  3.06k|pub fn recursion_guard(
+   13|  3.06k|    depth: usize,
+   14|  3.06k|    f: impl FnOnce(usize) -> (usize, Option<usize>),
+   15|  3.06k|) -> (usize, Option<usize>) {
+   16|  3.06k|    const MAX_DEPTH: usize = 20;
+   17|  3.06k|    if depth > MAX_DEPTH {
    18|      0|        (0, None)
    19|       |    } else {
-   20|  3.35k|        f(depth + 1)
+   20|  3.06k|        f(depth + 1)
    21|       |    }
-   22|  3.35k|}
+   22|  3.06k|}
 
 _RNvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB2_12Unstructured3newCshcHWsNMhkOo_21query_fuzz_round_trip:
-   85|  3.35k|    pub fn new(data: &'a [u8]) -> Self {
-   86|  3.35k|        Unstructured { data }
-   87|  3.35k|    }
-_RNvXs_NtCs6flZAYNibw_9arbitrary12unstructuredINtB4_13ArbitraryIterNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorENtNtNtNtCslATUeuPuGvJ_4core4iter6traits8iterator8Iterator4nextB14_:
-  720|   208k|    fn next(&mut self) -> Option<Result<ElementType>> {
-  721|   208k|        let keep_going = self.u.arbitrary().unwrap_or(false);
-  722|   208k|        if keep_going {
-  723|   183k|            Some(Arbitrary::arbitrary(self.u))
-  724|       |        } else {
-  725|  25.0k|            None
-  726|       |        }
-  727|   208k|    }
+   85|  3.06k|    pub fn new(data: &'a [u8]) -> Self {
+   86|  3.06k|        Unstructured { data }
+   87|  3.06k|    }
 _RNvXsa_NtCs6flZAYNibw_9arbitrary12unstructuredxNtB5_3Int13from_unsignedCs8kepUdDqpxJ_15rsonpath_syntax:
-  845|   109k|                fn from_unsigned(unsigned: $unsigned_ty) -> Self {
-  846|   109k|                    unsigned as Self
-  847|   109k|                }
-_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured24arbitrary_take_rest_iterNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentEB1r_:
-  620|  3.35k|    pub fn arbitrary_take_rest_iter<ElementType: Arbitrary<'a>>(
-  621|  3.35k|        self,
-  622|  3.35k|    ) -> Result<ArbitraryTakeRestIter<'a, ElementType>> {
-  623|  3.35k|        Ok(ArbitraryTakeRestIter {
-  624|  3.35k|            u: self,
-  625|  3.35k|            _marker: PhantomData,
-  626|  3.35k|        })
-  627|  3.35k|    }
-_RNvXs0_NtCs6flZAYNibw_9arbitrary12unstructuredINtB5_21ArbitraryTakeRestIterNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentENtNtNtNtCslATUeuPuGvJ_4core4iter6traits8iterator8Iterator4nextB1d_:
-  738|  28.4k|    fn next(&mut self) -> Option<Result<ElementType>> {
-  739|  28.4k|        let keep_going = self.u.arbitrary().unwrap_or(false);
-  740|  28.4k|        if keep_going {
-  741|  25.0k|            Some(Arbitrary::arbitrary(&mut self.u))
-  742|       |        } else {
-  743|  3.35k|            None
-  744|       |        }
-  745|  28.4k|    }
-_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int10from_usizeCs8kepUdDqpxJ_15rsonpath_syntax:
-  825|   877k|                fn from_usize(u: usize) -> Self {
-  826|   877k|                    u as Self
-  827|   877k|                }
-_RNvXs_NtCs6flZAYNibw_9arbitrary12unstructuredINtB4_13ArbitraryItercENtNtNtNtCslATUeuPuGvJ_4core4iter6traits8iterator8Iterator4nextCs8kepUdDqpxJ_15rsonpath_syntax:
-  720|   389k|    fn next(&mut self) -> Option<Result<ElementType>> {
-  721|   389k|        let keep_going = self.u.arbitrary().unwrap_or(false);
-  722|   389k|        if keep_going {
-  723|   348k|            Some(Arbitrary::arbitrary(self.u))
-  724|       |        } else {
-  725|  40.8k|            None
-  726|       |        }
-  727|   389k|    }
-_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured12int_in_rangexECs8kepUdDqpxJ_15rsonpath_syntax:
-  293|   109k|    pub fn int_in_range<T>(&mut self, range: ops::RangeInclusive<T>) -> Result<T>
-  294|   109k|    where
-  295|   109k|        T: Int,
-  296|   109k|    {
-  297|   109k|        let (result, bytes_consumed) = Self::int_in_range_impl(range, self.data.iter().cloned())?;
-  298|   109k|        self.data = &self.data[bytes_consumed..];
-  299|   109k|        Ok(result)
-  300|   109k|    }
+  845|  78.9k|                fn from_unsigned(unsigned: $unsigned_ty) -> Self {
+  846|  78.9k|                    unsigned as Self
+  847|  78.9k|                }
+_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured14arbitrary_itercECs8kepUdDqpxJ_15rsonpath_syntax:
+  606|  33.7k|    pub fn arbitrary_iter<'b, ElementType: Arbitrary<'a>>(
+  607|  33.7k|        &'b mut self,
+  608|  33.7k|    ) -> Result<ArbitraryIter<'a, 'b, ElementType>> {
+  609|  33.7k|        Ok(ArbitraryIter {
+  610|  33.7k|            u: &mut *self,
+  611|  33.7k|            _marker: PhantomData,
+  612|  33.7k|        })
+  613|  33.7k|    }
+_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured9arbitraryINtNtCshJIxznpEM8j_5alloc3vec3VecNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorEEB1I_:
+  167|  30.4k|    pub fn arbitrary<A>(&mut self) -> Result<A>
+  168|  30.4k|    where
+  169|  30.4k|        A: Arbitrary<'a>,
+  170|  30.4k|    {
+  171|  30.4k|        <A as Arbitrary<'a>>::arbitrary(self)
+  172|  30.4k|    }
+_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured9arbitraryNtNtCs8kepUdDqpxJ_15rsonpath_syntax3num7JsonIntEB1d_:
+  167|  78.9k|    pub fn arbitrary<A>(&mut self) -> Result<A>
+  168|  78.9k|    where
+  169|  78.9k|        A: Arbitrary<'a>,
+  170|  78.9k|    {
+  171|  78.9k|        <A as Arbitrary<'a>>::arbitrary(self)
+  172|  78.9k|    }
 _RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured17int_in_range_implxINtNtNtNtCslATUeuPuGvJ_4core4iter8adapters6cloned6ClonedINtNtNtB1s_5slice4iter4IterhEEECs8kepUdDqpxJ_15rsonpath_syntax:
-  302|   109k|    fn int_in_range_impl<T>(
-  303|   109k|        range: ops::RangeInclusive<T>,
-  304|   109k|        mut bytes: impl Iterator<Item = u8>,
-  305|   109k|    ) -> Result<(T, usize)>
-  306|   109k|    where
-  307|   109k|        T: Int,
-  308|   109k|    {
-  309|   109k|        let start = *range.start();
-  310|   109k|        let end = *range.end();
-  311|   109k|        assert!(
-  312|   109k|            start <= end,
+  302|  78.9k|    fn int_in_range_impl<T>(
+  303|  78.9k|        range: ops::RangeInclusive<T>,
+  304|  78.9k|        mut bytes: impl Iterator<Item = u8>,
+  305|  78.9k|    ) -> Result<(T, usize)>
+  306|  78.9k|    where
+  307|  78.9k|        T: Int,
+  308|  78.9k|    {
+  309|  78.9k|        let start = *range.start();
+  310|  78.9k|        let end = *range.end();
+  311|  78.9k|        assert!(
+  312|  78.9k|            start <= end,
   313|      0|            "`arbitrary::Unstructured::int_in_range` requires a non-empty range"
   314|       |        );
   315|       |
   316|       |        // When there is only one possible choice, don't waste any entropy from
   317|       |        // the underlying data.
-  318|   109k|        if start == end {
+  318|  78.9k|        if start == end {
   319|      0|            return Ok((start, 0));
-  320|   109k|        }
-  321|   109k|
-  322|   109k|        // From here on out we work with the unsigned representation. All of the
-  323|   109k|        // operations performed below work out just as well whether or not `T`
-  324|   109k|        // is a signed or unsigned integer.
-  325|   109k|        let start = start.to_unsigned();
-  326|   109k|        let end = end.to_unsigned();
-  327|   109k|
-  328|   109k|        let delta = end.wrapping_sub(start);
-  329|   109k|        debug_assert_ne!(delta, T::Unsigned::ZERO);
+  320|  78.9k|        }
+  321|  78.9k|
+  322|  78.9k|        // From here on out we work with the unsigned representation. All of the
+  323|  78.9k|        // operations performed below work out just as well whether or not `T`
+  324|  78.9k|        // is a signed or unsigned integer.
+  325|  78.9k|        let start = start.to_unsigned();
+  326|  78.9k|        let end = end.to_unsigned();
+  327|  78.9k|
+  328|  78.9k|        let delta = end.wrapping_sub(start);
+  329|  78.9k|        debug_assert_ne!(delta, T::Unsigned::ZERO);
   330|       |
   331|       |        // Compute an arbitrary integer offset from the start of the range. We
   332|       |        // do this by consuming `size_of(T)` bytes from the input to create an
   333|       |        // arbitrary integer and then clamping that int into our range bounds
   334|       |        // with a modulo operation.
-  335|   109k|        let mut arbitrary_int = T::Unsigned::ZERO;
-  336|   109k|        let mut bytes_consumed: usize = 0;
+  335|  78.9k|        let mut arbitrary_int = T::Unsigned::ZERO;
+  336|  78.9k|        let mut bytes_consumed: usize = 0;
   337|       |
-  338|   877k|        while (bytes_consumed < mem::size_of::<T>())
-  339|   877k|            && (delta >> T::Unsigned::from_usize(bytes_consumed * 8)) > T::Unsigned::ZERO
+  338|   629k|        while (bytes_consumed < mem::size_of::<T>())
+  339|   629k|            && (delta >> T::Unsigned::from_usize(bytes_consumed * 8)) > T::Unsigned::ZERO
   340|       |        {
-  341|   768k|            let byte = match bytes.next() {
-  342|    287|                None => break,
-  343|   767k|                Some(b) => b,
-  344|   767k|            };
-  345|   767k|            bytes_consumed += 1;
-  346|   767k|
-  347|   767k|            // Combine this byte into our arbitrary integer, but avoid
-  348|   767k|            // overflowing the shift for `u8` and `i8`.
-  349|   767k|            arbitrary_int = if mem::size_of::<T>() == 1 {
+  341|   551k|            let byte = match bytes.next() {
+  342|    348|                None => break,
+  343|   551k|                Some(b) => b,
+  344|   551k|            };
+  345|   551k|            bytes_consumed += 1;
+  346|   551k|
+  347|   551k|            // Combine this byte into our arbitrary integer, but avoid
+  348|   551k|            // overflowing the shift for `u8` and `i8`.
+  349|   551k|            arbitrary_int = if mem::size_of::<T>() == 1 {
   350|      0|                T::Unsigned::from_u8(byte)
   351|       |            } else {
-  352|   767k|                (arbitrary_int << 8) | T::Unsigned::from_u8(byte)
+  352|   551k|                (arbitrary_int << 8) | T::Unsigned::from_u8(byte)
   353|       |            };
   354|       |        }
   355|       |
-  356|   109k|        let offset = if delta == T::Unsigned::MAX {
+  356|  78.9k|        let offset = if delta == T::Unsigned::MAX {
   357|      0|            arbitrary_int
   358|       |        } else {
-  359|   109k|            arbitrary_int % (delta.checked_add(T::Unsigned::ONE).unwrap())
+  359|  78.9k|            arbitrary_int % (delta.checked_add(T::Unsigned::ONE).unwrap())
   360|       |        };
   361|       |
   362|       |        // Finally, we add `start` to our offset from `start` to get the result
   363|       |        // actual value within the range.
-  364|   109k|        let result = start.wrapping_add(offset);
-  365|   109k|
-  366|   109k|        // And convert back to our maybe-signed representation.
-  367|   109k|        let result = T::from_unsigned(result);
-  368|   109k|        debug_assert!(*range.start() <= result);
-  369|   109k|        debug_assert!(result <= *range.end());
+  364|  78.9k|        let result = start.wrapping_add(offset);
+  365|  78.9k|
+  366|  78.9k|        // And convert back to our maybe-signed representation.
+  367|  78.9k|        let result = T::from_unsigned(result);
+  368|  78.9k|        debug_assert!(*range.start() <= result);
+  369|  78.9k|        debug_assert!(result <= *range.end());
   370|       |
-  371|   109k|        Ok((result, bytes_consumed))
-  372|   109k|    }
-_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int7from_u8Cs8kepUdDqpxJ_15rsonpath_syntax:
-  821|   767k|                fn from_u8(b: u8) -> Self {
-  822|   767k|                    b as Self
-  823|   767k|                }
-_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured14arbitrary_itercECs8kepUdDqpxJ_15rsonpath_syntax:
-  606|  40.8k|    pub fn arbitrary_iter<'b, ElementType: Arbitrary<'a>>(
-  607|  40.8k|        &'b mut self,
-  608|  40.8k|    ) -> Result<ArbitraryIter<'a, 'b, ElementType>> {
-  609|  40.8k|        Ok(ArbitraryIter {
-  610|  40.8k|            u: &mut *self,
-  611|  40.8k|            _marker: PhantomData,
-  612|  40.8k|        })
-  613|  40.8k|    }
-_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int12wrapping_subCs8kepUdDqpxJ_15rsonpath_syntax:
-  837|   109k|                fn wrapping_sub(self, rhs: Self) -> Self {
-  838|   109k|                    <$ty>::wrapping_sub(self, rhs)
-  839|   109k|                }
-_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int12wrapping_addCs8kepUdDqpxJ_15rsonpath_syntax:
-  833|   109k|                fn wrapping_add(self, rhs: Self) -> Self {
-  834|   109k|                    <$ty>::wrapping_add(self, rhs)
-  835|   109k|                }
+  371|  78.9k|        Ok((result, bytes_consumed))
+  372|  78.9k|    }
+_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int10from_usizeCs8kepUdDqpxJ_15rsonpath_syntax:
+  825|   629k|                fn from_usize(u: usize) -> Self {
+  826|   629k|                    u as Self
+  827|   629k|                }
+_RNvXs0_NtCs6flZAYNibw_9arbitrary12unstructuredINtB5_21ArbitraryTakeRestIterNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentENtNtNtNtCslATUeuPuGvJ_4core4iter6traits8iterator8Iterator4nextB1d_:
+  738|  33.5k|    fn next(&mut self) -> Option<Result<ElementType>> {
+  739|  33.5k|        let keep_going = self.u.arbitrary().unwrap_or(false);
+  740|  33.5k|        if keep_going {
+  741|  30.4k|            Some(Arbitrary::arbitrary(&mut self.u))
+  742|       |        } else {
+  743|  3.06k|            None
+  744|       |        }
+  745|  33.5k|    }
 _RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured9arbitraryNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorEB1b_:
-  167|  25.0k|    pub fn arbitrary<A>(&mut self) -> Result<A>
-  168|  25.0k|    where
-  169|  25.0k|        A: Arbitrary<'a>,
-  170|  25.0k|    {
-  171|  25.0k|        <A as Arbitrary<'a>>::arbitrary(self)
-  172|  25.0k|    }
-_RNvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB2_12Unstructured8is_emptyCs8kepUdDqpxJ_15rsonpath_syntax:
-  132|   237k|    pub fn is_empty(&self) -> bool {
-  133|   237k|        self.len() == 0
-  134|   237k|    }
-_RNvXsa_NtCs6flZAYNibw_9arbitrary12unstructuredxNtB5_3Int11to_unsignedCs8kepUdDqpxJ_15rsonpath_syntax:
-  841|   219k|                fn to_unsigned(self) -> Self::Unsigned {
-  842|   219k|                    self as $unsigned_ty
-  843|   219k|                }
+  167|  30.4k|    pub fn arbitrary<A>(&mut self) -> Result<A>
+  168|  30.4k|    where
+  169|  30.4k|        A: Arbitrary<'a>,
+  170|  30.4k|    {
+  171|  30.4k|        <A as Arbitrary<'a>>::arbitrary(self)
+  172|  30.4k|    }
+_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int7from_u8Cs8kepUdDqpxJ_15rsonpath_syntax:
+  821|   551k|                fn from_u8(b: u8) -> Self {
+  822|   551k|                    b as Self
+  823|   551k|                }
+_RNvXs_NtCs6flZAYNibw_9arbitrary12unstructuredINtB4_13ArbitraryItercENtNtNtNtCslATUeuPuGvJ_4core4iter6traits8iterator8Iterator4nextCs8kepUdDqpxJ_15rsonpath_syntax:
+  720|   256k|    fn next(&mut self) -> Option<Result<ElementType>> {
+  721|   256k|        let keep_going = self.u.arbitrary().unwrap_or(false);
+  722|   256k|        if keep_going {
+  723|   222k|            Some(Arbitrary::arbitrary(self.u))
+  724|       |        } else {
+  725|  33.7k|            None
+  726|       |        }
+  727|   256k|    }
+_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int12wrapping_subCs8kepUdDqpxJ_15rsonpath_syntax:
+  837|  78.9k|                fn wrapping_sub(self, rhs: Self) -> Self {
+  838|  78.9k|                    <$ty>::wrapping_sub(self, rhs)
+  839|  78.9k|                }
+_RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int12wrapping_addCs8kepUdDqpxJ_15rsonpath_syntax:
+  833|  78.9k|                fn wrapping_add(self, rhs: Self) -> Self {
+  834|  78.9k|                    <$ty>::wrapping_add(self, rhs)
+  835|  78.9k|                }
 _RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured14arbitrary_iterNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorEB1h_:
-  606|  25.0k|    pub fn arbitrary_iter<'b, ElementType: Arbitrary<'a>>(
-  607|  25.0k|        &'b mut self,
-  608|  25.0k|    ) -> Result<ArbitraryIter<'a, 'b, ElementType>> {
-  609|  25.0k|        Ok(ArbitraryIter {
-  610|  25.0k|            u: &mut *self,
-  611|  25.0k|            _marker: PhantomData,
-  612|  25.0k|        })
-  613|  25.0k|    }
-_RNvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB2_12Unstructured3lenCs8kepUdDqpxJ_15rsonpath_syntax:
-  108|   237k|    pub fn len(&self) -> usize {
-  109|   237k|        self.data.len()
-  110|   237k|    }
-_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured9arbitraryINtNtCshJIxznpEM8j_5alloc3vec3VecNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorEEB1I_:
-  167|  25.0k|    pub fn arbitrary<A>(&mut self) -> Result<A>
-  168|  25.0k|    where
-  169|  25.0k|        A: Arbitrary<'a>,
-  170|  25.0k|    {
-  171|  25.0k|        <A as Arbitrary<'a>>::arbitrary(self)
-  172|  25.0k|    }
-_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured9arbitraryNtNtCs8kepUdDqpxJ_15rsonpath_syntax3num7JsonIntEB1d_:
-  167|   109k|    pub fn arbitrary<A>(&mut self) -> Result<A>
-  168|   109k|    where
-  169|   109k|        A: Arbitrary<'a>,
-  170|   109k|    {
-  171|   109k|        <A as Arbitrary<'a>>::arbitrary(self)
-  172|   109k|    }
+  606|  30.4k|    pub fn arbitrary_iter<'b, ElementType: Arbitrary<'a>>(
+  607|  30.4k|        &'b mut self,
+  608|  30.4k|    ) -> Result<ArbitraryIter<'a, 'b, ElementType>> {
+  609|  30.4k|        Ok(ArbitraryIter {
+  610|  30.4k|            u: &mut *self,
+  611|  30.4k|            _marker: PhantomData,
+  612|  30.4k|        })
+  613|  30.4k|    }
+_RNvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB2_12Unstructured8is_emptyCs8kepUdDqpxJ_15rsonpath_syntax:
+  132|   189k|    pub fn is_empty(&self) -> bool {
+  133|   189k|        self.len() == 0
+  134|   189k|    }
+_RNvXsa_NtCs6flZAYNibw_9arbitrary12unstructuredxNtB5_3Int11to_unsignedCs8kepUdDqpxJ_15rsonpath_syntax:
+  841|   157k|                fn to_unsigned(self) -> Self::Unsigned {
+  842|   157k|                    self as $unsigned_ty
+  843|   157k|                }
 _RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured9arbitrarybECs8kepUdDqpxJ_15rsonpath_syntax:
-  167|   626k|    pub fn arbitrary<A>(&mut self) -> Result<A>
-  168|   626k|    where
-  169|   626k|        A: Arbitrary<'a>,
-  170|   626k|    {
-  171|   626k|        <A as Arbitrary<'a>>::arbitrary(self)
-  172|   626k|    }
+  167|   445k|    pub fn arbitrary<A>(&mut self) -> Result<A>
+  168|   445k|    where
+  169|   445k|        A: Arbitrary<'a>,
+  170|   445k|    {
+  171|   445k|        <A as Arbitrary<'a>>::arbitrary(self)
+  172|   445k|    }
+_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured12int_in_rangexECs8kepUdDqpxJ_15rsonpath_syntax:
+  293|  78.9k|    pub fn int_in_range<T>(&mut self, range: ops::RangeInclusive<T>) -> Result<T>
+  294|  78.9k|    where
+  295|  78.9k|        T: Int,
+  296|  78.9k|    {
+  297|  78.9k|        let (result, bytes_consumed) = Self::int_in_range_impl(range, self.data.iter().cloned())?;
+  298|  78.9k|        self.data = &self.data[bytes_consumed..];
+  299|  78.9k|        Ok(result)
+  300|  78.9k|    }
+_RNvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB2_12Unstructured3lenCs8kepUdDqpxJ_15rsonpath_syntax:
+  108|   189k|    pub fn len(&self) -> usize {
+  109|   189k|        self.data.len()
+  110|   189k|    }
+_RINvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB3_12Unstructured24arbitrary_take_rest_iterNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentEB1r_:
+  620|  3.06k|    pub fn arbitrary_take_rest_iter<ElementType: Arbitrary<'a>>(
+  621|  3.06k|        self,
+  622|  3.06k|    ) -> Result<ArbitraryTakeRestIter<'a, ElementType>> {
+  623|  3.06k|        Ok(ArbitraryTakeRestIter {
+  624|  3.06k|            u: self,
+  625|  3.06k|            _marker: PhantomData,
+  626|  3.06k|        })
+  627|  3.06k|    }
+_RNvXs_NtCs6flZAYNibw_9arbitrary12unstructuredINtB4_13ArbitraryIterNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorENtNtNtNtCslATUeuPuGvJ_4core4iter6traits8iterator8Iterator4nextB14_:
+  720|   155k|    fn next(&mut self) -> Option<Result<ElementType>> {
+  721|   155k|        let keep_going = self.u.arbitrary().unwrap_or(false);
+  722|   155k|        if keep_going {
+  723|   125k|            Some(Arbitrary::arbitrary(self.u))
+  724|       |        } else {
+  725|  30.4k|            None
+  726|       |        }
+  727|   155k|    }
 _RNvXs4_NtCs6flZAYNibw_9arbitrary12unstructuredyNtB5_3Int11checked_add:
-  829|   109k|                fn checked_add(self, rhs: Self) -> Option<Self> {
-  830|   109k|                    <$ty>::checked_add(self, rhs)
-  831|   109k|                }
+  829|  78.9k|                fn checked_add(self, rhs: Self) -> Option<Self> {
+  830|  78.9k|                    <$ty>::checked_add(self, rhs)
+  831|  78.9k|                }
 _RNvMNtCs6flZAYNibw_9arbitrary12unstructuredNtB2_12Unstructured11fill_buffer:
-  521|  1.20M|    pub fn fill_buffer(&mut self, buffer: &mut [u8]) -> Result<()> {
-  522|  1.20M|        let n = std::cmp::min(buffer.len(), self.data.len());
-  523|  1.20M|        buffer[..n].copy_from_slice(&self.data[..n]);
-  524|  1.20M|        for byte in buffer[n..].iter_mut() {
-  525|  11.3k|            *byte = 0;
-  526|  11.3k|        }
-  527|  1.20M|        self.data = &self.data[n..];
-  528|  1.20M|        Ok(())
-  529|  1.20M|    }
+  521|   854k|    pub fn fill_buffer(&mut self, buffer: &mut [u8]) -> Result<()> {
+  522|   854k|        let n = std::cmp::min(buffer.len(), self.data.len());
+  523|   854k|        buffer[..n].copy_from_slice(&self.data[..n]);
+  524|   854k|        for byte in buffer[n..].iter_mut() {
+  525|  12.5k|            *byte = 0;
+  526|  12.5k|        }
+  527|   854k|        self.data = &self.data[n..];
+  528|   854k|        Ok(())
+  529|   854k|    }
 
 _RNvMs_Cs6dKByMwQImo_13libfuzzer_sysNtB4_6Corpus17to_libfuzzer_codeCshcHWsNMhkOo_21query_fuzz_round_trip:
-   40|  3.35k|    pub fn to_libfuzzer_code(self) -> i32 {
-   41|  3.35k|        match self {
-   42|  3.35k|            Corpus::Keep => 0,
+   40|  3.06k|    pub fn to_libfuzzer_code(self) -> i32 {
+   41|  3.06k|        match self {
+   42|  3.06k|            Corpus::Keep => 0,
    43|      0|            Corpus::Reject => -1,
    44|       |        }
-   45|  3.35k|    }
+   45|  3.06k|    }
 rust_fuzzer_test_input:
-  259|  3.35k|            pub extern "C" fn rust_fuzzer_test_input(bytes: &[u8]) -> i32 {
-  260|  3.35k|                use $crate::arbitrary::{Arbitrary, Unstructured};
-  261|  3.35k|
-  262|  3.35k|                // Early exit if we don't have enough bytes for the `Arbitrary`
-  263|  3.35k|                // implementation. This helps the fuzzer avoid exploring all the
-  264|  3.35k|                // different not-enough-input-bytes paths inside the `Arbitrary`
-  265|  3.35k|                // implementation. Additionally, it exits faster, letting the fuzzer
-  266|  3.35k|                // get to longer inputs that actually lead to interesting executions
-  267|  3.35k|                // quicker.
-  268|  3.35k|                if bytes.len() < <$dty as Arbitrary>::size_hint(0).0 {
+  259|  3.06k|            pub extern "C" fn rust_fuzzer_test_input(bytes: &[u8]) -> i32 {
+  260|  3.06k|                use $crate::arbitrary::{Arbitrary, Unstructured};
+  261|  3.06k|
+  262|  3.06k|                // Early exit if we don't have enough bytes for the `Arbitrary`
+  263|  3.06k|                // implementation. This helps the fuzzer avoid exploring all the
+  264|  3.06k|                // different not-enough-input-bytes paths inside the `Arbitrary`
+  265|  3.06k|                // implementation. Additionally, it exits faster, letting the fuzzer
+  266|  3.06k|                // get to longer inputs that actually lead to interesting executions
+  267|  3.06k|                // quicker.
+  268|  3.06k|                if bytes.len() < <$dty as Arbitrary>::size_hint(0).0 {
   269|      0|                    return -1;
-  270|  3.35k|                }
-  271|  3.35k|
-  272|  3.35k|                let mut u = Unstructured::new(bytes);
-  273|  3.35k|                let data = <$dty as Arbitrary>::arbitrary_take_rest(u);
+  270|  3.06k|                }
+  271|  3.06k|
+  272|  3.06k|                let mut u = Unstructured::new(bytes);
+  273|  3.06k|                let data = <$dty as Arbitrary>::arbitrary_take_rest(u);
   274|       |
   275|       |                // When `RUST_LIBFUZZER_DEBUG_PATH` is set, write the debug
   276|       |                // formatting of the input to that file. This is only intended for
   277|       |                // `cargo fuzz`'s use!
   278|       |
   279|       |                // `RUST_LIBFUZZER_DEBUG_PATH` is set in initialization.
-  280|  3.35k|                if let Some(path) = $crate::RUST_LIBFUZZER_DEBUG_PATH.get() {
+  280|  3.06k|                if let Some(path) = $crate::RUST_LIBFUZZER_DEBUG_PATH.get() {
   281|       |                    use std::io::Write;
   282|      0|                    let mut file = std::fs::File::create(path)
   283|      0|                        .expect("failed to create `RUST_LIBFUZZER_DEBUG_PATH` file");
@@ -330,45 +330,45 @@ rust_fuzzer_test_input:
   287|       |                    })
   288|      0|                    .expect("failed to write to `RUST_LIBFUZZER_DEBUG_PATH` file");
   289|      0|                    return -1;
-  290|  3.35k|                }
+  290|  3.06k|                }
   291|       |
-  292|  3.35k|                let data = match data {
-  293|  3.35k|                    Ok(d) => d,
+  292|  3.06k|                let data = match data {
+  293|  3.06k|                    Ok(d) => d,
   294|      0|                    Err(_) => return -1,
   295|       |                };
   296|       |
-  297|  3.35k|                let result = ::libfuzzer_sys::Corpus::from(__libfuzzer_sys_run(data));
-  298|  3.35k|                result.to_libfuzzer_code()
-  299|  3.35k|            }
+  297|  3.06k|                let result = ::libfuzzer_sys::Corpus::from(__libfuzzer_sys_run(data));
+  298|  3.06k|                result.to_libfuzzer_code()
+  299|  3.06k|            }
 _RNvNvCshcHWsNMhkOo_21query_fuzz_round_trip1__19___libfuzzer_sys_run:
-  303|  3.35k|            fn __libfuzzer_sys_run($data: $dty) -> $rty {
-  304|  3.35k|                $body
-  305|  3.35k|            }
+  303|  3.06k|            fn __libfuzzer_sys_run($data: $dty) -> $rty {
+  304|  3.06k|                $body
+  305|  3.06k|            }
 _RNvXCs6dKByMwQImo_13libfuzzer_sysNtB2_6CorpusINtNtCslATUeuPuGvJ_4core7convert4FromuE4fromCshcHWsNMhkOo_21query_fuzz_round_trip:
-   30|  3.35k|    fn from(_: ()) -> Self {
-   31|  3.35k|        Self::Keep
-   32|  3.35k|    }
+   30|  3.06k|    fn from(_: ()) -> Self {
+   31|  3.06k|        Self::Keep
+   32|  3.06k|    }
 LLVMFuzzerTestOneInput:
-   58|  3.35k|pub fn test_input_wrap(data: *const u8, size: usize) -> i32 {
-   59|  3.35k|    let test_input = ::std::panic::catch_unwind(|| unsafe {
+   58|  3.06k|pub fn test_input_wrap(data: *const u8, size: usize) -> i32 {
+   59|  3.06k|    let test_input = ::std::panic::catch_unwind(|| unsafe {
    60|       |        let data_slice = ::std::slice::from_raw_parts(data, size);
    61|       |        rust_fuzzer_test_input(data_slice)
-   62|  3.35k|    });
-   63|  3.35k|
-   64|  3.35k|    match test_input {
-   65|  3.35k|        Ok(i) => i,
+   62|  3.06k|    });
+   63|  3.06k|
+   64|  3.06k|    match test_input {
+   65|  3.06k|        Ok(i) => i,
    66|       |        Err(_) => {
    67|       |            // hopefully the custom panic hook will be called before and abort the
    68|       |            // process before the stack frames are unwinded.
    69|      0|            ::std::process::abort();
    70|       |        }
    71|       |    }
-   72|  3.35k|}
+   72|  3.06k|}
 _RNCNvCs6dKByMwQImo_13libfuzzer_sys15test_input_wrap0B3_:
-   59|  3.35k|    let test_input = ::std::panic::catch_unwind(|| unsafe {
-   60|  3.35k|        let data_slice = ::std::slice::from_raw_parts(data, size);
-   61|  3.35k|        rust_fuzzer_test_input(data_slice)
-   62|  3.35k|    });
+   59|  3.06k|    let test_input = ::std::panic::catch_unwind(|| unsafe {
+   60|  3.06k|        let data_slice = ::std::slice::from_raw_parts(data, size);
+   61|  3.06k|        rust_fuzzer_test_input(data_slice)
+   62|  3.06k|    });
 LLVMFuzzerInitialize:
    79|      2|pub fn initialize(_argc: *const isize, _argv: *const *const *const u8) -> isize {
    80|      2|    // Registers a panic hook that aborts the process before unwinding.
@@ -395,124 +395,111 @@ LLVMFuzzerInitialize:
   101|      2|    0
   102|      2|}
 
-_RNvXs_NtCsijflsOnQTe0_3nom6branchTNCINvNtB6_8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtB15_5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBY_B1Q_E0NCNvNtB15_6parser6string0E0Bw_EINtB4_3AltBY_B11_B1Q_E6choiceB15_:
-  134|   208k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
-  135|   208k|        match self.0.parse(input.clone()) {
-  136|   168k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
-  137|  40.8k|          res => res,
-  138|       |        }
-  139|   208k|      }
-_RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBB_5error18InternalParseErrorTNvNtBB_6parser19bracketed_selectionNCINvNtB4_8sequence8precededBx_cBz_B1g_NCINvNtNtB4_9character8complete4charBx_B1g_E0NCINvNtB4_10combinator3cutBx_Bz_B1g_NCIB0_Bx_Bz_B1g_TNCINvB3O_3mapBx_NtBB_8SelectorBz_B1g_NvB1Q_17wildcard_selectorNvMs8_BB_Bz_3oneE0NvB1Q_21member_name_shorthandNCINvB1Q_14failed_segmentBz_E0EE0E0E0EEBB_:
-   47|  7.10k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|  7.10k|  mut l: List,
-   49|  7.10k|) -> impl FnMut(I) -> IResult<I, O, E> {
-   50|       |  move |i: I| l.choice(i)
-   51|  7.10k|}
-_RNvXs1_NtCsijflsOnQTe0_3nom6branchTNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selectionNCINvNtB7_10combinator3mapReNtBB_8SelectorNtBB_9SelectorsNtNtBB_5error18InternalParseErrorNvBz_17wildcard_selectorNvMs8_BB_B2e_3oneE0NvBz_21member_name_shorthandNCINvBz_14failed_segmentB2e_E0EINtB5_3AltB1Y_B2e_B2t_E6choiceBB_:
-  134|  17.9k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
-  135|  17.9k|        match self.0.parse(input.clone()) {
-  136|      0|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
-  137|  17.9k|          res => res,
-  138|       |        }
-  139|  17.9k|      }
-_RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentNtNtBB_5error18InternalParseErrorTNvNtBB_6parser18descendant_segmentNvB1O_13child_segmentNCINvB1O_14failed_segmentBz_E0EEBB_:
-   47|  25.0k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|  25.0k|  mut l: List,
-   49|  25.0k|) -> impl FnMut(I) -> IResult<I, O, E> {
-   50|       |  move |i: I| l.choice(i)
-   51|  25.0k|}
-_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBD_5error18InternalParseErrorTNvNtBD_6parser19bracketed_selectionNCINvNtB6_10combinator3mapBz_NtBD_8SelectorBB_B1i_NvB1S_17wildcard_selectorNvMs8_BD_BB_3oneE0NvB1S_21member_name_shorthandNCINvB1S_14failed_segmentBB_E0EE0BD_:
-   50|  17.9k|  move |i: I| l.choice(i)
-_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtNtBD_5error18InternalParseErrorTNCINvNtBD_6parser17ignore_whitespaceBB_NvB1U_13name_selectorB1h_E0NCIB1S_BB_NvB1U_17wildcard_selectorB1h_E0NCIB1S_BB_NvB1U_14index_selectorB1h_E0NvB1U_15failed_selectorEE0BD_:
-   50|   208k|  move |i: I| l.choice(i)
-_RINvNtCsijflsOnQTe0_3nom6branch3altReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBD_5error18InternalParseErrorTNCINvNtB4_8sequence8precededBx_cBz_B1o_NCINvNtNtB4_9character8complete4charBx_B1o_E0NCNvNtBD_6parser6string0E0B1W_EEBD_:
-   47|   208k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|   208k|  mut l: List,
-   49|   208k|) -> impl FnMut(I) -> IResult<I, O, E> {
-   50|       |  move |i: I| l.choice(i)
-   51|   208k|}
-_RINvNtCsijflsOnQTe0_3nom6branch3altReBx_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorTNCINvNtB4_8sequence8precededBx_cBx_BC_NCINvNtNtB4_9character8complete4charBx_BC_E0INvB2j_6digit1Bx_BC_EE0B2W_EEBG_:
-   47|   109k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|   109k|  mut l: List,
-   49|   109k|) -> impl FnMut(I) -> IResult<I, O, E> {
-   50|       |  move |i: I| l.choice(i)
-   51|   109k|}
-_RNvXs1_NtCsijflsOnQTe0_3nom6branchTNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBE_8SelectorNvBC_13name_selectorNtNtBE_5error18InternalParseErrorE0NCIBA_B1z_NvBC_17wildcard_selectorB27_E0NCIBA_B1z_NvBC_14index_selectorB27_E0NvBC_15failed_selectorEINtB5_3AltReB1z_B27_E6choiceBE_:
-  134|   208k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
-  135|   208k|        match self.0.parse(input.clone()) {
-  136|   168k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
-  137|  40.8k|          res => res,
-  138|       |        }
-  139|   208k|      }
-_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentNtNtBD_5error18InternalParseErrorTNvNtBD_6parser18descendant_segmentNvB1Q_13child_segmentNCINvB1Q_14failed_segmentBB_E0EE0BD_:
-   50|  25.0k|  move |i: I| l.choice(i)
-_RNCINvNtCsijflsOnQTe0_3nom6branch3altReBz_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorTNCINvNtB6_8sequence8precededBz_cBz_BE_NCINvNtNtB6_9character8complete4charBz_BE_E0INvB2l_6digit1Bz_BE_EE0B2Y_EE0BI_:
-   50|   109k|  move |i: I| l.choice(i)
-_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBF_5error18InternalParseErrorTNCINvNtB6_8sequence8precededBz_cBB_B1q_NCINvNtNtB6_9character8complete4charBz_B1q_E0NCNvNtBF_6parser6string0E0B1Y_EE0BF_:
-   50|   208k|  move |i: I| l.choice(i)
-_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBD_5error18InternalParseErrorTNvNtBD_6parser19bracketed_selectionNCINvNtB6_8sequence8precededBz_cBB_B1i_NCINvNtNtB6_9character8complete4charBz_B1i_E0NCINvNtB6_10combinator3cutBz_BB_B1i_NCIB2_Bz_BB_B1i_TNCINvB3Q_3mapBz_NtBD_8SelectorBB_B1i_NvB1S_17wildcard_selectorNvMs8_BD_BB_3oneE0NvB1S_21member_name_shorthandNCINvB1S_14failed_segmentBB_E0EE0E0E0EE0BD_:
-   50|  7.10k|  move |i: I| l.choice(i)
-_RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBB_5error18InternalParseErrorTNCINvNtB4_10combinator3mapBx_NtBB_8SelectorBz_B1g_NvNtBB_6parser17wildcard_selectorNvMs8_BB_Bz_3oneE0NvB2E_21member_name_shorthandNCINvB2E_14failed_segmentBz_E0EEBB_:
-   47|  7.10k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|  7.10k|  mut l: List,
-   49|  7.10k|) -> impl FnMut(I) -> IResult<I, O, E> {
-   50|       |  move |i: I| l.choice(i)
-   51|  7.10k|}
-_RNvXs_NtCsijflsOnQTe0_3nom6branchTNCINvNtB6_8sequence8precededRecBY_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBY_B14_E0INvB28_6digit1BY_B14_EE0B2M_EINtB4_3AltBY_BY_B14_E6choiceB18_:
-  134|   109k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
-  135|   109k|        match self.0.parse(input.clone()) {
-  136|  37.8k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
-  137|  72.0k|          res => res,
-  138|       |        }
-  139|   109k|      }
 _RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBB_5error18InternalParseErrorTNvNtBB_6parser19bracketed_selectionNCINvNtB4_10combinator3mapBx_NtBB_8SelectorBz_B1g_NvB1Q_17wildcard_selectorNvMs8_BB_Bz_3oneE0NvB1Q_21member_name_shorthandNCINvB1Q_14failed_segmentBz_E0EEBB_:
-   47|  25.0k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|  25.0k|  mut l: List,
-   49|  25.0k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   47|  30.4k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|  30.4k|  mut l: List,
+   49|  30.4k|) -> impl FnMut(I) -> IResult<I, O, E> {
    50|       |  move |i: I| l.choice(i)
-   51|  25.0k|}
+   51|  30.4k|}
+_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBD_5error18InternalParseErrorTNvNtBD_6parser19bracketed_selectionNCINvNtB6_8sequence8precededBz_cBB_B1i_NCINvNtNtB6_9character8complete4charBz_B1i_E0NCINvNtB6_10combinator3cutBz_BB_B1i_NCIB2_Bz_BB_B1i_TNCINvB3Q_3mapBz_NtBD_8SelectorBB_B1i_NvB1S_17wildcard_selectorNvMs8_BD_BB_3oneE0NvB1S_21member_name_shorthandNCINvB1S_14failed_segmentBB_E0EE0E0E0EE0BD_:
+   50|  5.93k|  move |i: I| l.choice(i)
 _RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtNtBB_5error18InternalParseErrorTNCINvNtBB_6parser17ignore_whitespaceBz_NvB1S_13name_selectorB1f_E0NCIB1Q_Bz_NvB1S_17wildcard_selectorB1f_E0NCIB1Q_Bz_NvB1S_14index_selectorB1f_E0NvB1S_15failed_selectorEEBB_:
-   47|   208k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
-   48|   208k|  mut l: List,
-   49|   208k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   47|   155k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|   155k|  mut l: List,
+   49|   155k|) -> impl FnMut(I) -> IResult<I, O, E> {
    50|       |  move |i: I| l.choice(i)
-   51|   208k|}
+   51|   155k|}
+_RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBB_5error18InternalParseErrorTNvNtBB_6parser19bracketed_selectionNCINvNtB4_8sequence8precededBx_cBz_B1g_NCINvNtNtB4_9character8complete4charBx_B1g_E0NCINvNtB4_10combinator3cutBx_Bz_B1g_NCIB0_Bx_Bz_B1g_TNCINvB3O_3mapBx_NtBB_8SelectorBz_B1g_NvB1Q_17wildcard_selectorNvMs8_BB_Bz_3oneE0NvB1Q_21member_name_shorthandNCINvB1Q_14failed_segmentBz_E0EE0E0E0EEBB_:
+   47|  5.93k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|  5.93k|  mut l: List,
+   49|  5.93k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   50|       |  move |i: I| l.choice(i)
+   51|  5.93k|}
+_RNvXs_NtCsijflsOnQTe0_3nom6branchTNCINvNtB6_8sequence8precededRecBY_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBY_B14_E0INvB28_6digit1BY_B14_EE0B2M_EINtB4_3AltBY_BY_B14_E6choiceB18_:
+  134|  78.9k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
+  135|  78.9k|        match self.0.parse(input.clone()) {
+  136|  33.2k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
+  137|  45.6k|          res => res,
+  138|       |        }
+  139|  78.9k|      }
+_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtNtBD_5error18InternalParseErrorTNCINvNtBD_6parser17ignore_whitespaceBB_NvB1U_13name_selectorB1h_E0NCIB1S_BB_NvB1U_17wildcard_selectorB1h_E0NCIB1S_BB_NvB1U_14index_selectorB1h_E0NvB1U_15failed_selectorEE0BD_:
+   50|   155k|  move |i: I| l.choice(i)
 _RNvXs_NtCsijflsOnQTe0_3nom6branchTNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selectionNCINvNtB6_8sequence8precededRecNtBA_9SelectorsNtNtBA_5error18InternalParseErrorNCINvNtNtB6_9character8complete4charB1Z_B2h_E0NCINvNtB6_10combinator3cutB1Z_B22_B2h_NCINvB4_3altB1Z_B22_B2h_TNCINvB3D_3mapB1Z_NtBA_8SelectorB22_B2h_NvBy_17wildcard_selectorNvMs8_BA_B22_3oneE0NvBy_21member_name_shorthandNCINvBy_14failed_segmentB22_E0EE0E0E0EINtB4_3AltB1Z_B22_B2h_E6choiceBA_:
-  134|  7.10k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
-  135|  7.10k|        match self.0.parse(input.clone()) {
+  134|  5.93k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
+  135|  5.93k|        match self.0.parse(input.clone()) {
   136|      0|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
-  137|  7.10k|          res => res,
+  137|  5.93k|          res => res,
   138|       |        }
-  139|  7.10k|      }
+  139|  5.93k|      }
+_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentNtNtBD_5error18InternalParseErrorTNvNtBD_6parser18descendant_segmentNvB1Q_13child_segmentNCINvB1Q_14failed_segmentBB_E0EE0BD_:
+   50|  30.4k|  move |i: I| l.choice(i)
+_RNCINvNtCsijflsOnQTe0_3nom6branch3altReBz_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorTNCINvNtB6_8sequence8precededBz_cBz_BE_NCINvNtNtB6_9character8complete4charBz_BE_E0INvB2l_6digit1Bz_BE_EE0B2Y_EE0BI_:
+   50|  78.9k|  move |i: I| l.choice(i)
+_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBF_5error18InternalParseErrorTNCINvNtB6_8sequence8precededBz_cBB_B1q_NCINvNtNtB6_9character8complete4charBz_B1q_E0NCNvNtBF_6parser6string0E0B1Y_EE0BF_:
+   50|   155k|  move |i: I| l.choice(i)
 _RNvXs0_NtCsijflsOnQTe0_3nom6branchTNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser18descendant_segmentNvBz_13child_segmentNCINvBz_14failed_segmentNtBB_7SegmentE0EINtB5_3AltReB2f_NtNtBB_5error18InternalParseErrorE6choiceBB_:
-  134|  25.0k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
-  135|  25.0k|        match self.0.parse(input.clone()) {
-  136|  7.10k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
-  137|  17.9k|          res => res,
+  134|  30.4k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
+  135|  30.4k|        match self.0.parse(input.clone()) {
+  136|  5.93k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
+  137|  24.5k|          res => res,
   138|       |        }
-  139|  25.0k|      }
+  139|  30.4k|      }
+_RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentNtNtBB_5error18InternalParseErrorTNvNtBB_6parser18descendant_segmentNvB1O_13child_segmentNCINvB1O_14failed_segmentBz_E0EEBB_:
+   47|  30.4k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|  30.4k|  mut l: List,
+   49|  30.4k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   50|       |  move |i: I| l.choice(i)
+   51|  30.4k|}
+_RNvXs1_NtCsijflsOnQTe0_3nom6branchTNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selectionNCINvNtB7_10combinator3mapReNtBB_8SelectorNtBB_9SelectorsNtNtBB_5error18InternalParseErrorNvBz_17wildcard_selectorNvMs8_BB_B2e_3oneE0NvBz_21member_name_shorthandNCINvBz_14failed_segmentB2e_E0EINtB5_3AltB1Y_B2e_B2t_E6choiceBB_:
+  134|  24.5k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
+  135|  24.5k|        match self.0.parse(input.clone()) {
+  136|      0|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
+  137|  24.5k|          res => res,
+  138|       |        }
+  139|  24.5k|      }
+_RNCINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBD_5error18InternalParseErrorTNvNtBD_6parser19bracketed_selectionNCINvNtB6_10combinator3mapBz_NtBD_8SelectorBB_B1i_NvB1S_17wildcard_selectorNvMs8_BD_BB_3oneE0NvB1S_21member_name_shorthandNCINvB1S_14failed_segmentBB_E0EE0BD_:
+   50|  24.5k|  move |i: I| l.choice(i)
+_RINvNtCsijflsOnQTe0_3nom6branch3altReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBD_5error18InternalParseErrorTNCINvNtB4_8sequence8precededBx_cBz_B1o_NCINvNtNtB4_9character8complete4charBx_B1o_E0NCNvNtBD_6parser6string0E0B1W_EEBD_:
+   47|   155k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|   155k|  mut l: List,
+   49|   155k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   50|       |  move |i: I| l.choice(i)
+   51|   155k|}
+_RINvNtCsijflsOnQTe0_3nom6branch3altReBx_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorTNCINvNtB4_8sequence8precededBx_cBx_BC_NCINvNtNtB4_9character8complete4charBx_BC_E0INvB2j_6digit1Bx_BC_EE0B2W_EEBG_:
+   47|  78.9k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|  78.9k|  mut l: List,
+   49|  78.9k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   50|       |  move |i: I| l.choice(i)
+   51|  78.9k|}
+_RNvXs1_NtCsijflsOnQTe0_3nom6branchTNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBE_8SelectorNvBC_13name_selectorNtNtBE_5error18InternalParseErrorE0NCIBA_B1z_NvBC_17wildcard_selectorB27_E0NCIBA_B1z_NvBC_14index_selectorB27_E0NvBC_15failed_selectorEINtB5_3AltReB1z_B27_E6choiceBE_:
+  134|   155k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
+  135|   155k|        match self.0.parse(input.clone()) {
+  136|   121k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
+  137|  33.7k|          res => res,
+  138|       |        }
+  139|   155k|      }
+_RNvXs_NtCsijflsOnQTe0_3nom6branchTNCINvNtB6_8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtB15_5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBY_B1Q_E0NCNvNtB15_6parser6string0E0Bw_EINtB4_3AltBY_B11_B1Q_E6choiceB15_:
+  134|   155k|      fn choice(&mut self, input: Input) -> IResult<Input, Output, Error> {
+  135|   155k|        match self.0.parse(input.clone()) {
+  136|   121k|          Err(Err::Error(e)) => alt_trait_inner!(1, self, input, e, $($id)+),
+  137|  33.7k|          res => res,
+  138|       |        }
+  139|   155k|      }
+_RINvNtCsijflsOnQTe0_3nom6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBB_5error18InternalParseErrorTNCINvNtB4_10combinator3mapBx_NtBB_8SelectorBz_B1g_NvNtBB_6parser17wildcard_selectorNvMs8_BB_Bz_3oneE0NvB2E_21member_name_shorthandNCINvB2E_14failed_segmentBz_E0EEBB_:
+   47|  5.93k|pub fn alt<I: Clone, O, E: ParseError<I>, List: Alt<I, O, E>>(
+   48|  5.93k|  mut l: List,
+   49|  5.93k|) -> impl FnMut(I) -> IResult<I, O, E> {
+   50|       |  move |i: I| l.choice(i)
+   51|  5.93k|}
 
-_RNCINvNtNtCsijflsOnQTe0_3nom5bytes8complete3tagReBJ_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0BS_:
-   39|   193k|  move |i: Input| {
-   40|   193k|    let tag_len = tag.input_len();
-   41|   193k|    let t = tag.clone();
-   42|   193k|    let res: IResult<_, _, Error> = match i.compare(t) {
-   43|  76.1k|      CompareResult::Ok => Ok(i.take_split(tag_len)),
-   44|       |      _ => {
-   45|   116k|        let e: ErrorKind = ErrorKind::Tag;
-   46|   116k|        Err(Err::Error(Error::from_error_kind(i, e)))
-   47|       |      }
-   48|       |    };
-   49|   193k|    res
-   50|   193k|  }
 _RINvNtNtCsijflsOnQTe0_3nom5bytes8complete3tagReBH_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEBQ_:
-   32|   193k|pub fn tag<T, Input, Error: ParseError<Input>>(
-   33|   193k|  tag: T,
-   34|   193k|) -> impl Fn(Input) -> IResult<Input, Input, Error>
-   35|   193k|where
-   36|   193k|  Input: InputTake + Compare<T>,
-   37|   193k|  T: InputLength + Clone,
-   38|   193k|{
+   32|   152k|pub fn tag<T, Input, Error: ParseError<Input>>(
+   33|   152k|  tag: T,
+   34|   152k|) -> impl Fn(Input) -> IResult<Input, Input, Error>
+   35|   152k|where
+   36|   152k|  Input: InputTake + Compare<T>,
+   37|   152k|  T: InputLength + Clone,
+   38|   152k|{
    39|       |  move |i: Input| {
    40|       |    let tag_len = tag.input_len();
    41|       |    let t = tag.clone();
@@ -525,59 +512,50 @@ _RINvNtNtCsijflsOnQTe0_3nom5bytes8complete3tagReBH_NtNtCs8kepUdDqpxJ_15rsonpath_
    48|       |    };
    49|       |    res
    50|       |  }
-   51|   193k|}
+   51|   152k|}
+_RNCINvNtNtCsijflsOnQTe0_3nom5bytes8complete3tagReBJ_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0BS_:
+   39|   152k|  move |i: Input| {
+   40|   152k|    let tag_len = tag.input_len();
+   41|   152k|    let t = tag.clone();
+   42|   152k|    let res: IResult<_, _, Error> = match i.compare(t) {
+   43|  67.5k|      CompareResult::Ok => Ok(i.take_split(tag_len)),
+   44|       |      _ => {
+   45|  84.8k|        let e: ErrorKind = ErrorKind::Tag;
+   46|  84.8k|        Err(Err::Error(Error::from_error_kind(i, e)))
+   47|       |      }
+   48|       |    };
+   49|   152k|    res
+   50|   152k|  }
 
-_RINvNtNtCsijflsOnQTe0_3nom9character8complete6digit1ReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEBU_:
-  435|   109k|pub fn digit1<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
-  436|   109k|where
-  437|   109k|  T: InputTakeAtPosition,
-  438|   109k|  <T as InputTakeAtPosition>::Item: AsChar,
-  439|   109k|{
-  440|   109k|  input.split_at_position1_complete(|item| !item.is_dec_digit(), ErrorKind::Digit)
-  441|   109k|}
-_RNCINvNtNtCsijflsOnQTe0_3nom9character8complete6digit1ReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0BW_:
-  440|  1.84M|  input.split_at_position1_complete(|item| !item.is_dec_digit(), ErrorKind::Digit)
-_RINvNtNtCsijflsOnQTe0_3nom9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEBS_:
-   32|   559k|pub fn char<I, Error: ParseError<I>>(c: char) -> impl Fn(I) -> IResult<I, char, Error>
-   33|   559k|where
-   34|   559k|  I: Slice<RangeFrom<usize>> + InputIter,
-   35|   559k|  <I as InputIter>::Item: AsChar,
-   36|   559k|{
-   37|       |  move |i: I| match (i).iter_elements().next().map(|t| {
-   38|       |    let b = t.as_char() == c;
-   39|       |    (&c, b)
-   40|       |  }) {
-   41|       |    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
-   42|       |    _ => Err(Err::Error(Error::from_char(i, c))),
-   43|       |  }
-   44|   559k|}
-_RNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0BU_:
-   37|   511k|  move |i: I| match (i).iter_elements().next().map(|t| {
-   38|       |    let b = t.as_char() == c;
-   39|       |    (&c, b)
-   40|   511k|  }) {
-   41|   137k|    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
-   42|   373k|    _ => Err(Err::Error(Error::from_char(i, c))),
-   43|   511k|  }
 _RNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReINtNtB8_5error5ErrorBO_EE0Cs8kepUdDqpxJ_15rsonpath_syntax:
-   37|   237k|  move |i: I| match (i).iter_elements().next().map(|t| {
+   37|   189k|  move |i: I| match (i).iter_elements().next().map(|t| {
    38|       |    let b = t.as_char() == c;
    39|       |    (&c, b)
-   40|   237k|  }) {
-   41|   212k|    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
-   42|  25.0k|    _ => Err(Err::Error(Error::from_char(i, c))),
-   43|   237k|  }
-_RNCNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReINtNtBa_5error5ErrorBQ_EE00Cs8kepUdDqpxJ_15rsonpath_syntax:
-   37|   237k|  move |i: I| match (i).iter_elements().next().map(|t| {
-   38|   237k|    let b = t.as_char() == c;
-   39|   237k|    (&c, b)
-   40|   237k|  }) {
-_RINvNtNtCsijflsOnQTe0_3nom9character8complete4charReINtNtB6_5error5ErrorBM_EECs8kepUdDqpxJ_15rsonpath_syntax:
-   32|   237k|pub fn char<I, Error: ParseError<I>>(c: char) -> impl Fn(I) -> IResult<I, char, Error>
-   33|   237k|where
-   34|   237k|  I: Slice<RangeFrom<usize>> + InputIter,
-   35|   237k|  <I as InputIter>::Item: AsChar,
-   36|   237k|{
+   40|   189k|  }) {
+   41|   158k|    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
+   42|  30.4k|    _ => Err(Err::Error(Error::from_char(i, c))),
+   43|   189k|  }
+_RNCINvNtNtCsijflsOnQTe0_3nom9character8complete6digit1ReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0BW_:
+  440|  1.31M|  input.split_at_position1_complete(|item| !item.is_dec_digit(), ErrorKind::Digit)
+_RNCNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE00BW_:
+   37|   387k|  move |i: I| match (i).iter_elements().next().map(|t| {
+   38|   387k|    let b = t.as_char() == c;
+   39|   387k|    (&c, b)
+   40|   387k|  }) {
+_RINvNtNtCsijflsOnQTe0_3nom9character8complete6digit1ReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEBU_:
+  435|  78.9k|pub fn digit1<T, E: ParseError<T>>(input: T) -> IResult<T, T, E>
+  436|  78.9k|where
+  437|  78.9k|  T: InputTakeAtPosition,
+  438|  78.9k|  <T as InputTakeAtPosition>::Item: AsChar,
+  439|  78.9k|{
+  440|  78.9k|  input.split_at_position1_complete(|item| !item.is_dec_digit(), ErrorKind::Digit)
+  441|  78.9k|}
+_RINvNtNtCsijflsOnQTe0_3nom9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEBS_:
+   32|   426k|pub fn char<I, Error: ParseError<I>>(c: char) -> impl Fn(I) -> IResult<I, char, Error>
+   33|   426k|where
+   34|   426k|  I: Slice<RangeFrom<usize>> + InputIter,
+   35|   426k|  <I as InputIter>::Item: AsChar,
+   36|   426k|{
    37|       |  move |i: I| match (i).iter_elements().next().map(|t| {
    38|       |    let b = t.as_char() == c;
    39|       |    (&c, b)
@@ -585,82 +563,68 @@ _RINvNtNtCsijflsOnQTe0_3nom9character8complete4charReINtNtB6_5error5ErrorBM_EECs
    41|       |    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
    42|       |    _ => Err(Err::Error(Error::from_char(i, c))),
    43|       |  }
-   44|   237k|}
-_RNCNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE00BW_:
-   37|   511k|  move |i: I| match (i).iter_elements().next().map(|t| {
-   38|   511k|    let b = t.as_char() == c;
-   39|   511k|    (&c, b)
-   40|   511k|  }) {
+   44|   426k|}
+_RNCNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReINtNtBa_5error5ErrorBQ_EE00Cs8kepUdDqpxJ_15rsonpath_syntax:
+   37|   189k|  move |i: I| match (i).iter_elements().next().map(|t| {
+   38|   189k|    let b = t.as_char() == c;
+   39|   189k|    (&c, b)
+   40|   189k|  }) {
+_RINvNtNtCsijflsOnQTe0_3nom9character8complete4charReINtNtB6_5error5ErrorBM_EECs8kepUdDqpxJ_15rsonpath_syntax:
+   32|   189k|pub fn char<I, Error: ParseError<I>>(c: char) -> impl Fn(I) -> IResult<I, char, Error>
+   33|   189k|where
+   34|   189k|  I: Slice<RangeFrom<usize>> + InputIter,
+   35|   189k|  <I as InputIter>::Item: AsChar,
+   36|   189k|{
+   37|       |  move |i: I| match (i).iter_elements().next().map(|t| {
+   38|       |    let b = t.as_char() == c;
+   39|       |    (&c, b)
+   40|       |  }) {
+   41|       |    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
+   42|       |    _ => Err(Err::Error(Error::from_char(i, c))),
+   43|       |  }
+   44|   189k|}
+_RNCINvNtNtCsijflsOnQTe0_3nom9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0BU_:
+   37|   387k|  move |i: I| match (i).iter_elements().next().map(|t| {
+   38|       |    let b = t.as_char() == c;
+   39|       |    (&c, b)
+   40|   387k|  }) {
+   41|   109k|    Some((c, true)) => Ok((i.slice(c.len()..), c.as_char())),
+   42|   277k|    _ => Err(Err::Error(Error::from_char(i, c))),
+   43|   387k|  }
 
-_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtBI_7SegmentNtNtBI_5error18InternalParseErrorNCINvNtB6_6branch3altBE_BG_B1A_TNvNtBI_6parser19bracketed_selectionNCINvNtB6_8sequence8precededBE_cBG_B1A_NCINvNtNtB6_9character8complete4charBE_B1A_E0NCINvB4_3cutBE_BG_B1A_NCIB2a_BE_BG_B1A_TNCIB2_BE_NtBI_8SelectorBG_B1A_NvB2F_17wildcard_selectorNvMs8_BI_BG_3oneE0NvB2F_21member_name_shorthandNCINvB2F_14failed_segmentBG_E0EE0E0E0EE0NcNtB1n_5Child0E0BI_:
-   78|  7.10k|  move |input: I| {
-   79|  7.10k|    let (input, o1) = parser.parse(input)?;
-   80|  7.10k|    Ok((input, f(o1)))
-   81|  7.10k|  }
-_RNCINvNtCsijflsOnQTe0_3nom10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBI_5error18InternalParseErrorNCINvNtB6_6branch3altBE_BG_B1n_TNvNtBI_6parser19bracketed_selectionNCINvB4_3mapBE_NtBI_8SelectorBG_B1n_NvB2s_17wildcard_selectorNvMs8_BI_BG_3oneE0NvB2s_21member_name_shorthandNCINvB2s_14failed_segmentBG_E0EE0E0BI_:
-  635|  17.9k|  move |input: I| match parser.parse(input) {
-  636|      0|    Err(Err::Error(e)) => Err(Err::Failure(e)),
-  637|  17.9k|    rest => rest,
-  638|  17.9k|  }
-_RINvNtCsijflsOnQTe0_3nom10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBG_5error18InternalParseErrorNCINvNtB4_6branch3altBC_BE_B1l_TNvNtBG_6parser19bracketed_selectionNCINvB2_3mapBC_NtBG_8SelectorBE_B1l_NvB2q_17wildcard_selectorNvMs8_BG_BE_3oneE0NvB2q_21member_name_shorthandNCINvB2q_14failed_segmentBE_E0EE0EBG_:
-  631|  25.0k|pub fn cut<I, O, E: ParseError<I>, F>(mut parser: F) -> impl FnMut(I) -> IResult<I, O, E>
-  632|  25.0k|where
-  633|  25.0k|  F: Parser<I, O, E>,
-  634|  25.0k|{
-  635|       |  move |input: I| match parser.parse(input) {
-  636|       |    Err(Err::Error(e)) => Err(Err::Failure(e)),
-  637|       |    rest => rest,
-  638|       |  }
-  639|  25.0k|}
-_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReBE_NtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtNtBL_5error18InternalParseErrorNCINvNtNtB6_5bytes8complete3tagBE_BE_B1p_E0NCNvNtBL_6parser17wildcard_selector0E0BL_:
-   78|   168k|  move |input: I| {
-   79|   168k|    let (input, o1) = parser.parse(input)?;
-   80|  58.1k|    Ok((input, f(o1)))
-   81|   168k|  }
-_RNCINvNtCsijflsOnQTe0_3nom10combinator9recognizeReBK_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtB6_6branch3altBK_BK_BP_TNCINvNtB6_8sequence8precededBK_cBK_BP_NCINvNtNtB6_9character8complete4charBK_BP_E0INvB30_6digit1BK_BP_EE0B3D_EE0E0BT_:
-  512|   109k|  move |input: I| {
-  513|   109k|    let i = input.clone();
-  514|   109k|    match parser.parse(i) {
-  515|   109k|      Ok((i, _)) => {
-  516|   109k|        let index = input.offset(&i);
-  517|   109k|        Ok((i, input.slice(..index)))
-  518|       |      }
-  519|      0|      Err(e) => Err(e),
-  520|       |    }
-  521|   109k|  }
-_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtBI_7SegmentNtNtBI_5error18InternalParseErrorNCINvNtB6_8sequence8precededBE_BE_BG_B1A_NCINvNtNtB6_5bytes8complete3tagBE_BE_B1A_E0NCINvB4_3cutBE_BG_B1A_NCINvNtB6_6branch3altBE_BG_B1A_TNvNtBI_6parser19bracketed_selectionNCIB2_BE_NtBI_8SelectorBG_B1A_NvB4n_17wildcard_selectorNvMs8_BI_BG_3oneE0NvB4n_21member_name_shorthandNCINvB4n_14failed_segmentBG_E0EE0E0E0NcNtB1n_10Descendant0E0BI_:
-   78|  25.0k|  move |input: I| {
-   79|  25.0k|    let (input, o1) = parser.parse(input)?;
-   80|  17.9k|    Ok((input, f(o1)))
-   81|  25.0k|  }
-_RINvNtCsijflsOnQTe0_3nom10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBG_5error18InternalParseErrorNCINvNtB4_6branch3altBC_BE_B1l_TNCINvB2_3mapBC_NtBG_8SelectorBE_B1l_NvNtBG_6parser17wildcard_selectorNvMs8_BG_BE_3oneE0NvB30_21member_name_shorthandNCINvB30_14failed_segmentBE_E0EE0EBG_:
-  631|  7.10k|pub fn cut<I, O, E: ParseError<I>, F>(mut parser: F) -> impl FnMut(I) -> IResult<I, O, E>
-  632|  7.10k|where
-  633|  7.10k|  F: Parser<I, O, E>,
-  634|  7.10k|{
-  635|       |  move |input: I| match parser.parse(input) {
-  636|       |    Err(Err::Error(e)) => Err(Err::Failure(e)),
-  637|       |    rest => rest,
-  638|       |  }
-  639|  7.10k|}
 _RINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtBG_9SelectorsNtNtBG_5error18InternalParseErrorNvNtBG_6parser17wildcard_selectorNvMs8_BG_B1k_3oneEBG_:
-   73|  32.1k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
-   74|  32.1k|where
-   75|  32.1k|  F: Parser<I, O1, E>,
-   76|  32.1k|  G: FnMut(O1) -> O2,
-   77|  32.1k|{
+   73|  36.4k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
+   74|  36.4k|where
+   75|  36.4k|  F: Parser<I, O1, E>,
+   76|  36.4k|  G: FnMut(O1) -> O2,
+   77|  36.4k|{
    78|       |  move |input: I| {
    79|       |    let (input, o1) = parser.parse(input)?;
    80|       |    Ok((input, f(o1)))
    81|       |  }
-   82|  32.1k|}
+   82|  36.4k|}
+_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtBI_7SegmentNtNtBI_5error18InternalParseErrorNCINvNtB6_6branch3altBE_BG_B1A_TNvNtBI_6parser19bracketed_selectionNCINvNtB6_8sequence8precededBE_cBG_B1A_NCINvNtNtB6_9character8complete4charBE_B1A_E0NCINvB4_3cutBE_BG_B1A_NCIB2a_BE_BG_B1A_TNCIB2_BE_NtBI_8SelectorBG_B1A_NvB2F_17wildcard_selectorNvMs8_BI_BG_3oneE0NvB2F_21member_name_shorthandNCINvB2F_14failed_segmentBG_E0EE0E0E0EE0NcNtB1n_5Child0E0BI_:
+   78|  5.93k|  move |input: I| {
+   79|  5.93k|    let (input, o1) = parser.parse(input)?;
+   80|  5.93k|    Ok((input, f(o1)))
+   81|  5.93k|  }
+_RINvNtCsijflsOnQTe0_3nom10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBG_5error18InternalParseErrorNCINvNtB4_6branch3altBC_BE_B1l_TNCINvB2_3mapBC_NtBG_8SelectorBE_B1l_NvNtBG_6parser17wildcard_selectorNvMs8_BG_BE_3oneE0NvB30_21member_name_shorthandNCINvB30_14failed_segmentBE_E0EE0EBG_:
+  631|  5.93k|pub fn cut<I, O, E: ParseError<I>, F>(mut parser: F) -> impl FnMut(I) -> IResult<I, O, E>
+  632|  5.93k|where
+  633|  5.93k|  F: Parser<I, O, E>,
+  634|  5.93k|{
+  635|       |  move |input: I| match parser.parse(input) {
+  636|       |    Err(Err::Error(e)) => Err(Err::Failure(e)),
+  637|       |    rest => rest,
+  638|       |  }
+  639|  5.93k|}
 _RINvNtCsijflsOnQTe0_3nom10combinator9recognizeReBI_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtB4_6branch3altBI_BI_BN_TNCINvNtB4_8sequence8precededBI_cBI_BN_NCINvNtNtB4_9character8complete4charBI_BN_E0INvB2Y_6digit1BI_BN_EE0B3B_EE0EBR_:
-  506|   109k|pub fn recognize<I: Clone + Offset + Slice<RangeTo<usize>>, O, E: ParseError<I>, F>(
-  507|   109k|  mut parser: F,
-  508|   109k|) -> impl FnMut(I) -> IResult<I, I, E>
-  509|   109k|where
-  510|   109k|  F: Parser<I, O, E>,
-  511|   109k|{
+  506|  78.9k|pub fn recognize<I: Clone + Offset + Slice<RangeTo<usize>>, O, E: ParseError<I>, F>(
+  507|  78.9k|  mut parser: F,
+  508|  78.9k|) -> impl FnMut(I) -> IResult<I, I, E>
+  509|  78.9k|where
+  510|  78.9k|  F: Parser<I, O, E>,
+  511|  78.9k|{
   512|       |  move |input: I| {
   513|       |    let i = input.clone();
   514|       |    match parser.parse(i) {
@@ -671,284 +635,357 @@ _RINvNtCsijflsOnQTe0_3nom10combinator9recognizeReBI_NtNtCs8kepUdDqpxJ_15rsonpath
   519|       |      Err(e) => Err(e),
   520|       |    }
   521|       |  }
-  522|   109k|}
+  522|  78.9k|}
 _RINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtBG_7SegmentNtNtBG_5error18InternalParseErrorNCINvNtB4_6branch3altBC_BE_B1y_TNvNtBG_6parser19bracketed_selectionNCINvNtB4_8sequence8precededBC_cBE_B1y_NCINvNtNtB4_9character8complete4charBC_B1y_E0NCINvB2_3cutBC_BE_B1y_NCIB28_BC_BE_B1y_TNCIB0_BC_NtBG_8SelectorBE_B1y_NvB2D_17wildcard_selectorNvMs8_BG_BE_3oneE0NvB2D_21member_name_shorthandNCINvB2D_14failed_segmentBE_E0EE0E0E0EE0NcNtB1l_5Child0EBG_:
-   73|  7.10k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
-   74|  7.10k|where
-   75|  7.10k|  F: Parser<I, O1, E>,
-   76|  7.10k|  G: FnMut(O1) -> O2,
-   77|  7.10k|{
+   73|  5.93k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
+   74|  5.93k|where
+   75|  5.93k|  F: Parser<I, O1, E>,
+   76|  5.93k|  G: FnMut(O1) -> O2,
+   77|  5.93k|{
    78|       |  move |input: I| {
    79|       |    let (input, o1) = parser.parse(input)?;
    80|       |    Ok((input, f(o1)))
    81|       |  }
-   82|  7.10k|}
-_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtBK_8SelectorNtNtBK_5error18InternalParseErrorNCINvNtB6_6branch3altBE_BG_B1J_TNCINvNtB6_8sequence8precededBE_cBG_B1J_NCINvNtNtB6_9character8complete4charBE_B1J_E0NCNvNtBK_6parser6string0E0B2M_EE0NcNtB1v_4Name0E0BK_:
-   78|   208k|  move |input: I| {
-   79|   208k|    let (input, o1) = parser.parse(input)?;
-   80|  40.8k|    Ok((input, f(o1)))
-   81|   208k|  }
+   82|  5.93k|}
+_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReBE_NtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtNtBL_5error18InternalParseErrorNCINvNtNtB6_5bytes8complete3tagBE_BE_B1p_E0NCNvNtBL_6parser17wildcard_selector0E0BL_:
+   78|   121k|  move |input: I| {
+   79|   121k|    let (input, o1) = parser.parse(input)?;
+   80|  43.0k|    Ok((input, f(o1)))
+   81|   121k|  }
+_RNCINvNtCsijflsOnQTe0_3nom10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBI_5error18InternalParseErrorNCINvNtB6_6branch3altBE_BG_B1n_TNvNtBI_6parser19bracketed_selectionNCINvB4_3mapBE_NtBI_8SelectorBG_B1n_NvB2s_17wildcard_selectorNvMs8_BI_BG_3oneE0NvB2s_21member_name_shorthandNCINvB2s_14failed_segmentBG_E0EE0E0BI_:
+  635|  24.5k|  move |input: I| match parser.parse(input) {
+  636|      0|    Err(Err::Error(e)) => Err(Err::Failure(e)),
+  637|  24.5k|    rest => rest,
+  638|  24.5k|  }
+_RNCINvNtCsijflsOnQTe0_3nom10combinator9recognizeReBK_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtB6_6branch3altBK_BK_BP_TNCINvNtB6_8sequence8precededBK_cBK_BP_NCINvNtNtB6_9character8complete4charBK_BP_E0INvB30_6digit1BK_BP_EE0B3D_EE0E0BT_:
+  512|  78.9k|  move |input: I| {
+  513|  78.9k|    let i = input.clone();
+  514|  78.9k|    match parser.parse(i) {
+  515|  78.9k|      Ok((i, _)) => {
+  516|  78.9k|        let index = input.offset(&i);
+  517|  78.9k|        Ok((i, input.slice(..index)))
+  518|       |      }
+  519|      0|      Err(e) => Err(e),
+  520|       |    }
+  521|  78.9k|  }
 _RINvNtCsijflsOnQTe0_3nom10combinator3mapReBC_NtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorNtNtBJ_5error18InternalParseErrorNCINvNtNtB4_5bytes8complete3tagBC_BC_B1n_E0NCNvNtBJ_6parser17wildcard_selector0EBJ_:
-   73|   168k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
-   74|   168k|where
-   75|   168k|  F: Parser<I, O1, E>,
-   76|   168k|  G: FnMut(O1) -> O2,
-   77|   168k|{
+   73|   121k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
+   74|   121k|where
+   75|   121k|  F: Parser<I, O1, E>,
+   76|   121k|  G: FnMut(O1) -> O2,
+   77|   121k|{
    78|       |  move |input: I| {
    79|       |    let (input, o1) = parser.parse(input)?;
    80|       |    Ok((input, f(o1)))
    81|       |  }
-   82|   168k|}
+   82|   121k|}
+_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtBI_7SegmentNtNtBI_5error18InternalParseErrorNCINvNtB6_8sequence8precededBE_BE_BG_B1A_NCINvNtNtB6_5bytes8complete3tagBE_BE_B1A_E0NCINvB4_3cutBE_BG_B1A_NCINvNtB6_6branch3altBE_BG_B1A_TNvNtBI_6parser19bracketed_selectionNCIB2_BE_NtBI_8SelectorBG_B1A_NvB4n_17wildcard_selectorNvMs8_BI_BG_3oneE0NvB4n_21member_name_shorthandNCINvB4n_14failed_segmentBG_E0EE0E0E0NcNtB1n_10Descendant0E0BI_:
+   78|  30.4k|  move |input: I| {
+   79|  30.4k|    let (input, o1) = parser.parse(input)?;
+   80|  24.5k|    Ok((input, f(o1)))
+   81|  30.4k|  }
 _RINvNtCsijflsOnQTe0_3nom10combinator3mapReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtBG_7SegmentNtNtBG_5error18InternalParseErrorNCINvNtB4_8sequence8precededBC_BC_BE_B1y_NCINvNtNtB4_5bytes8complete3tagBC_BC_B1y_E0NCINvB2_3cutBC_BE_B1y_NCINvNtB4_6branch3altBC_BE_B1y_TNvNtBG_6parser19bracketed_selectionNCIB0_BC_NtBG_8SelectorBE_B1y_NvB4l_17wildcard_selectorNvMs8_BG_BE_3oneE0NvB4l_21member_name_shorthandNCINvB4l_14failed_segmentBE_E0EE0E0E0NcNtB1l_10Descendant0EBG_:
-   73|  25.0k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
-   74|  25.0k|where
-   75|  25.0k|  F: Parser<I, O1, E>,
-   76|  25.0k|  G: FnMut(O1) -> O2,
-   77|  25.0k|{
+   73|  30.4k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
+   74|  30.4k|where
+   75|  30.4k|  F: Parser<I, O1, E>,
+   76|  30.4k|  G: FnMut(O1) -> O2,
+   77|  30.4k|{
    78|       |  move |input: I| {
    79|       |    let (input, o1) = parser.parse(input)?;
    80|       |    Ok((input, f(o1)))
    81|       |  }
-   82|  25.0k|}
+   82|  30.4k|}
 _RINvNtCsijflsOnQTe0_3nom10combinator3mapReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtBI_8SelectorNtNtBI_5error18InternalParseErrorNCINvNtB4_6branch3altBC_BE_B1H_TNCINvNtB4_8sequence8precededBC_cBE_B1H_NCINvNtNtB4_9character8complete4charBC_B1H_E0NCNvNtBI_6parser6string0E0B2K_EE0NcNtB1t_4Name0EBI_:
-   73|   208k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
-   74|   208k|where
-   75|   208k|  F: Parser<I, O1, E>,
-   76|   208k|  G: FnMut(O1) -> O2,
-   77|   208k|{
+   73|   155k|pub fn map<I, O1, O2, E, F, G>(mut parser: F, mut f: G) -> impl FnMut(I) -> IResult<I, O2, E>
+   74|   155k|where
+   75|   155k|  F: Parser<I, O1, E>,
+   76|   155k|  G: FnMut(O1) -> O2,
+   77|   155k|{
    78|       |  move |input: I| {
    79|       |    let (input, o1) = parser.parse(input)?;
    80|       |    Ok((input, f(o1)))
    81|       |  }
-   82|   208k|}
+   82|   155k|}
+_RINvNtCsijflsOnQTe0_3nom10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBG_5error18InternalParseErrorNCINvNtB4_6branch3altBC_BE_B1l_TNvNtBG_6parser19bracketed_selectionNCINvB2_3mapBC_NtBG_8SelectorBE_B1l_NvB2q_17wildcard_selectorNvMs8_BG_BE_3oneE0NvB2q_21member_name_shorthandNCINvB2q_14failed_segmentBE_E0EE0EBG_:
+  631|  30.4k|pub fn cut<I, O, E: ParseError<I>, F>(mut parser: F) -> impl FnMut(I) -> IResult<I, O, E>
+  632|  30.4k|where
+  633|  30.4k|  F: Parser<I, O, E>,
+  634|  30.4k|{
+  635|       |  move |input: I| match parser.parse(input) {
+  636|       |    Err(Err::Error(e)) => Err(Err::Failure(e)),
+  637|       |    rest => rest,
+  638|       |  }
+  639|  30.4k|}
+_RNCINvNtCsijflsOnQTe0_3nom10combinator3mapReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtBK_8SelectorNtNtBK_5error18InternalParseErrorNCINvNtB6_6branch3altBE_BG_B1J_TNCINvNtB6_8sequence8precededBE_cBG_B1J_NCINvNtNtB6_9character8complete4charBE_B1J_E0NCNvNtBK_6parser6string0E0B2M_EE0NcNtB1v_4Name0E0BK_:
+   78|   155k|  move |input: I| {
+   79|   155k|    let (input, o1) = parser.parse(input)?;
+   80|  33.7k|    Ok((input, f(o1)))
+   81|   155k|  }
 
-_RNvYNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorINtNtCsijflsOnQTe0_3nom5error10ParseErrorReE9from_charB6_:
-   26|   373k|  fn from_char(input: I, _: char) -> Self {
-   27|   373k|    Self::from_error_kind(input, ErrorKind::Char)
-   28|   373k|  }
-_RNvXs_NtCsijflsOnQTe0_3nom5errorINtB4_5ErrorReEINtB4_10ParseErrorBG_E15from_error_kindCs8kepUdDqpxJ_15rsonpath_syntax:
-   73|   515k|  fn from_error_kind(input: I, kind: ErrorKind) -> Self {
-   74|   515k|    Error { input, code: kind }
-   75|   515k|  }
-_RNvYINtNtCsijflsOnQTe0_3nom5error5ErrorReEINtB5_10ParseErrorBB_E9from_charCs8kepUdDqpxJ_15rsonpath_syntax:
-   26|  25.0k|  fn from_char(input: I, _: char) -> Self {
-   27|  25.0k|    Self::from_error_kind(input, ErrorKind::Char)
-   28|  25.0k|  }
-_RNvYNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorINtNtCsijflsOnQTe0_3nom5error10ParseErrorReE2orB6_:
-   32|   277k|  fn or(self, other: Self) -> Self {
-   33|   277k|    other
-   34|   277k|  }
 _RNvXs_NtCsijflsOnQTe0_3nom5errorINtB4_5ErrorReEINtB4_10ParseErrorBG_E6appendCs8kepUdDqpxJ_15rsonpath_syntax:
-   77|   168k|  fn append(_: I, _: ErrorKind, other: Self) -> Self {
-   78|   168k|    other
-   79|   168k|  }
+   77|   121k|  fn append(_: I, _: ErrorKind, other: Self) -> Self {
+   78|   121k|    other
+   79|   121k|  }
+_RNvXs_NtCsijflsOnQTe0_3nom5errorINtB4_5ErrorReEINtB4_10ParseErrorBG_E15from_error_kindCs8kepUdDqpxJ_15rsonpath_syntax:
+   73|   392k|  fn from_error_kind(input: I, kind: ErrorKind) -> Self {
+   74|   392k|    Error { input, code: kind }
+   75|   392k|  }
+_RNvYINtNtCsijflsOnQTe0_3nom5error5ErrorReEINtB5_10ParseErrorBB_E9from_charCs8kepUdDqpxJ_15rsonpath_syntax:
+   26|  30.4k|  fn from_char(input: I, _: char) -> Self {
+   27|  30.4k|    Self::from_error_kind(input, ErrorKind::Char)
+   28|  30.4k|  }
+_RNvYNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorINtNtCsijflsOnQTe0_3nom5error10ParseErrorReE9from_charB6_:
+   26|   277k|  fn from_char(input: I, _: char) -> Self {
+   27|   277k|    Self::from_error_kind(input, ErrorKind::Char)
+   28|   277k|  }
+_RNvYNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorINtNtCsijflsOnQTe0_3nom5error10ParseErrorReE2orB6_:
+   32|   200k|  fn or(self, other: Self) -> Self {
+   33|   200k|    other
+   34|   200k|  }
 
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReBT_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorTNCINvNtB7_8sequence8precededBT_cBT_BY_NCINvNtNtB7_9character8complete4charBT_BY_E0INvB2F_6digit1BT_BY_EE0B3i_EE0INtB5_6ParserBT_BT_BY_E5parseB12_:
-  324|   109k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   109k|    self(i)
-  326|   109k|  }
-_RNvXNtCsijflsOnQTe0_3nom8internalINtNtCslATUeuPuGvJ_4core6result6ResultTRecEINtB2_3ErrINtNtB4_5error5ErrorB18_EEEINtB2_6FinishB18_cB1m_E6finishCs8kepUdDqpxJ_15rsonpath_syntax:
-   36|  3.35k|  fn finish(self) -> Result<(I, O), E> {
-   37|      0|    match self {
-   38|  3.35k|      Ok(res) => Ok(res),
-   39|      0|      Err(Err::Error(e)) | Err(Err::Failure(e)) => Err(e),
-   40|       |      Err(Err::Incomplete(_)) => {
-   41|      0|        panic!("Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead")
-   42|       |      }
-   43|       |    }
-   44|  3.35k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBF_8SelectorNvBD_13name_selectorNtNtBF_5error18InternalParseErrorE0INtB5_6ParserReB1A_B28_E5parseBF_:
-  324|   208k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   208k|    self(i)
-  326|   208k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtNtB7_9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0INtB5_6ParserB18_cB1a_E5parseB1e_:
-  324|   486k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   486k|    self(i)
-  326|   486k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13child_segmentINtB5_6ParserReNtBC_7SegmentNtNtBC_5error18InternalParseErrorE5parseBC_:
-  324|  7.10k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  7.10k|    self(i)
-  326|  7.10k|  }
-_RNvXNtCsijflsOnQTe0_3nom8internalINtNtCslATUeuPuGvJ_4core6result6ResultTReNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorEINtB2_3ErrNtNtB1c_5error18InternalParseErrorEEINtB2_6FinishB18_B1a_B21_E6finishB1c_:
-   36|   208k|  fn finish(self) -> Result<(I, O), E> {
-   37|      0|    match self {
-   38|   208k|      Ok(res) => Ok(res),
-   39|      0|      Err(Err::Error(e)) | Err(Err::Failure(e)) => Err(e),
-   40|       |      Err(Err::Incomplete(_)) => {
-   41|      0|        panic!("Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead")
-   42|       |      }
-   43|       |    }
-   44|   208k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_8sequence8precededReB10_NtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtB18_5error18InternalParseErrorNCINvNtNtB7_5bytes8complete3tagB10_B10_B1N_E0NCINvNtB7_10combinator3cutB10_B16_B1N_NCINvNtB7_6branch3altB10_B16_B1N_TNvNtB18_6parser19bracketed_selectionNCINvB39_3mapB10_NtB18_8SelectorB16_B1N_NvB4g_17wildcard_selectorNvMs8_B18_B16_3oneE0NvB4g_21member_name_shorthandNCINvB4g_14failed_segmentB16_E0EE0E0E0INtB5_6ParserB10_B16_B1N_E5parseB18_:
-  324|  25.0k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  25.0k|    self(i)
-  326|  25.0k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtB12_5error18InternalParseErrorNCINvNtB7_6branch3altBY_B10_B1H_TNvNtB12_6parser19bracketed_selectionNCINvBD_3mapBY_NtB12_8SelectorB10_B1H_NvB2O_17wildcard_selectorNvMs8_B12_B10_3oneE0NvB2O_21member_name_shorthandNCINvB2O_14failed_segmentB10_E0EE0E0INtB5_6ParserBY_B10_B1H_E5parseB12_:
-  324|  17.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  17.9k|    self(i)
-  326|  17.9k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBF_8SelectorNvBD_14index_selectorNtNtBF_5error18InternalParseErrorE0INtB5_6ParserReB1A_B29_E5parseBF_:
-  324|   109k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   109k|    self(i)
-  326|   109k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_8sequence8precededRecB10_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB7_9character8complete4charB10_B17_E0INvB2b_6digit1B10_B17_EE0INtB5_6ParserB10_B10_B17_E5parseB1b_:
-  324|   109k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   109k|    self(i)
-  326|   109k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalINvNtNtB7_9character8complete6digit1ReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEINtB5_6ParserB18_B18_B1a_E5parseB1e_:
-  324|   109k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   109k|    self(i)
-  326|   109k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14index_selectorINtB5_6ParserReNtBC_8SelectorNtNtBC_5error18InternalParseErrorE5parseBC_:
-  324|   109k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   109k|    self(i)
-  326|   109k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBF_8SelectorNvBD_17wildcard_selectorNtNtBF_5error18InternalParseErrorE0INtB5_6ParserReB1A_B2c_E5parseBF_:
-  324|   168k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   168k|    self(i)
-  326|   168k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtB17_5error18InternalParseErrorNCINvNtNtB7_9character8complete4charB10_B1S_E0NCNvNtB17_6parser6string0E0INtB5_6ParserB10_B13_B1S_E5parseB17_:
-  324|   376k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   376k|    self(i)
-  326|   376k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBX_5error18InternalParseErrorTNvNtBX_6parser19bracketed_selectionNCINvNtB7_8sequence8precededBT_cBV_B1C_NCINvNtNtB7_9character8complete4charBT_B1C_E0NCINvNtB7_10combinator3cutBT_BV_B1C_NCIBB_BT_BV_B1C_TNCINvB4a_3mapBT_NtBX_8SelectorBV_B1C_NvB2c_17wildcard_selectorNvMs8_BX_BV_3oneE0NvB2c_21member_name_shorthandNCINvB2c_14failed_segmentBV_E0EE0E0E0EE0INtB5_6ParserBT_BV_B1C_E5parseBX_:
-  324|  7.10k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  7.10k|    self(i)
-  326|  7.10k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser18descendant_segmentINtB5_6ParserReNtBC_7SegmentNtNtBC_5error18InternalParseErrorE5parseBC_:
-  324|  25.0k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  25.0k|    self(i)
-  326|  25.0k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string0INtB5_6ParserReNtNtBE_3str10JsonStringNtNtBE_5error18InternalParseErrorE5parseBE_:
-  324|  40.8k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  40.8k|    self(i)
-  326|  40.8k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13name_selectorINtB5_6ParserReNtBC_8SelectorNtNtBC_5error18InternalParseErrorE5parseBC_:
-  324|   208k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   208k|    self(i)
-  326|   208k|  }
 _RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17wildcard_selectorINtB5_6ParserReNtBC_8SelectorNtNtBC_5error18InternalParseErrorE5parseBC_:
-  324|   168k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   168k|    self(i)
-  326|   168k|  }
-_RNvXNtCsijflsOnQTe0_3nom8internalINtNtCslATUeuPuGvJ_4core6result6ResultTReNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentEINtB2_3ErrNtNtB1c_5error18InternalParseErrorEEINtB2_6FinishB18_B1a_B20_E6finishB1c_:
-   36|  25.0k|  fn finish(self) -> Result<(I, O), E> {
+  324|   121k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   121k|    self(i)
+  326|   121k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBX_5error18InternalParseErrorTNvNtBX_6parser19bracketed_selectionNCINvNtB7_10combinator3mapBT_NtBX_8SelectorBV_B1C_NvB2c_17wildcard_selectorNvMs8_BX_BV_3oneE0NvB2c_21member_name_shorthandNCINvB2c_14failed_segmentBV_E0EE0INtB5_6ParserBT_BV_B1C_E5parseBX_:
+  324|  24.5k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  24.5k|    self(i)
+  326|  24.5k|  }
+_RNvXNtCsijflsOnQTe0_3nom8internalINtNtCslATUeuPuGvJ_4core6result6ResultTReNtCs8kepUdDqpxJ_15rsonpath_syntax8SelectorEINtB2_3ErrNtNtB1c_5error18InternalParseErrorEEINtB2_6FinishB18_B1a_B21_E6finishB1c_:
+   36|   155k|  fn finish(self) -> Result<(I, O), E> {
    37|      0|    match self {
-   38|  25.0k|      Ok(res) => Ok(res),
+   38|   155k|      Ok(res) => Ok(res),
    39|      0|      Err(Err::Error(e)) | Err(Err::Failure(e)) => Err(e),
    40|       |      Err(Err::Incomplete(_)) => {
    41|      0|        panic!("Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead")
    42|       |      }
    43|       |    }
-   44|  25.0k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtNtB7_5bytes8complete3tagReB13_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0INtB5_6ParserB13_B13_B19_E5parseB1d_:
-  324|   193k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   193k|    self(i)
-  326|   193k|  }
+   44|   155k|  }
 _RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selectionINtB5_6ParserReNtBC_9SelectorsNtNtBC_5error18InternalParseErrorE5parseBC_:
-  324|  25.0k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  25.0k|    self(i)
-  326|  25.0k|  }
+  324|  30.4k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  30.4k|    self(i)
+  326|  30.4k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReBT_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorTNCINvNtB7_8sequence8precededBT_cBT_BY_NCINvNtNtB7_9character8complete4charBT_BY_E0INvB2F_6digit1BT_BY_EE0B3i_EE0INtB5_6ParserBT_BT_BY_E5parseB12_:
+  324|  78.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  78.9k|    self(i)
+  326|  78.9k|  }
+_RNvXNtCsijflsOnQTe0_3nom8internalINtNtCslATUeuPuGvJ_4core6result6ResultTReNtCs8kepUdDqpxJ_15rsonpath_syntax7SegmentEINtB2_3ErrNtNtB1c_5error18InternalParseErrorEEINtB2_6FinishB18_B1a_B20_E6finishB1c_:
+   36|  30.4k|  fn finish(self) -> Result<(I, O), E> {
+   37|      0|    match self {
+   38|  30.4k|      Ok(res) => Ok(res),
+   39|      0|      Err(Err::Error(e)) | Err(Err::Failure(e)) => Err(e),
+   40|       |      Err(Err::Incomplete(_)) => {
+   41|      0|        panic!("Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead")
+   42|       |      }
+   43|       |    }
+   44|  30.4k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_10combinator3cutReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtB12_5error18InternalParseErrorNCINvNtB7_6branch3altBY_B10_B1H_TNvNtB12_6parser19bracketed_selectionNCINvBD_3mapBY_NtB12_8SelectorB10_B1H_NvB2O_17wildcard_selectorNvMs8_B12_B10_3oneE0NvB2O_21member_name_shorthandNCINvB2O_14failed_segmentB10_E0EE0E0INtB5_6ParserBY_B10_B1H_E5parseB12_:
+  324|  24.5k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  24.5k|    self(i)
+  326|  24.5k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBF_8SelectorNvBD_14index_selectorNtNtBF_5error18InternalParseErrorE0INtB5_6ParserReB1A_B29_E5parseBF_:
+  324|  78.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  78.9k|    self(i)
+  326|  78.9k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalINvNtNtB7_9character8complete6digit1ReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorEINtB5_6ParserB18_B18_B1a_E5parseB1e_:
+  324|  78.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  78.9k|    self(i)
+  326|  78.9k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBF_8SelectorNvBD_13name_selectorNtNtBF_5error18InternalParseErrorE0INtB5_6ParserReB1A_B28_E5parseBF_:
+  324|   155k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   155k|    self(i)
+  326|   155k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtBF_8SelectorNvBD_17wildcard_selectorNtNtBF_5error18InternalParseErrorE0INtB5_6ParserReB1A_B2c_E5parseBF_:
+  324|   121k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   121k|    self(i)
+  326|   121k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtNtB7_9character8complete4charReNtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0INtB5_6ParserB18_cB1a_E5parseB1e_:
+  324|   356k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   356k|    self(i)
+  326|   356k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtB17_5error18InternalParseErrorNCINvNtNtB7_9character8complete4charB10_B1S_E0NCNvNtB17_6parser6string0E0INtB5_6ParserB10_B13_B1S_E5parseB17_:
+  324|   277k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   277k|    self(i)
+  326|   277k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13child_segmentINtB5_6ParserReNtBC_7SegmentNtNtBC_5error18InternalParseErrorE5parseBC_:
+  324|  5.93k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  5.93k|    self(i)
+  326|  5.93k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_8sequence8precededReB10_NtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtB18_5error18InternalParseErrorNCINvNtNtB7_5bytes8complete3tagB10_B10_B1N_E0NCINvNtB7_10combinator3cutB10_B16_B1N_NCINvNtB7_6branch3altB10_B16_B1N_TNvNtB18_6parser19bracketed_selectionNCINvB39_3mapB10_NtB18_8SelectorB16_B1N_NvB4g_17wildcard_selectorNvMs8_B18_B16_3oneE0NvB4g_21member_name_shorthandNCINvB4g_14failed_segmentB16_E0EE0E0E0INtB5_6ParserB10_B16_B1N_E5parseB18_:
+  324|  30.4k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  30.4k|    self(i)
+  326|  30.4k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser18descendant_segmentINtB5_6ParserReNtBC_7SegmentNtNtBC_5error18InternalParseErrorE5parseBC_:
+  324|  30.4k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  30.4k|    self(i)
+  326|  30.4k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13name_selectorINtB5_6ParserReNtBC_8SelectorNtNtBC_5error18InternalParseErrorE5parseBC_:
+  324|   155k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   155k|    self(i)
+  326|   155k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_8sequence8precededRecB10_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB7_9character8complete4charB10_B17_E0INvB2b_6digit1B10_B17_EE0INtB5_6ParserB10_B10_B17_E5parseB1b_:
+  324|  78.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  78.9k|    self(i)
+  326|  78.9k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtNtB7_5bytes8complete3tagReB13_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0INtB5_6ParserB13_B13_B19_E5parseB1d_:
+  324|   152k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   152k|    self(i)
+  326|   152k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14index_selectorINtB5_6ParserReNtBC_8SelectorNtNtBC_5error18InternalParseErrorE5parseBC_:
+  324|  78.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  78.9k|    self(i)
+  326|  78.9k|  }
+_RNvXNtCsijflsOnQTe0_3nom8internalINtNtCslATUeuPuGvJ_4core6result6ResultTRecEINtB2_3ErrINtNtB4_5error5ErrorB18_EEEINtB2_6FinishB18_cB1m_E6finishCs8kepUdDqpxJ_15rsonpath_syntax:
+   36|  3.06k|  fn finish(self) -> Result<(I, O), E> {
+   37|      0|    match self {
+   38|  3.06k|      Ok(res) => Ok(res),
+   39|      0|      Err(Err::Error(e)) | Err(Err::Failure(e)) => Err(e),
+   40|       |      Err(Err::Incomplete(_)) => {
+   41|      0|        panic!("Cannot call `finish()` on `Err(Err::Incomplete(_))`: this result means that the parser does not have enough data to decide, you should gather more data and try to reapply  the parser instead")
+   42|       |      }
+   43|       |    }
+   44|  3.06k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBX_5error18InternalParseErrorTNvNtBX_6parser19bracketed_selectionNCINvNtB7_8sequence8precededBT_cBV_B1C_NCINvNtNtB7_9character8complete4charBT_B1C_E0NCINvNtB7_10combinator3cutBT_BV_B1C_NCIBB_BT_BV_B1C_TNCINvB4a_3mapBT_NtBX_8SelectorBV_B1C_NvB2c_17wildcard_selectorNvMs8_BX_BV_3oneE0NvB2c_21member_name_shorthandNCINvB2c_14failed_segmentBV_E0EE0E0E0EE0INtB5_6ParserBT_BV_B1C_E5parseBX_:
+  324|  5.93k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  5.93k|    self(i)
+  326|  5.93k|  }
+_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string0INtB5_6ParserReNtNtBE_3str10JsonStringNtNtBE_5error18InternalParseErrorE5parseBE_:
+  324|  33.7k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|  33.7k|    self(i)
+  326|  33.7k|  }
 _RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBZ_5error18InternalParseErrorTNCINvNtB7_8sequence8precededBT_cBV_B1K_NCINvNtNtB7_9character8complete4charBT_B1K_E0NCNvNtBZ_6parser6string0E0B2i_EE0INtB5_6ParserBT_BV_B1K_E5parseBZ_:
-  324|   208k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|   208k|    self(i)
-  326|   208k|  }
-_RNvXsa_NtCsijflsOnQTe0_3nom8internalNCINvNtB7_6branch3altReNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBX_5error18InternalParseErrorTNvNtBX_6parser19bracketed_selectionNCINvNtB7_10combinator3mapBT_NtBX_8SelectorBV_B1C_NvB2c_17wildcard_selectorNvMs8_BX_BV_3oneE0NvB2c_21member_name_shorthandNCINvB2c_14failed_segmentBV_E0EE0INtB5_6ParserBT_BV_B1C_E5parseBX_:
-  324|  17.9k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
-  325|  17.9k|    self(i)
-  326|  17.9k|  }
+  324|   155k|  fn parse(&mut self, i: I) -> IResult<I, O, E> {
+  325|   155k|    self(i)
+  326|   155k|  }
 
-_RINvNtCsijflsOnQTe0_3nom8sequence8precededReBE_NtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBL_5error18InternalParseErrorNCINvNtNtB4_5bytes8complete3tagBE_BE_B1q_E0NCINvNtB4_10combinator3cutBE_BJ_B1q_NCINvNtB4_6branch3altBE_BJ_B1q_TNvNtBL_6parser19bracketed_selectionNCINvB2J_3mapBE_NtBL_8SelectorBJ_B1q_NvB3M_17wildcard_selectorNvMs8_BL_BJ_3oneE0NvB3M_21member_name_shorthandNCINvB3M_14failed_segmentBJ_E0EE0E0EBL_:
-   63|  25.0k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
-   64|  25.0k|  mut first: F,
-   65|  25.0k|  mut second: G,
-   66|  25.0k|) -> impl FnMut(I) -> IResult<I, O2, E>
-   67|  25.0k|where
-   68|  25.0k|  F: Parser<I, O1, E>,
-   69|  25.0k|  G: Parser<I, O2, E>,
-   70|  25.0k|{
-   71|       |  move |input: I| {
-   72|       |    let (input, _) = first.parse(input)?;
-   73|       |    second.parse(input)
-   74|       |  }
-   75|  25.0k|}
-_RNCINvNtCsijflsOnQTe0_3nom8sequence8precededRecBG_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBG_BM_E0INvB1Q_6digit1BG_BM_EE0BQ_:
-   71|   109k|  move |input: I| {
-   72|   109k|    let (input, _) = first.parse(input)?;
-   73|  72.0k|    second.parse(input)
-   74|   109k|  }
 _RINvNtCsijflsOnQTe0_3nom8sequence8precededRecNtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBJ_5error18InternalParseErrorNCINvNtNtB4_9character8complete4charBE_B1o_E0NCINvNtB4_10combinator3cutBE_BH_B1o_NCINvNtB4_6branch3altBE_BH_B1o_TNCINvB2J_3mapBE_NtBJ_8SelectorBH_B1o_NvNtBJ_6parser17wildcard_selectorNvMs8_BJ_BH_3oneE0NvB4n_21member_name_shorthandNCINvB4n_14failed_segmentBH_E0EE0E0EBJ_:
-   63|  7.10k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
-   64|  7.10k|  mut first: F,
-   65|  7.10k|  mut second: G,
-   66|  7.10k|) -> impl FnMut(I) -> IResult<I, O2, E>
-   67|  7.10k|where
-   68|  7.10k|  F: Parser<I, O1, E>,
-   69|  7.10k|  G: Parser<I, O2, E>,
-   70|  7.10k|{
+   63|  5.93k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
+   64|  5.93k|  mut first: F,
+   65|  5.93k|  mut second: G,
+   66|  5.93k|) -> impl FnMut(I) -> IResult<I, O2, E>
+   67|  5.93k|where
+   68|  5.93k|  F: Parser<I, O1, E>,
+   69|  5.93k|  G: Parser<I, O2, E>,
+   70|  5.93k|{
    71|       |  move |input: I| {
    72|       |    let (input, _) = first.parse(input)?;
    73|       |    second.parse(input)
    74|       |  }
-   75|  7.10k|}
-_RINvNtCsijflsOnQTe0_3nom8sequence8precededRecBE_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB4_9character8complete4charBE_BK_E0INvB1O_6digit1BE_BK_EEBO_:
-   63|   109k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
-   64|   109k|  mut first: F,
-   65|   109k|  mut second: G,
-   66|   109k|) -> impl FnMut(I) -> IResult<I, O2, E>
-   67|   109k|where
-   68|   109k|  F: Parser<I, O1, E>,
-   69|   109k|  G: Parser<I, O2, E>,
-   70|   109k|{
-   71|       |  move |input: I| {
-   72|       |    let (input, _) = first.parse(input)?;
-   73|       |    second.parse(input)
-   74|       |  }
-   75|   109k|}
-_RNCINvNtCsijflsOnQTe0_3nom8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBN_5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBG_B1y_E0NCNvNtBN_6parser6string0E0BN_:
-   71|   376k|  move |input: I| {
-   72|   376k|    let (input, _) = first.parse(input)?;
-   73|  40.8k|    second.parse(input)
-   74|   376k|  }
+   75|  5.93k|}
 _RNCINvNtCsijflsOnQTe0_3nom8sequence8precededReBG_NtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBN_5error18InternalParseErrorNCINvNtNtB6_5bytes8complete3tagBG_BG_B1s_E0NCINvNtB6_10combinator3cutBG_BL_B1s_NCINvNtB6_6branch3altBG_BL_B1s_TNvNtBN_6parser19bracketed_selectionNCINvB2L_3mapBG_NtBN_8SelectorBL_B1s_NvB3O_17wildcard_selectorNvMs8_BN_BL_3oneE0NvB3O_21member_name_shorthandNCINvB3O_14failed_segmentBL_E0EE0E0E0BN_:
-   71|  25.0k|  move |input: I| {
-   72|  25.0k|    let (input, _) = first.parse(input)?;
-   73|  17.9k|    second.parse(input)
-   74|  25.0k|  }
-_RINvNtCsijflsOnQTe0_3nom8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBL_5error18InternalParseErrorNCINvNtNtB4_9character8complete4charBE_B1w_E0NCNvNtBL_6parser6string0EBL_:
-   63|   417k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
-   64|   417k|  mut first: F,
-   65|   417k|  mut second: G,
-   66|   417k|) -> impl FnMut(I) -> IResult<I, O2, E>
-   67|   417k|where
-   68|   417k|  F: Parser<I, O1, E>,
-   69|   417k|  G: Parser<I, O2, E>,
-   70|   417k|{
+   71|  30.4k|  move |input: I| {
+   72|  30.4k|    let (input, _) = first.parse(input)?;
+   73|  24.5k|    second.parse(input)
+   74|  30.4k|  }
+_RINvNtCsijflsOnQTe0_3nom8sequence8precededRecBE_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB4_9character8complete4charBE_BK_E0INvB1O_6digit1BE_BK_EEBO_:
+   63|  78.9k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
+   64|  78.9k|  mut first: F,
+   65|  78.9k|  mut second: G,
+   66|  78.9k|) -> impl FnMut(I) -> IResult<I, O2, E>
+   67|  78.9k|where
+   68|  78.9k|  F: Parser<I, O1, E>,
+   69|  78.9k|  G: Parser<I, O2, E>,
+   70|  78.9k|{
    71|       |  move |input: I| {
    72|       |    let (input, _) = first.parse(input)?;
    73|       |    second.parse(input)
    74|       |  }
-   75|   417k|}
+   75|  78.9k|}
+_RNCINvNtCsijflsOnQTe0_3nom8sequence8precededRecBG_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBG_BM_E0INvB1Q_6digit1BG_BM_EE0BQ_:
+   71|  78.9k|  move |input: I| {
+   72|  78.9k|    let (input, _) = first.parse(input)?;
+   73|  45.6k|    second.parse(input)
+   74|  78.9k|  }
+_RINvNtCsijflsOnQTe0_3nom8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBL_5error18InternalParseErrorNCINvNtNtB4_9character8complete4charBE_B1w_E0NCNvNtBL_6parser6string0EBL_:
+   63|   311k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
+   64|   311k|  mut first: F,
+   65|   311k|  mut second: G,
+   66|   311k|) -> impl FnMut(I) -> IResult<I, O2, E>
+   67|   311k|where
+   68|   311k|  F: Parser<I, O1, E>,
+   69|   311k|  G: Parser<I, O2, E>,
+   70|   311k|{
+   71|       |  move |input: I| {
+   72|       |    let (input, _) = first.parse(input)?;
+   73|       |    second.parse(input)
+   74|       |  }
+   75|   311k|}
+_RINvNtCsijflsOnQTe0_3nom8sequence8precededReBE_NtCs8kepUdDqpxJ_15rsonpath_syntax9SelectorsNtNtBL_5error18InternalParseErrorNCINvNtNtB4_5bytes8complete3tagBE_BE_B1q_E0NCINvNtB4_10combinator3cutBE_BJ_B1q_NCINvNtB4_6branch3altBE_BJ_B1q_TNvNtBL_6parser19bracketed_selectionNCINvB2J_3mapBE_NtBL_8SelectorBJ_B1q_NvB3M_17wildcard_selectorNvMs8_BL_BJ_3oneE0NvB3M_21member_name_shorthandNCINvB3M_14failed_segmentBJ_E0EE0E0EBL_:
+   63|  30.4k|pub fn preceded<I, O1, O2, E: ParseError<I>, F, G>(
+   64|  30.4k|  mut first: F,
+   65|  30.4k|  mut second: G,
+   66|  30.4k|) -> impl FnMut(I) -> IResult<I, O2, E>
+   67|  30.4k|where
+   68|  30.4k|  F: Parser<I, O1, E>,
+   69|  30.4k|  G: Parser<I, O2, E>,
+   70|  30.4k|{
+   71|       |  move |input: I| {
+   72|       |    let (input, _) = first.parse(input)?;
+   73|       |    second.parse(input)
+   74|       |  }
+   75|  30.4k|}
+_RNCINvNtCsijflsOnQTe0_3nom8sequence8precededRecNtNtCs8kepUdDqpxJ_15rsonpath_syntax3str10JsonStringNtNtBN_5error18InternalParseErrorNCINvNtNtB6_9character8complete4charBG_B1y_E0NCNvNtBN_6parser6string0E0BN_:
+   71|   277k|  move |input: I| {
+   72|   277k|    let (input, _) = first.parse(input)?;
+   73|  33.7k|    second.parse(input)
+   74|   277k|  }
 
-_RNvXsn_NtCsijflsOnQTe0_3nom6traitsReINtB5_7CompareBw_E7compare:
-  839|   193k|  fn compare(&self, t: &'b str) -> CompareResult {
-  840|   193k|    self.as_bytes().compare(t.as_bytes())
-  841|   193k|  }
-_RNCNvXsk_NtCsijflsOnQTe0_3nom6traitsRShINtB7_7CompareBy_E7compare0Cs8kepUdDqpxJ_15rsonpath_syntax:
-  740|   211k|    let pos = self.iter().zip(t.iter()).position(|(a, b)| a != b);
 _RNvXsb_NtCsijflsOnQTe0_3nom6traitscNtB5_6AsChar12is_dec_digitCs8kepUdDqpxJ_15rsonpath_syntax:
-  253|  1.84M|  fn is_dec_digit(self) -> bool {
-  254|  1.84M|    self.is_ascii_digit()
-  255|  1.84M|  }
+  253|  1.31M|  fn is_dec_digit(self) -> bool {
+  254|  1.31M|    self.is_ascii_digit()
+  255|  1.31M|  }
+_RINvXsj_NtCsijflsOnQTe0_3nom6traitsReNtB6_19InputTakeAtPosition27split_at_position1_completeNCINvNtNtB8_9character8complete6digit1Bx_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0B27_EB2b_:
+  675|  78.9k|  fn split_at_position1_complete<P, E: ParseError<Self>>(
+  676|  78.9k|    &self,
+  677|  78.9k|    predicate: P,
+  678|  78.9k|    e: ErrorKind,
+  679|  78.9k|  ) -> IResult<Self, Self, E>
+  680|  78.9k|  where
+  681|  78.9k|    P: Fn(Self::Item) -> bool,
+  682|  78.9k|  {
+  683|  78.9k|    match self.find(predicate) {
+  684|      0|      Some(0) => Err(Err::Error(E::from_error_kind(self, e))),
+  685|       |      // find() returns a byte index that is already in the slice at a char boundary
+  686|  78.9k|      Some(i) => unsafe { Ok((self.get_unchecked(i..), self.get_unchecked(..i))) },
+  687|       |      None => {
+  688|      0|        if self.is_empty() {
+  689|      0|          Err(Err::Error(E::from_error_kind(self, e)))
+  690|       |        } else {
+  691|       |          // the end of slice is a char boundary
+  692|       |          unsafe {
+  693|      0|            Ok((
+  694|      0|              self.get_unchecked(self.len()..),
+  695|      0|              self.get_unchecked(..self.len()),
+  696|      0|            ))
+  697|       |          }
+  698|       |        }
+  699|       |      }
+  700|       |    }
+  701|  78.9k|  }
+_RNvXsn_NtCsijflsOnQTe0_3nom6traitsReINtB5_7CompareBw_E7compare:
+  839|   152k|  fn compare(&self, t: &'b str) -> CompareResult {
+  840|   152k|    self.as_bytes().compare(t.as_bytes())
+  841|   152k|  }
+_RNvXsg_NtCsijflsOnQTe0_3nom6traitsReNtB5_9InputTake10take_splitCs8kepUdDqpxJ_15rsonpath_syntax:
+  424|  67.5k|  fn take_split(&self, count: usize) -> (Self, Self) {
+  425|  67.5k|    let (prefix, suffix) = self.split_at(count);
+  426|  67.5k|    (suffix, prefix)
+  427|  67.5k|  }
+_RNCNvXsk_NtCsijflsOnQTe0_3nom6traitsRShINtB7_7CompareBy_E7compare0Cs8kepUdDqpxJ_15rsonpath_syntax:
+  740|   176k|    let pos = self.iter().zip(t.iter()).position(|(a, b)| a != b);
+_RNvXsb_NtCsijflsOnQTe0_3nom6traitscNtB5_6AsChar7as_charCs8kepUdDqpxJ_15rsonpath_syntax:
+  241|   576k|  fn as_char(self) -> char {
+  242|   576k|    self
+  243|   576k|  }
 _RNvXsk_NtCsijflsOnQTe0_3nom6traitsRShINtB5_7CompareBw_E7compare:
-  739|   193k|  fn compare(&self, t: &'b [u8]) -> CompareResult {
-  740|   193k|    let pos = self.iter().zip(t.iter()).position(|(a, b)| a != b);
-  741|   193k|
-  742|   193k|    match pos {
-  743|   116k|      Some(_) => CompareResult::Error,
+  739|   152k|  fn compare(&self, t: &'b [u8]) -> CompareResult {
+  740|   152k|    let pos = self.iter().zip(t.iter()).position(|(a, b)| a != b);
+  741|   152k|
+  742|   152k|    match pos {
+  743|  84.8k|      Some(_) => CompareResult::Error,
   744|       |      None => {
-  745|  76.1k|        if self.len() >= t.len() {
-  746|  76.1k|          CompareResult::Ok
+  745|  67.5k|        if self.len() >= t.len() {
+  746|  67.5k|          CompareResult::Ok
   747|       |        } else {
   748|      0|          CompareResult::Incomplete
   749|       |        }
@@ -970,354 +1007,443 @@ _RNvXsk_NtCsijflsOnQTe0_3nom6traitsRShINtB5_7CompareBw_E7compare:
   765|       |      CompareResult::Ok
   766|       |    }
   767|       |    */
-  768|   193k|  }
-_RNvXsg_NtCsijflsOnQTe0_3nom6traitsReNtB5_9InputTake10take_splitCs8kepUdDqpxJ_15rsonpath_syntax:
-  424|  76.1k|  fn take_split(&self, count: usize) -> (Self, Self) {
-  425|  76.1k|    let (prefix, suffix) = self.split_at(count);
-  426|  76.1k|    (suffix, prefix)
-  427|  76.1k|  }
-_RINvXsj_NtCsijflsOnQTe0_3nom6traitsReNtB6_19InputTakeAtPosition27split_at_position1_completeNCINvNtNtB8_9character8complete6digit1Bx_NtNtCs8kepUdDqpxJ_15rsonpath_syntax5error18InternalParseErrorE0B27_EB2b_:
-  675|   109k|  fn split_at_position1_complete<P, E: ParseError<Self>>(
-  676|   109k|    &self,
-  677|   109k|    predicate: P,
-  678|   109k|    e: ErrorKind,
-  679|   109k|  ) -> IResult<Self, Self, E>
-  680|   109k|  where
-  681|   109k|    P: Fn(Self::Item) -> bool,
-  682|   109k|  {
-  683|   109k|    match self.find(predicate) {
-  684|      0|      Some(0) => Err(Err::Error(E::from_error_kind(self, e))),
-  685|       |      // find() returns a byte index that is already in the slice at a char boundary
-  686|   109k|      Some(i) => unsafe { Ok((self.get_unchecked(i..), self.get_unchecked(..i))) },
-  687|       |      None => {
-  688|      0|        if self.is_empty() {
-  689|      0|          Err(Err::Error(E::from_error_kind(self, e)))
-  690|       |        } else {
-  691|       |          // the end of slice is a char boundary
-  692|       |          unsafe {
-  693|      0|            Ok((
-  694|      0|              self.get_unchecked(self.len()..),
-  695|      0|              self.get_unchecked(..self.len()),
-  696|      0|            ))
-  697|       |          }
-  698|       |        }
-  699|       |      }
-  700|       |    }
-  701|   109k|  }
-_RNvXsb_NtCsijflsOnQTe0_3nom6traitscNtB5_6AsChar7as_charCs8kepUdDqpxJ_15rsonpath_syntax:
-  241|   749k|  fn as_char(self) -> char {
-  242|   749k|    self
-  243|   749k|  }
+  768|   152k|  }
 _RNvXsc_NtCsijflsOnQTe0_3nom6traitsRcNtB5_6AsChar7as_charCs8kepUdDqpxJ_15rsonpath_syntax:
-  272|   350k|  fn as_char(self) -> char {
-  273|   350k|    *self
-  274|   350k|  }
+  272|   268k|  fn as_char(self) -> char {
+  273|   268k|    *self
+  274|   268k|  }
 _RNvXsf_NtCsijflsOnQTe0_3nom6traitsReNtB5_9InputIter13iter_elementsCs8kepUdDqpxJ_15rsonpath_syntax:
-  386|   749k|  fn iter_elements(&self) -> Self::IterElem {
-  387|   749k|    self.chars()
-  388|   749k|  }
+  386|   576k|  fn iter_elements(&self) -> Self::IterElem {
+  387|   576k|    self.chars()
+  388|   576k|  }
 _RNvXs_NtCsijflsOnQTe0_3nom6traitsReNtB4_11InputLength9input_lenCs8kepUdDqpxJ_15rsonpath_syntax:
-   33|   193k|  fn input_len(&self) -> usize {
-   34|   193k|    self.len()
-   35|   193k|  }
+   33|   152k|  fn input_len(&self) -> usize {
+   34|   152k|    self.len()
+   35|   152k|  }
 _RNvXs5_NtCsijflsOnQTe0_3nom6traitsReNtB5_7AsBytes8as_bytes:
-   97|   193k|  fn as_bytes(&self) -> &[u8] {
-   98|   193k|    (*self).as_bytes()
-   99|   193k|  }
+   97|   152k|  fn as_bytes(&self) -> &[u8] {
+   98|   152k|    (*self).as_bytes()
+   99|   152k|  }
 _RNvXsc_NtCsijflsOnQTe0_3nom6traitsRcNtB5_6AsChar3lenCs8kepUdDqpxJ_15rsonpath_syntax:
-  296|   350k|  fn len(self) -> usize {
-  297|   350k|    self.len_utf8()
-  298|   350k|  }
-_RNvXs4_NtCsijflsOnQTe0_3nom6traitsReNtB5_6Offset6offset:
-   81|   109k|  fn offset(&self, second: &Self) -> usize {
-   82|   109k|    let fst = self.as_ptr();
-   83|   109k|    let snd = second.as_ptr();
-   84|   109k|
-   85|   109k|    snd as usize - fst as usize
-   86|   109k|  }
-_RNvXs24_NtCsijflsOnQTe0_3nom6traitsReINtB6_5SliceINtNtNtCslATUeuPuGvJ_4core3ops5range9RangeFromjEE5slice:
- 1013|   350k|    fn slice(&self, range: $ty) -> Self {
- 1014|   350k|      &self[range]
- 1015|   350k|    }
+  296|   268k|  fn len(self) -> usize {
+  297|   268k|    self.len_utf8()
+  298|   268k|  }
 _RNvXs23_NtCsijflsOnQTe0_3nom6traitsReINtB6_5SliceINtNtNtCslATUeuPuGvJ_4core3ops5range7RangeTojEE5slice:
- 1013|   109k|    fn slice(&self, range: $ty) -> Self {
- 1014|   109k|      &self[range]
- 1015|   109k|    }
+ 1013|  78.9k|    fn slice(&self, range: $ty) -> Self {
+ 1014|  78.9k|      &self[range]
+ 1015|  78.9k|    }
+_RNvXs4_NtCsijflsOnQTe0_3nom6traitsReNtB5_6Offset6offset:
+   81|  78.9k|  fn offset(&self, second: &Self) -> usize {
+   82|  78.9k|    let fst = self.as_ptr();
+   83|  78.9k|    let snd = second.as_ptr();
+   84|  78.9k|
+   85|  78.9k|    snd as usize - fst as usize
+   86|  78.9k|  }
+_RNvXs24_NtCsijflsOnQTe0_3nom6traitsReINtB6_5SliceINtNtNtCslATUeuPuGvJ_4core3ops5range9RangeFromjEE5slice:
+ 1013|   268k|    fn slice(&self, range: $ty) -> Self {
+ 1014|   268k|      &self[range]
+ 1015|   268k|    }
 
 _RNvMs2_NtCs5dLr1ro1CwM_9once_cell3impINtB5_8OnceCellNtNtCshJIxznpEM8j_5alloc6string6StringE14is_initializedCshcHWsNMhkOo_21query_fuzz_round_trip:
-   49|  3.35k|    pub(crate) fn is_initialized(&self) -> bool {
-   50|  3.35k|        // An `Acquire` load is enough because that makes all the initialization
-   51|  3.35k|        // operations visible to us, and, this being a fast path, weaker
-   52|  3.35k|        // ordering helps with performance. This `Acquire` synchronizes with
-   53|  3.35k|        // `SeqCst` operations on the slow path.
-   54|  3.35k|        self.queue.load(Ordering::Acquire) == COMPLETE_PTR
-   55|  3.35k|    }
+   49|  3.06k|    pub(crate) fn is_initialized(&self) -> bool {
+   50|  3.06k|        // An `Acquire` load is enough because that makes all the initialization
+   51|  3.06k|        // operations visible to us, and, this being a fast path, weaker
+   52|  3.06k|        // ordering helps with performance. This `Acquire` synchronizes with
+   53|  3.06k|        // `SeqCst` operations on the slow path.
+   54|  3.06k|        self.queue.load(Ordering::Acquire) == COMPLETE_PTR
+   55|  3.06k|    }
 
 _RNvMs4_NtCs5dLr1ro1CwM_9once_cell4syncINtB5_8OnceCellNtNtCshJIxznpEM8j_5alloc6string6StringE3getCshcHWsNMhkOo_21query_fuzz_round_trip:
-  965|  3.35k|        pub fn get(&self) -> Option<&T> {
-  966|  3.35k|            if self.0.is_initialized() {
+  965|  3.06k|        pub fn get(&self) -> Option<&T> {
+  966|  3.06k|            if self.0.is_initialized() {
   967|       |                // Safe b/c value is initialized.
   968|      0|                Some(unsafe { self.get_unchecked() })
   969|       |            } else {
-  970|  3.35k|                None
+  970|  3.06k|                None
   971|       |            }
-  972|  3.35k|        }
+  972|  3.06k|        }
 
 
 _RNvMNtCs8kepUdDqpxJ_15rsonpath_syntax5errorNtB2_17ParseErrorBuilder8is_emptyB4_:
-   44|  3.35k|    pub(crate) fn is_empty(&self) -> bool {
-   45|  3.35k|        self.syntax_errors.is_empty()
-   46|  3.35k|    }
+   44|  3.06k|    pub(crate) fn is_empty(&self) -> bool {
+   45|  3.06k|        self.syntax_errors.is_empty()
+   46|  3.06k|    }
 _RNvXs2_NtCs8kepUdDqpxJ_15rsonpath_syntax5errorNtB5_18InternalParseErrorINtNtCsijflsOnQTe0_3nom5error10ParseErrorReE15from_error_kindB7_:
-  387|   490k|    fn from_error_kind(input: &'a str, kind: nom::error::ErrorKind) -> Self {
-  388|   490k|        Self::NomError(nom::error::Error::from_error_kind(input, kind))
-  389|   490k|    }
+  387|   361k|    fn from_error_kind(input: &'a str, kind: nom::error::ErrorKind) -> Self {
+  388|   361k|        Self::NomError(nom::error::Error::from_error_kind(input, kind))
+  389|   361k|    }
 _RNvMNtCs8kepUdDqpxJ_15rsonpath_syntax5errorNtB2_17ParseErrorBuilder3newB4_:
-   32|  3.35k|    pub(crate) fn new() -> Self {
-   33|  3.35k|        Self { syntax_errors: vec![] }
-   34|  3.35k|    }
+   32|  3.06k|    pub(crate) fn new() -> Self {
+   33|  3.06k|        Self { syntax_errors: vec![] }
+   34|  3.06k|    }
 _RNvXs2_NtCs8kepUdDqpxJ_15rsonpath_syntax5errorNtB5_18InternalParseErrorINtNtCsijflsOnQTe0_3nom5error10ParseErrorReE6append:
-  391|   168k|    fn append(input: &'a str, kind: nom::error::ErrorKind, other: Self) -> Self {
-  392|   168k|        match other {
-  393|   168k|            Self::NomError(e) => Self::NomError(nom::error::Error::append(input, kind, e)),
+  391|   121k|    fn append(input: &'a str, kind: nom::error::ErrorKind, other: Self) -> Self {
+  392|   121k|        match other {
+  393|   121k|            Self::NomError(e) => Self::NomError(nom::error::Error::append(input, kind, e)),
   394|      0|            _ => other,
   395|       |        }
-  396|   168k|    }
+  396|   121k|    }
 _RNvMs0_NtCs8kepUdDqpxJ_15rsonpath_syntax5errorNtB5_11SyntaxError3newB7_:
-  132|  55.2k|    pub(crate) fn new(kind: SyntaxErrorKind, rev_idx: usize, len: usize) -> Self {
-  133|  55.2k|        Self { kind, rev_idx, len }
-  134|  55.2k|    }
+  132|  52.9k|    pub(crate) fn new(kind: SyntaxErrorKind, rev_idx: usize, len: usize) -> Self {
+  133|  52.9k|        Self { kind, rev_idx, len }
+  134|  52.9k|    }
 
 _RNvXsc_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_13JsonPathQueryNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  569|  3.35k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-  570|  3.35k|        write!(f, "$")?;
-  571|  28.4k|        for s in &self.segments {
-  572|  25.0k|            write!(f, "{s}")?;
+  569|  3.06k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+  570|  3.06k|        write!(f, "$")?;
+  571|  33.5k|        for s in &self.segments {
+  572|  30.4k|            write!(f, "{s}")?;
   573|       |        }
-  574|  3.35k|        Ok(())
-  575|  3.35k|    }
+  574|  3.06k|        Ok(())
+  575|  3.06k|    }
 _RNvXsf_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_8SelectorNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  602|   208k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-  603|   208k|        match self {
-  604|  40.8k|            Self::Name(n) => write!(f, "'{}'", str::escape(n.unquoted(), str::EscapeMode::SingleQuoted)),
-  605|  58.1k|            Self::Wildcard => write!(f, "*"),
-  606|   109k|            Self::Index(idx) => write!(f, "{idx}"),
+  602|   155k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+  603|   155k|        match self {
+  604|  33.7k|            Self::Name(n) => write!(f, "'{}'", str::escape(n.unquoted(), str::EscapeMode::SingleQuoted)),
+  605|  43.0k|            Self::Wildcard => write!(f, "*"),
+  606|  78.9k|            Self::Index(idx) => write!(f, "{idx}"),
   607|       |        }
-  608|   208k|    }
+  608|   155k|    }
 _RNvXs0_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_13ParserOptionsNtNtCslATUeuPuGvJ_4core7default7Default7default:
-  233|  3.35k|    fn default() -> Self {
-  234|  3.35k|        Self {
-  235|  3.35k|            relaxed_whitespace: false,
-  236|  3.35k|        }
-  237|  3.35k|    }
+  233|  3.06k|    fn default() -> Self {
+  234|  3.06k|        Self {
+  235|  3.06k|            relaxed_whitespace: false,
+  236|  3.06k|        }
+  237|  3.06k|    }
 _RNvXsP_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_13JsonPathQueryNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-  390|  3.35k|#[derive(Debug, PartialEq, Eq, Clone)]
+  390|  3.06k|#[derive(Debug, PartialEq, Eq, Clone)]
 _RNvMs2_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_6Parser5parseCshcHWsNMhkOo_21query_fuzz_round_trip:
-  298|  3.35k|    pub fn parse(&self, str: &str) -> Result<JsonPathQuery> {
-  299|  3.35k|        crate::parser::parse_json_path_query(str, &self.options)
-  300|  3.35k|    }
+  298|  3.06k|    pub fn parse(&self, str: &str) -> Result<JsonPathQuery> {
+  299|  3.06k|        crate::parser::parse_json_path_query(str, &self.options)
+  300|  3.06k|    }
 _RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs0_1__NtB6_13JsonPathQueryNtCs6flZAYNibw_9arbitrary9Arbitrary9size_hint0CshcHWsNMhkOo_21query_fuzz_round_trip:
-  391|  3.35k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+  391|  3.06k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
 _RNvMs8_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9Selectors5firstCshcHWsNMhkOo_21query_fuzz_round_trip:
-  471|  25.0k|    pub fn first(&self) -> &Selector {
-  472|  25.0k|        &self.inner[0]
-  473|  25.0k|    }
+  471|  30.4k|    pub fn first(&self) -> &Selector {
+  472|  30.4k|        &self.inner[0]
+  473|  30.4k|    }
 _RNvCs8kepUdDqpxJ_15rsonpath_syntax5parseCshcHWsNMhkOo_21query_fuzz_round_trip:
-  283|  3.35k|pub fn parse(str: &str) -> Result<JsonPathQuery> {
-  284|  3.35k|    Parser::default().parse(str)
-  285|  3.35k|}
+  283|  3.06k|pub fn parse(str: &str) -> Result<JsonPathQuery> {
+  284|  3.06k|    Parser::default().parse(str)
+  285|  3.06k|}
 _RNvXsd_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_7SegmentNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  580|  25.0k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-  581|  25.0k|        match self {
-  582|  7.10k|            Self::Child(s) => write!(f, "{s}"),
-  583|  17.9k|            Self::Descendant(s) => write!(f, "..{s}"),
+  580|  30.4k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+  581|  30.4k|        match self {
+  582|  5.93k|            Self::Child(s) => write!(f, "{s}"),
+  583|  24.5k|            Self::Descendant(s) => write!(f, "..{s}"),
   584|       |        }
-  585|  25.0k|    }
+  585|  30.4k|    }
 _RNvXsg_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_5IndexNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  613|   109k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-  614|   109k|        match self {
-  615|  37.8k|            Self::FromStart(idx) => write!(f, "{idx}"),
-  616|  72.0k|            Self::FromEnd(idx) => write!(f, "-{idx}"),
+  613|  78.9k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+  614|  78.9k|        match self {
+  615|  33.2k|            Self::FromStart(idx) => write!(f, "{idx}"),
+  616|  45.6k|            Self::FromEnd(idx) => write!(f, "-{idx}"),
   617|       |        }
-  618|   109k|    }
+  618|  78.9k|    }
 _RNvXse_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9SelectorsNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  590|  25.0k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-  591|  25.0k|        write!(f, "[{}", self.first())?;
-  592|   183k|        for s in self.inner.iter().skip(1) {
-  593|   183k|            write!(f, ", {s}")?;
+  590|  30.4k|    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+  591|  30.4k|        write!(f, "[{}", self.first())?;
+  592|   125k|        for s in self.inner.iter().skip(1) {
+  593|   125k|            write!(f, ", {s}")?;
   594|       |        }
-  595|  25.0k|        write!(f, "]")?;
-  596|  25.0k|        Ok(())
-  597|  25.0k|    }
+  595|  30.4k|        write!(f, "]")?;
+  596|  30.4k|        Ok(())
+  597|  30.4k|    }
 _RNvXsr_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_7SegmentNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-  308|  25.0k|#[derive(Debug, PartialEq, Eq, Clone)]
+  308|  30.4k|#[derive(Debug, PartialEq, Eq, Clone)]
 _RNvXsD_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_8SelectorNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-  343|   208k|#[derive(Debug, PartialEq, Eq, Clone)]
+  343|   155k|#[derive(Debug, PartialEq, Eq, Clone)]
 _RNvXsJ_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_5IndexNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-  357|   109k|#[derive(Debug, PartialEq, Eq, Clone)]
+  357|  78.9k|#[derive(Debug, PartialEq, Eq, Clone)]
 _RNvXsx_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9SelectorsNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-  336|  25.0k|#[derive(Debug, PartialEq, Eq, Clone)]
+  336|  30.4k|#[derive(Debug, PartialEq, Eq, Clone)]
 _RNvXsj_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_6ParserNtNtCslATUeuPuGvJ_4core7default7Default7defaultCshcHWsNMhkOo_21query_fuzz_round_trip:
-  160|  3.35k|#[derive(Debug, Clone, Default)]
-_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB6_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys0_0B6_:
-  344|    246|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNvMs8_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9Selectors4manyB5_:
-  463|  50.1k|    pub fn many(vec: Vec<Selector>) -> Self {
-  464|  50.1k|        assert!(!vec.is_empty(), "cannot create an empty Selectors collection");
-  465|  50.1k|        Self { inner: vec }
-  466|  50.1k|    }
-_RNvXs4_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_5IndexNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitraryB5_:
-  372|   109k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-  373|   109k|        let num = u.arbitrary::<num::JsonInt>()?;
-  374|   109k|        Ok(Self::from(num))
-  375|   109k|    }
-_RNvMs_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB4_13ParserOptions30is_trailing_whitespace_allowedB4_:
-  226|  3.35k|    fn is_trailing_whitespace_allowed(&self) -> bool {
-  227|  3.35k|        self.relaxed_whitespace
-  228|  3.35k|    }
-_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB6_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys0_0B6_:
-  309|     40|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs0_1__NtB6_13JsonPathQueryNtCs6flZAYNibw_9arbitrary9Arbitrary19arbitrary_take_rests_0B6_:
-  391|  3.35k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB6_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys_0B6_:
-  344|   208k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB4_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary:
-  309|  75.1k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs0_1__NtB4_13JsonPathQueryNtCs6flZAYNibw_9arbitrary9Arbitrary19arbitrary_take_rest:
-  391|  10.0k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+  160|  3.06k|#[derive(Debug, Clone, Default)]
 _RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB6_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary0B6_:
-  309|     40|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNvXs3_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9SelectorsNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitraryB5_:
-  324|  25.0k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-  325|  25.0k|        let first = u.arbitrary::<Selector>()?;
-  326|  25.0k|        let mut rest = u.arbitrary::<Vec<Selector>>()?;
-  327|  25.0k|        rest.push(first);
-  328|  25.0k|
-  329|  25.0k|        Ok(Self::many(rest))
-  330|  25.0k|    }
-_RNvXs5_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_5IndexINtNtCslATUeuPuGvJ_4core7convert4FromNtNtB5_3num7JsonIntE4fromB5_:
-  380|   109k|    fn from(value: num::JsonInt) -> Self {
-  381|   109k|        if value.as_i64() >= 0 {
-  382|  37.8k|            Self::FromStart(value.abs())
-  383|       |        } else {
-  384|  72.0k|            Self::FromEnd(value.abs().try_into().expect("checked for zero already"))
-  385|       |        }
-  386|   109k|    }
-_RNCNvNvNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__24RECURSIVE_COUNT_Selector7___getit0B7_:
-  344|      1|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB4_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary:
-  344|   626k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB6_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys_0B6_:
-  309|  25.0k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB6_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary0B6_:
-  344|    246|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+  309|     50|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNvMs8_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9Selectors4manyB5_:
+  463|  60.9k|    pub fn many(vec: Vec<Selector>) -> Self {
+  464|  60.9k|        assert!(!vec.is_empty(), "cannot create an empty Selectors collection");
+  465|  60.9k|        Self { inner: vec }
+  466|  60.9k|    }
+_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB6_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys0_0B6_:
+  309|     50|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNvXs4_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_5IndexNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitraryB5_:
+  372|  78.9k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
+  373|  78.9k|        let num = u.arbitrary::<num::JsonInt>()?;
+  374|  78.9k|        Ok(Self::from(num))
+  375|  78.9k|    }
 _RNCNvNvNvCs8kepUdDqpxJ_15rsonpath_syntax1__23RECURSIVE_COUNT_Segment7___getit0B7_:
   309|      1|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs0_1__NtB6_13JsonPathQueryNtCs6flZAYNibw_9arbitrary9Arbitrary19arbitrary_take_rests_0B6_:
+  391|  3.06k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNvMs_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB4_13ParserOptions30is_trailing_whitespace_allowedB4_:
+  226|  3.06k|    fn is_trailing_whitespace_allowed(&self) -> bool {
+  227|  3.06k|        self.relaxed_whitespace
+  228|  3.06k|    }
+_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB6_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys_0B6_:
+  344|   155k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNCNvNvNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__24RECURSIVE_COUNT_Selector7___getit0B7_:
+  344|      1|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB6_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys0_0B6_:
+  344|    348|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB4_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary:
+  309|  91.3k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs0_1__NtB4_13JsonPathQueryNtCs6flZAYNibw_9arbitrary9Arbitrary19arbitrary_take_rest:
+  391|  9.20k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntax1__NtB6_7SegmentNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrarys_0B6_:
+  309|  30.4k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNCNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB6_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary0B6_:
+  344|    348|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+_RNvXs3_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_9SelectorsNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitraryB5_:
+  324|  30.4k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
+  325|  30.4k|        let first = u.arbitrary::<Selector>()?;
+  326|  30.4k|        let mut rest = u.arbitrary::<Vec<Selector>>()?;
+  327|  30.4k|        rest.push(first);
+  328|  30.4k|
+  329|  30.4k|        Ok(Self::many(rest))
+  330|  30.4k|    }
+_RNvXs5_Cs8kepUdDqpxJ_15rsonpath_syntaxNtB5_5IndexINtNtCslATUeuPuGvJ_4core7convert4FromNtNtB5_3num7JsonIntE4fromB5_:
+  380|  78.9k|    fn from(value: num::JsonInt) -> Self {
+  381|  78.9k|        if value.as_i64() >= 0 {
+  382|  33.2k|            Self::FromStart(value.abs())
+  383|       |        } else {
+  384|  45.6k|            Self::FromEnd(value.abs().try_into().expect("checked for zero already"))
+  385|       |        }
+  386|  78.9k|    }
+_RNvXNvCs8kepUdDqpxJ_15rsonpath_syntaxs_1__NtB4_8SelectorNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitrary:
+  344|   466k|#[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
 
 _RNvXsp_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_8JsonUIntNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  610|  37.8k|    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-  611|  37.8k|        write!(f, "{}", self.0)
-  612|  37.8k|    }
+  610|  33.2k|    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+  611|  33.2k|        write!(f, "{}", self.0)
+  612|  33.2k|    }
 _RNvXsK_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_8JsonUIntNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-   87|  37.8k|#[derive(Clone, Copy, Default, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+   87|  33.2k|#[derive(Clone, Copy, Default, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 _RNvXsU_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_15JsonNonZeroUIntNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-  112|  72.0k|#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+  112|  45.6k|#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 _RNvXsq_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_15JsonNonZeroUIntNtNtCslATUeuPuGvJ_4core3fmt7Display3fmtCshcHWsNMhkOo_21query_fuzz_round_trip:
-  617|  72.0k|    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-  618|  72.0k|        write!(f, "{}", self.0)
-  619|  72.0k|    }
+  617|  45.6k|    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+  618|  45.6k|        write!(f, "{}", self.0)
+  619|  45.6k|    }
 _RNvMs_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB4_8JsonUInt3newB6_:
-  263|  37.8k|    const fn new(index: u64) -> Self {
-  264|  37.8k|        Self(index)
-  265|  37.8k|    }
+  263|  33.2k|    const fn new(index: u64) -> Self {
+  264|  33.2k|        Self(index)
+  265|  33.2k|    }
 _RNvXs7_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_7JsonIntNtNtNtCslATUeuPuGvJ_4core3str6traits7FromStr8from_strB7_:
-  422|   109k|    fn from_str(s: &str) -> Result<Self, Self::Err> {
-  423|   109k|        match i64::from_str(s) {
-  424|   109k|            Ok(x) => x.try_into().map_err(|e| Self::Err::parse_conversion_err(s, &e)),
+  422|  78.9k|    fn from_str(s: &str) -> Result<Self, Self::Err> {
+  423|  78.9k|        match i64::from_str(s) {
+  424|  78.9k|            Ok(x) => x.try_into().map_err(|e| Self::Err::parse_conversion_err(s, &e)),
   425|      0|            Err(err) => Err(Self::Err::int_parse_error(s, err.kind())),
   426|       |        }
-  427|   109k|    }
+  427|  78.9k|    }
 _RNvXsj_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_15JsonNonZeroUIntINtNtCslATUeuPuGvJ_4core7convert7TryFromyE8try_fromB7_:
-  548|   144k|    fn try_from(value: u64) -> Result<Self, Self::Error> {
-  549|   144k|        if value > JSON_UINT_UPPER_LIMIT {
+  548|  91.3k|    fn try_from(value: u64) -> Result<Self, Self::Error> {
+  549|  91.3k|        if value > JSON_UINT_UPPER_LIMIT {
   550|      0|            Err(JsonIntOverflowError::uint_pos_overflow(value))
-  551|   144k|        } else if let Some(x) = NonZeroU64::new(value) {
-  552|   144k|            Ok(Self(x))
+  551|  91.3k|        } else if let Some(x) = NonZeroU64::new(value) {
+  552|  91.3k|            Ok(Self(x))
   553|       |        } else {
   554|      0|            Err(JsonIntOverflowError::zero_non_zero_uint())
   555|       |        }
-  556|   144k|    }
+  556|  91.3k|    }
 _RNvXsl_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_15JsonNonZeroUIntINtNtCslATUeuPuGvJ_4core7convert7TryFromNtB5_8JsonUIntE8try_fromB7_:
-  576|   144k|    fn try_from(value: JsonUInt) -> Result<Self, Self::Error> {
-  577|   144k|        Self::try_from(value.0)
-  578|   144k|    }
+  576|  91.3k|    fn try_from(value: JsonUInt) -> Result<Self, Self::Error> {
+  577|  91.3k|        Self::try_from(value.0)
+  578|  91.3k|    }
 _RNvMNtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB2_7JsonInt3newB4_:
-  158|   219k|    const fn new(index: i64) -> Self {
-  159|   219k|        Self(index)
-  160|   219k|    }
+  158|   157k|    const fn new(index: i64) -> Self {
+  159|   157k|        Self(index)
+  160|   157k|    }
 _RNvXsd_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_8JsonUIntINtNtCslATUeuPuGvJ_4core7convert7TryFromNtB5_7JsonIntE8try_fromB7_:
-  488|   109k|    fn try_from(value: JsonInt) -> Result<Self, Self::Error> {
-  489|   109k|        if value.0 < 0 {
-  490|  72.0k|            Err(JsonIntOverflowError::negative_uint(value.0))
+  488|  78.9k|    fn try_from(value: JsonInt) -> Result<Self, Self::Error> {
+  489|  78.9k|        if value.0 < 0 {
+  490|  45.6k|            Err(JsonIntOverflowError::negative_uint(value.0))
   491|       |        } else {
-  492|  37.8k|            Ok(Self::new(value.0 as u64))
+  492|  33.2k|            Ok(Self::new(value.0 as u64))
   493|       |        }
-  494|   109k|    }
+  494|  78.9k|    }
 _RNvMNtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB2_7JsonInt6as_i64:
-  202|   109k|    pub const fn as_i64(&self) -> i64 {
-  203|   109k|        self.0
-  204|   109k|    }
+  202|  78.9k|    pub const fn as_i64(&self) -> i64 {
+  203|  78.9k|        self.0
+  204|  78.9k|    }
 _RNvXsr_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_7JsonIntNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitraryB7_:
-  626|   109k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-  627|   109k|        let val = u.int_in_range(JSON_INT_LOWER_LIMIT..=JSON_INT_UPPER_LIMIT)?;
+  626|  78.9k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
+  627|  78.9k|        let val = u.int_in_range(JSON_INT_LOWER_LIMIT..=JSON_INT_UPPER_LIMIT)?;
   628|       |
-  629|   109k|        Ok(Self::new(val))
-  630|   109k|    }
+  629|  78.9k|        Ok(Self::new(val))
+  630|  78.9k|    }
 _RNvXs1_NtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB5_7JsonIntINtNtCslATUeuPuGvJ_4core7convert7TryFromxE8try_fromB7_:
-  363|   109k|    fn try_from(value: i64) -> Result<Self, Self::Error> {
-  364|   109k|        if value > JSON_INT_UPPER_LIMIT {
+  363|  78.9k|    fn try_from(value: i64) -> Result<Self, Self::Error> {
+  364|  78.9k|        if value > JSON_INT_UPPER_LIMIT {
   365|      0|            Err(JsonIntOverflowError::int_pos_overflow(value))
-  366|   109k|        } else if value < JSON_INT_LOWER_LIMIT {
+  366|  78.9k|        } else if value < JSON_INT_LOWER_LIMIT {
   367|      0|            Err(JsonIntOverflowError::int_neg_overflow(value))
   368|       |        } else {
-  369|   109k|            Ok(Self::new(value))
+  369|  78.9k|            Ok(Self::new(value))
   370|       |        }
-  371|   109k|    }
+  371|  78.9k|    }
 _RNvMNtCs8kepUdDqpxJ_15rsonpath_syntax3numNtB2_7JsonInt3abs:
-  234|   181k|    pub const fn abs(&self) -> JsonUInt {
-  235|   181k|        JsonUInt(self.0.unsigned_abs())
-  236|   181k|    }
+  234|   124k|    pub const fn abs(&self) -> JsonUInt {
+  235|   124k|        JsonUInt(self.0.unsigned_abs())
+  236|   124k|    }
 
 _RNvMNtNtCs8kepUdDqpxJ_15rsonpath_syntax3num5errorNtB2_20JsonIntOverflowError13negative_uintB6_:
-   50|  72.0k|    pub(crate) fn negative_uint(src: i64) -> Self {
-   51|  72.0k|        Self {
-   52|  72.0k|            kind: JsonIntOverflowKind::UIntNeg(src),
-   53|  72.0k|        }
-   54|  72.0k|    }
+   50|  45.6k|    pub(crate) fn negative_uint(src: i64) -> Self {
+   51|  45.6k|        Self {
+   52|  45.6k|            kind: JsonIntOverflowKind::UIntNeg(src),
+   53|  45.6k|        }
+   54|  45.6k|    }
 
-_RNCNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string00B7_:
-  339|  40.8k|                    let rest = stream.next().map_or("", |(i, _)| &q[i..]);
+_RNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB6_8SelectorNvB4_17wildcard_selectorNtNtB6_5error18InternalParseErrorE0B6_:
+   26|   121k|    move |q: &'a str| {
+   27|   121k|        inner
+   28|   121k|            .parse(skip_whitespace(q))
+   29|   121k|            .map(|(rest, res)| (skip_whitespace(rest), res))
+   30|   121k|    }
+_RNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB6_8SelectorNvB4_13name_selectorNtNtB6_5error18InternalParseErrorE0B6_:
+   26|   155k|    move |q: &'a str| {
+   27|   155k|        inner
+   28|   155k|            .parse(skip_whitespace(q))
+   29|   155k|            .map(|(rest, res)| (skip_whitespace(rest), res))
+   30|   155k|    }
+_RNvXs2_NtCs8kepUdDqpxJ_15rsonpath_syntax6parserNtB5_15StringParseModeNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqB7_:
+  233|  2.08k|#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+_RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB4_8SelectorNvB2_17wildcard_selectorNtNtB4_5error18InternalParseErrorEB4_:
+   22|   155k|fn ignore_whitespace<'a, T, F, E>(mut inner: F) -> impl FnMut(&'a str) -> IResult<&'a str, T, E>
+   23|   155k|where
+   24|   155k|    F: nom::Parser<&'a str, T, E>,
+   25|   155k|{
+   26|       |    move |q: &'a str| {
+   27|       |        inner
+   28|       |            .parse(skip_whitespace(q))
+   29|       |            .map(|(rest, res)| (skip_whitespace(rest), res))
+   30|       |    }
+   31|   155k|}
+_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13child_segment:
+  125|  5.93k|fn child_segment(q: &str) -> IResult<&str, Segment, InternalParseError> {
+  126|  5.93k|    map(
+  127|  5.93k|        alt((
+  128|  5.93k|            bracketed_selection,
+  129|  5.93k|            // This cut is only correct because we try parsing descendant_segment first.
+  130|  5.93k|            preceded(
+  131|  5.93k|                char('.'),
+  132|  5.93k|                cut(alt((
+  133|  5.93k|                    map(wildcard_selector, Selectors::one),
+  134|  5.93k|                    member_name_shorthand,
+  135|  5.93k|                    failed_segment(SyntaxErrorKind::InvalidNameShorthandAfterOnePeriod),
+  136|  5.93k|                ))),
+  137|  5.93k|            ),
+  138|  5.93k|        )),
+  139|  5.93k|        Segment::Child,
+  140|  5.93k|    )(q)
+  141|  5.93k|}
+_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser18descendant_segment:
+  110|  30.4k|fn descendant_segment(q: &str) -> IResult<&str, Segment, InternalParseError> {
+  111|  30.4k|    map(
+  112|  30.4k|        preceded(
+  113|  30.4k|            tag(".."),
+  114|  30.4k|            cut(alt((
+  115|  30.4k|                bracketed_selection,
+  116|  30.4k|                map(wildcard_selector, Selectors::one),
+  117|  30.4k|                member_name_shorthand,
+  118|  30.4k|                failed_segment(SyntaxErrorKind::InvalidSegmentAfterTwoPeriods),
+  119|  30.4k|            ))),
+  120|  30.4k|        ),
+  121|  30.4k|        Segment::Descendant,
+  122|  30.4k|    )(q)
+  123|  30.4k|}
+_RNCNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB8_8SelectorNvB6_17wildcard_selectorNtNtB8_5error18InternalParseErrorE00B8_:
+   29|  43.0k|            .map(|(rest, res)| (skip_whitespace(rest), res))
 _RNCNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB8_8SelectorNvB6_13name_selectorNtNtB8_5error18InternalParseErrorE00B8_:
-   29|  40.8k|            .map(|(rest, res)| (skip_whitespace(rest), res))
+   29|  33.7k|            .map(|(rest, res)| (skip_whitespace(rest), res))
+_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser21parse_json_path_query:
+   33|  3.06k|pub(crate) fn parse_json_path_query(q: &str, options: &ParserOptions) -> Result<JsonPathQuery> {
+   34|  3.06k|    let original_input = q;
+   35|  3.06k|    let mut parse_error = ParseErrorBuilder::new();
+   36|  3.06k|    let mut segments = vec![];
+   37|  3.06k|    let q = skip_whitespace(q);
+   38|  3.06k|    let leading_whitespace_len = original_input.len() - q.len();
+   39|  3.06k|    if leading_whitespace_len > 0 && !options.is_leading_whitespace_allowed() {
+   40|      0|        parse_error.add(SyntaxError::new(
+   41|      0|            SyntaxErrorKind::DisallowedLeadingWhitespace,
+   42|      0|            original_input.len(),
+   43|      0|            leading_whitespace_len,
+   44|      0|        ));
+   45|  3.06k|    }
+   46|  3.06k|    let q = match char::<_, nom::error::Error<_>>('$')(q).finish() {
+   47|  3.06k|        Ok((q, _)) => skip_whitespace(q),
+   48|      0|        Err(e) => {
+   49|      0|            parse_error.add(SyntaxError::new(
+   50|      0|                SyntaxErrorKind::MissingRootIdentifier,
+   51|      0|                e.input.len(),
+   52|      0|                q.chars().next().map_or(1, char::len_utf8),
+   53|      0|            ));
+   54|      0|            e.input
+   55|       |        }
+   56|       |    };
+   57|       |
+   58|  3.06k|    let mut q = q;
+   59|  33.5k|    while !q.is_empty() {
+   60|  30.4k|        q = match segment(q).finish() {
+   61|  30.4k|            Ok((rest, segment)) => {
+   62|  30.4k|                segments.push(segment);
+   63|  30.4k|                rest
+   64|       |            }
+   65|      0|            Err(InternalParseError::SyntaxError(err, rest)) => {
+   66|      0|                parse_error.add(err);
+   67|      0|                rest
+   68|       |            }
+   69|      0|            Err(InternalParseError::SyntaxErrors(errs, rest)) => {
+   70|      0|                parse_error.add_many(errs);
+   71|      0|                rest
+   72|       |            }
+   73|      0|            Err(InternalParseError::NomError(err)) => panic!(
+   74|      0|                "unexpected parser error; raw nom errors should never be produced; this is a bug\ncontext:\n{err}"
+   75|      0|            ),
+   76|       |        };
+   77|  30.4k|        q = skip_whitespace(q);
+   78|       |    }
+   79|       |
+   80|       |    // For strict RFC compliance trailing whitespace has to be disallowed.
+   81|       |    // This is hard to organically obtain from the parsing above, so we insert this awkward direct check if needed.
+   82|  3.06k|    if !options.is_trailing_whitespace_allowed() {
+   83|  3.06k|        let trimmed = original_input.trim_end_matches(WHITESPACE);
+   84|  3.06k|        let trailing_whitespace_len = original_input.len() - trimmed.len();
+   85|  3.06k|        if trailing_whitespace_len > 0 {
+   86|      0|            parse_error.add(SyntaxError::new(
+   87|      0|                SyntaxErrorKind::DisallowedTrailingWhitespace,
+   88|      0|                trailing_whitespace_len,
+   89|      0|                trailing_whitespace_len,
+   90|      0|            ));
+   91|  3.06k|        }
+   92|      0|    }
+   93|       |
+   94|  3.06k|    if parse_error.is_empty() {
+   95|  3.06k|        Ok(JsonPathQuery { segments })
+   96|       |    } else {
+   97|      0|        Err(parse_error.build(original_input.to_owned()))
+   98|       |    }
+   99|  3.06k|}
 _RINvNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string020read_escape_sequenceNtNtNtCslATUeuPuGvJ_4core3str4iter11CharIndicesEB8_:
-  368|  31.9k|        fn read_escape_sequence<I>(
-  369|  31.9k|            q_len: usize,
-  370|  31.9k|            c_idx: usize,
-  371|  31.9k|            chars: &mut Peekable<I>,
-  372|  31.9k|            mode: StringParseMode,
-  373|  31.9k|        ) -> std::result::Result<char, SyntaxError>
-  374|  31.9k|        where
-  375|  31.9k|            I: Iterator<Item = (usize, char)>,
-  376|  31.9k|        {
-  377|  31.9k|            let (i, ctrl) = chars.next().ok_or(SyntaxError::new(
-  378|  31.9k|                SyntaxErrorKind::InvalidUnescapedCharacter,
-  379|  31.9k|                q_len - c_idx,
-  380|  31.9k|                1,
-  381|  31.9k|            ))?;
-  382|  3.14k|            match ctrl {
+  368|  30.2k|        fn read_escape_sequence<I>(
+  369|  30.2k|            q_len: usize,
+  370|  30.2k|            c_idx: usize,
+  371|  30.2k|            chars: &mut Peekable<I>,
+  372|  30.2k|            mode: StringParseMode,
+  373|  30.2k|        ) -> std::result::Result<char, SyntaxError>
+  374|  30.2k|        where
+  375|  30.2k|            I: Iterator<Item = (usize, char)>,
+  376|  30.2k|        {
+  377|  30.2k|            let (i, ctrl) = chars.next().ok_or(SyntaxError::new(
+  378|  30.2k|                SyntaxErrorKind::InvalidUnescapedCharacter,
+  379|  30.2k|                q_len - c_idx,
+  380|  30.2k|                1,
+  381|  30.2k|            ))?;
+  382|  2.08k|            match ctrl {
   383|       |                'u' => {
-  384|  5.82k|                    let raw_c = read_hexadecimal_escape(q_len, i, chars)?;
-  385|  5.82k|                    match raw_c {
+  384|  5.67k|                    let raw_c = read_hexadecimal_escape(q_len, i, chars)?;
+  385|  5.67k|                    match raw_c {
   386|       |                        // High surrogate, start of a UTF-16 pair.
   387|      0|                        0xD800..=0xDBFF => {
   388|      0|                            let &(_, next) = chars.peek().ok_or(SyntaxError::new(
@@ -1364,51 +1490,51 @@ _RINvNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string020read_escape_sequenceN
   429|      0|                            q_len - c_idx,
   430|      0|                            6,
   431|      0|                        )),
-  432|  5.82k|                        _ => Ok(char::from_u32(raw_c).expect("invalid values are handled above")),
+  432|  5.67k|                        _ => Ok(char::from_u32(raw_c).expect("invalid values are handled above")),
   433|       |                    }
   434|       |                }
-  435|    607|                'b' => Ok('\u{0008}'), // U+0008 BS backspace
-  436|  1.14k|                't' => Ok('\t'),       // U+0009 HT horizontal tab
-  437|  1.40k|                'n' => Ok('\n'),       // U+000A LF line feed
-  438|    887|                'f' => Ok('\u{000C}'), // U+000C FF form feed
-  439|  1.98k|                'r' => Ok('\r'),       // U+000D CR carriage return
+  435|    814|                'b' => Ok('\u{0008}'), // U+0008 BS backspace
+  436|    987|                't' => Ok('\t'),       // U+0009 HT horizontal tab
+  437|  1.02k|                'n' => Ok('\n'),       // U+000A LF line feed
+  438|  1.23k|                'f' => Ok('\u{000C}'), // U+000C FF form feed
+  439|  1.67k|                'r' => Ok('\r'),       // U+000D CR carriage return
   440|      0|                '"' if mode == StringParseMode::DoubleQuoted => Ok(ctrl),
-  441|  3.14k|                '\'' if mode == StringParseMode::SingleQuoted => Ok(ctrl),
-  442|  16.9k|                '/' | '\\' => Ok(ctrl), // " ' / \ are passed as is
+  441|  2.08k|                '\'' if mode == StringParseMode::SingleQuoted => Ok(ctrl),
+  442|  16.7k|                '/' | '\\' => Ok(ctrl), // " ' / \ are passed as is
   443|      0|                _ => Err(SyntaxError::new(
   444|      0|                    SyntaxErrorKind::InvalidEscapeSequence,
   445|      0|                    q_len - c_idx,
   446|      0|                    2,
   447|      0|                )), // no other escape sequences are allowed
   448|       |            }
-  449|  31.9k|        }
+  449|  30.2k|        }
 _RNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string0B5_:
-  321|  40.8k|    move |q: &'a str| {
-  322|  40.8k|        let mut builder = JsonStringBuilder::new();
-  323|  40.8k|        let mut syntax_errors = vec![];
-  324|  40.8k|        let mut stream = q.char_indices().peekable();
+  321|  33.7k|    move |q: &'a str| {
+  322|  33.7k|        let mut builder = JsonStringBuilder::new();
+  323|  33.7k|        let mut syntax_errors = vec![];
+  324|  33.7k|        let mut stream = q.char_indices().peekable();
   325|       |
-  326|   405k|        while let Some((c_idx, c)) = stream.next() {
-  327|   405k|            match (c, mode) {
+  326|   272k|        while let Some((c_idx, c)) = stream.next() {
+  327|   272k|            match (c, mode) {
   328|       |                ('\\', _) => {
-  329|  31.9k|                    match read_escape_sequence(q.len(), c_idx, &mut stream, mode) {
-  330|  31.9k|                        Ok(r) => {
-  331|  31.9k|                            builder.push(r);
-  332|  31.9k|                        }
+  329|  30.2k|                    match read_escape_sequence(q.len(), c_idx, &mut stream, mode) {
+  330|  30.2k|                        Ok(r) => {
+  331|  30.2k|                            builder.push(r);
+  332|  30.2k|                        }
   333|      0|                        Err(err) => {
   334|      0|                            syntax_errors.push(err);
   335|      0|                        }
   336|       |                    };
   337|       |                }
   338|       |                ('"', StringParseMode::DoubleQuoted) | ('\'', StringParseMode::SingleQuoted) => {
-  339|  40.8k|                    let rest = stream.next().map_or("", |(i, _)| &q[i..]);
-  340|  40.8k|                    return if syntax_errors.is_empty() {
-  341|  40.8k|                        Ok((rest, builder.finish()))
+  339|  33.7k|                    let rest = stream.next().map_or("", |(i, _)| &q[i..]);
+  340|  33.7k|                    return if syntax_errors.is_empty() {
+  341|  33.7k|                        Ok((rest, builder.finish()))
   342|       |                    } else {
   343|      0|                        Err(nom::Err::Failure(InternalParseError::SyntaxErrors(syntax_errors, rest)))
   344|       |                    };
   345|       |                }
-  346|   328k|                (..='\u{0019}', _) => {
+  346|   204k|                (..='\u{0019}', _) => {
   347|      0|                    let rest = stream.peek().map_or("", |(i, _)| &q[*i..]);
   348|      0|                    syntax_errors.push(SyntaxError::new(
   349|      0|                        SyntaxErrorKind::InvalidUnescapedCharacter,
@@ -1416,9 +1542,9 @@ _RNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string0B5_:
   351|      0|                        1,
   352|      0|                    ))
   353|       |                }
-  354|   332k|                _ => {
-  355|   332k|                    builder.push(c);
-  356|   332k|                }
+  354|   208k|                _ => {
+  355|   208k|                    builder.push(c);
+  356|   208k|                }
   357|       |            }
   358|       |        }
   359|       |
@@ -1547,55 +1673,66 @@ _RNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string0B5_:
   482|       |            }
   483|       |            Ok(x)
   484|       |        }
-  485|  40.8k|    }
-_RNvXs2_NtCs8kepUdDqpxJ_15rsonpath_syntax6parserNtB5_15StringParseModeNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqB7_:
-  233|  3.14k|#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13child_segment:
-  125|  7.10k|fn child_segment(q: &str) -> IResult<&str, Segment, InternalParseError> {
-  126|  7.10k|    map(
-  127|  7.10k|        alt((
-  128|  7.10k|            bracketed_selection,
-  129|  7.10k|            // This cut is only correct because we try parsing descendant_segment first.
-  130|  7.10k|            preceded(
-  131|  7.10k|                char('.'),
-  132|  7.10k|                cut(alt((
-  133|  7.10k|                    map(wildcard_selector, Selectors::one),
-  134|  7.10k|                    member_name_shorthand,
-  135|  7.10k|                    failed_segment(SyntaxErrorKind::InvalidNameShorthandAfterOnePeriod),
-  136|  7.10k|                ))),
-  137|  7.10k|            ),
-  138|  7.10k|        )),
-  139|  7.10k|        Segment::Child,
-  140|  7.10k|    )(q)
-  141|  7.10k|}
-_RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB4_8SelectorNvB2_13name_selectorNtNtB4_5error18InternalParseErrorEB4_:
-   22|   208k|fn ignore_whitespace<'a, T, F, E>(mut inner: F) -> impl FnMut(&'a str) -> IResult<&'a str, T, E>
-   23|   208k|where
-   24|   208k|    F: nom::Parser<&'a str, T, E>,
-   25|   208k|{
-   26|       |    move |q: &'a str| {
-   27|       |        inner
-   28|       |            .parse(skip_whitespace(q))
-   29|       |            .map(|(rest, res)| (skip_whitespace(rest), res))
-   30|       |    }
-   31|   208k|}
-_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser18descendant_segment:
-  110|  25.0k|fn descendant_segment(q: &str) -> IResult<&str, Segment, InternalParseError> {
-  111|  25.0k|    map(
-  112|  25.0k|        preceded(
-  113|  25.0k|            tag(".."),
-  114|  25.0k|            cut(alt((
-  115|  25.0k|                bracketed_selection,
-  116|  25.0k|                map(wildcard_selector, Selectors::one),
-  117|  25.0k|                member_name_shorthand,
-  118|  25.0k|                failed_segment(SyntaxErrorKind::InvalidSegmentAfterTwoPeriods),
-  119|  25.0k|            ))),
-  120|  25.0k|        ),
-  121|  25.0k|        Segment::Descendant,
-  122|  25.0k|    )(q)
-  123|  25.0k|}
+  485|  33.7k|    }
+_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14index_selector:
+  253|  78.9k|fn index_selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
+  254|  78.9k|    let (rest, int) = int(q)?;
+  255|  78.9k|    match JsonInt::from_str(int) {
+  256|  78.9k|        Ok(int) => {
+  257|  78.9k|            if let Ok(uint) = JsonUInt::try_from(int) {
+  258|  33.2k|                Ok((rest, Selector::Index(Index::FromStart(uint))))
+  259|       |            } else {
+  260|  45.6k|                Ok((
+  261|  45.6k|                    rest,
+  262|  45.6k|                    Selector::Index(Index::FromEnd(
+  263|  45.6k|                        int.abs().try_into().expect("zero would convert to JsonUInt above"),
+  264|  45.6k|                    )),
+  265|  45.6k|                ))
+  266|       |            }
+  267|       |        }
+  268|      0|        Err(err) => Err(Err::Failure(InternalParseError::SyntaxError(
+  269|      0|            SyntaxError::new(SyntaxErrorKind::IndexParseError(err), q.len(), int.len()),
+  270|      0|            rest,
+  271|      0|        ))),
+  272|       |    }
+  273|  78.9k|}
+_RINvNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string023read_hexadecimal_escapeNtNtNtCslATUeuPuGvJ_4core3str4iter11CharIndicesEB8_:
+  451|  5.67k|        fn read_hexadecimal_escape<I>(
+  452|  5.67k|            q_len: usize,
+  453|  5.67k|            c_idx: usize,
+  454|  5.67k|            chars: &mut Peekable<I>,
+  455|  5.67k|        ) -> std::result::Result<u32, SyntaxError>
+  456|  5.67k|        where
+  457|  5.67k|            I: Iterator<Item = (usize, char)>,
+  458|  5.67k|        {
+  459|  5.67k|            let mut x = 0;
+  460|  28.3k|            for i in 0..4 {
+  461|  22.7k|                let &(_, c) = chars.peek().ok_or(SyntaxError::new(
+  462|  22.7k|                    SyntaxErrorKind::InvalidEscapeSequence,
+  463|  22.7k|                    q_len - c_idx + 1,
+  464|  22.7k|                    2 + i,
+  465|  22.7k|                ))?;
+  466|  22.7k|                let v = match c {
+  467|  22.7k|                    '0'..='9' => c as u32 - '0' as u32,
+  468|       |                    // RFC8259.7-2 The hexadecimal letters A through F can be uppercase or lowercase.
+  469|    873|                    'a'..='f' => c as u32 - 'a' as u32 + 10,
+  470|      0|                    'A'..='F' => c as u32 - 'A' as u32 + 10,
+  471|       |                    _ => {
+  472|      0|                        return Err(SyntaxError::new(
+  473|      0|                            SyntaxErrorKind::InvalidHexDigitInUnicodeEscape,
+  474|      0|                            q_len - c_idx - i - 1,
+  475|      0|                            1,
+  476|      0|                        ))
+  477|       |                    }
+  478|       |                };
+  479|  22.7k|                x <<= 4;
+  480|  22.7k|                x += v;
+  481|  22.7k|                chars.next();
+  482|       |            }
+  483|  5.67k|            Ok(x)
+  484|  5.67k|        }
 _RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14failed_segmentNtB4_7SegmentEB4_:
-  143|  25.0k|fn failed_segment<T>(kind: SyntaxErrorKind) -> impl FnMut(&str) -> IResult<&str, T, InternalParseError> {
+  143|  30.4k|fn failed_segment<T>(kind: SyntaxErrorKind) -> impl FnMut(&str) -> IResult<&str, T, InternalParseError> {
   144|       |    move |q: &str| {
   145|       |        let rest = skip_one(q)
   146|       |            .trim_start_matches('.')
@@ -1605,133 +1742,30 @@ _RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14failed_segmentNtB4_7SegmentEB4_:
   150|       |            rest,
   151|       |        )))
   152|       |    }
-  153|  25.0k|}
-_RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB4_8SelectorNvB2_14index_selectorNtNtB4_5error18InternalParseErrorEB4_:
-   22|   208k|fn ignore_whitespace<'a, T, F, E>(mut inner: F) -> impl FnMut(&'a str) -> IResult<&'a str, T, E>
-   23|   208k|where
-   24|   208k|    F: nom::Parser<&'a str, T, E>,
-   25|   208k|{
+  153|  30.4k|}
+_RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB4_8SelectorNvB2_13name_selectorNtNtB4_5error18InternalParseErrorEB4_:
+   22|   155k|fn ignore_whitespace<'a, T, F, E>(mut inner: F) -> impl FnMut(&'a str) -> IResult<&'a str, T, E>
+   23|   155k|where
+   24|   155k|    F: nom::Parser<&'a str, T, E>,
+   25|   155k|{
    26|       |    move |q: &'a str| {
    27|       |        inner
    28|       |            .parse(skip_whitespace(q))
    29|       |            .map(|(rest, res)| (skip_whitespace(rest), res))
    30|       |    }
-   31|   208k|}
-_RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB4_8SelectorNvB2_17wildcard_selectorNtNtB4_5error18InternalParseErrorEB4_:
-   22|   208k|fn ignore_whitespace<'a, T, F, E>(mut inner: F) -> impl FnMut(&'a str) -> IResult<&'a str, T, E>
-   23|   208k|where
-   24|   208k|    F: nom::Parser<&'a str, T, E>,
-   25|   208k|{
-   26|       |    move |q: &'a str| {
-   27|       |        inner
-   28|       |            .parse(skip_whitespace(q))
-   29|       |            .map(|(rest, res)| (skip_whitespace(rest), res))
-   30|       |    }
-   31|   208k|}
-_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser21parse_json_path_query:
-   33|  3.35k|pub(crate) fn parse_json_path_query(q: &str, options: &ParserOptions) -> Result<JsonPathQuery> {
-   34|  3.35k|    let original_input = q;
-   35|  3.35k|    let mut parse_error = ParseErrorBuilder::new();
-   36|  3.35k|    let mut segments = vec![];
-   37|  3.35k|    let q = skip_whitespace(q);
-   38|  3.35k|    let leading_whitespace_len = original_input.len() - q.len();
-   39|  3.35k|    if leading_whitespace_len > 0 && !options.is_leading_whitespace_allowed() {
-   40|      0|        parse_error.add(SyntaxError::new(
-   41|      0|            SyntaxErrorKind::DisallowedLeadingWhitespace,
-   42|      0|            original_input.len(),
-   43|      0|            leading_whitespace_len,
-   44|      0|        ));
-   45|  3.35k|    }
-   46|  3.35k|    let q = match char::<_, nom::error::Error<_>>('$')(q).finish() {
-   47|  3.35k|        Ok((q, _)) => skip_whitespace(q),
-   48|      0|        Err(e) => {
-   49|      0|            parse_error.add(SyntaxError::new(
-   50|      0|                SyntaxErrorKind::MissingRootIdentifier,
-   51|      0|                e.input.len(),
-   52|      0|                q.chars().next().map_or(1, char::len_utf8),
-   53|      0|            ));
-   54|      0|            e.input
-   55|       |        }
-   56|       |    };
-   57|       |
-   58|  3.35k|    let mut q = q;
-   59|  28.4k|    while !q.is_empty() {
-   60|  25.0k|        q = match segment(q).finish() {
-   61|  25.0k|            Ok((rest, segment)) => {
-   62|  25.0k|                segments.push(segment);
-   63|  25.0k|                rest
-   64|       |            }
-   65|      0|            Err(InternalParseError::SyntaxError(err, rest)) => {
-   66|      0|                parse_error.add(err);
-   67|      0|                rest
-   68|       |            }
-   69|      0|            Err(InternalParseError::SyntaxErrors(errs, rest)) => {
-   70|      0|                parse_error.add_many(errs);
-   71|      0|                rest
-   72|       |            }
-   73|      0|            Err(InternalParseError::NomError(err)) => panic!(
-   74|      0|                "unexpected parser error; raw nom errors should never be produced; this is a bug\ncontext:\n{err}"
-   75|      0|            ),
-   76|       |        };
-   77|  25.0k|        q = skip_whitespace(q);
-   78|       |    }
-   79|       |
-   80|       |    // For strict RFC compliance trailing whitespace has to be disallowed.
-   81|       |    // This is hard to organically obtain from the parsing above, so we insert this awkward direct check if needed.
-   82|  3.35k|    if !options.is_trailing_whitespace_allowed() {
-   83|  3.35k|        let trimmed = original_input.trim_end_matches(WHITESPACE);
-   84|  3.35k|        let trailing_whitespace_len = original_input.len() - trimmed.len();
-   85|  3.35k|        if trailing_whitespace_len > 0 {
-   86|      0|            parse_error.add(SyntaxError::new(
-   87|      0|                SyntaxErrorKind::DisallowedTrailingWhitespace,
-   88|      0|                trailing_whitespace_len,
-   89|      0|                trailing_whitespace_len,
-   90|      0|            ));
-   91|  3.35k|        }
-   92|      0|    }
-   93|       |
-   94|  3.35k|    if parse_error.is_empty() {
-   95|  3.35k|        Ok(JsonPathQuery { segments })
-   96|       |    } else {
-   97|      0|        Err(parse_error.build(original_input.to_owned()))
-   98|       |    }
-   99|  3.35k|}
-_RNCNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB8_8SelectorNvB6_14index_selectorNtNtB8_5error18InternalParseErrorE00B8_:
-   29|   109k|            .map(|(rest, res)| (skip_whitespace(rest), res))
-_RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14index_selector:
-  253|   109k|fn index_selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
-  254|   109k|    let (rest, int) = int(q)?;
-  255|   109k|    match JsonInt::from_str(int) {
-  256|   109k|        Ok(int) => {
-  257|   109k|            if let Ok(uint) = JsonUInt::try_from(int) {
-  258|  37.8k|                Ok((rest, Selector::Index(Index::FromStart(uint))))
-  259|       |            } else {
-  260|  72.0k|                Ok((
-  261|  72.0k|                    rest,
-  262|  72.0k|                    Selector::Index(Index::FromEnd(
-  263|  72.0k|                        int.abs().try_into().expect("zero would convert to JsonUInt above"),
-  264|  72.0k|                    )),
-  265|  72.0k|                ))
-  266|       |            }
-  267|       |        }
-  268|      0|        Err(err) => Err(Err::Failure(InternalParseError::SyntaxError(
-  269|      0|            SyntaxError::new(SyntaxErrorKind::IndexParseError(err), q.len(), int.len()),
-  270|      0|            rest,
-  271|      0|        ))),
-  272|       |    }
-  273|   109k|}
+   31|   155k|}
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selection:
-  155|  25.0k|fn bracketed_selection(q: &str) -> IResult<&str, Selectors, InternalParseError> {
-  156|  25.0k|    let (mut q, _) = char('[')(q)?;
-  157|  25.0k|    let mut selectors = vec![];
-  158|  25.0k|    let mut syntax_errors = vec![];
+  155|  30.4k|fn bracketed_selection(q: &str) -> IResult<&str, Selectors, InternalParseError> {
+  156|  30.4k|    let (mut q, _) = char('[')(q)?;
+  157|  30.4k|    let mut selectors = vec![];
+  158|  30.4k|    let mut syntax_errors = vec![];
   159|       |
   160|       |    loop {
-  161|   208k|        match selector(q).finish() {
-  162|   208k|            Ok((rest, selector)) => {
-  163|   208k|                selectors.push(selector);
-  164|   208k|                q = rest;
-  165|   208k|            }
+  161|   155k|        match selector(q).finish() {
+  162|   155k|            Ok((rest, selector)) => {
+  163|   155k|                selectors.push(selector);
+  164|   155k|                q = rest;
+  165|   155k|            }
   166|      0|            Err(InternalParseError::SyntaxError(err, rest)) => {
   167|      0|                syntax_errors.push(err);
   168|      0|                q = rest;
@@ -1742,14 +1776,14 @@ _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selection:
   173|      0|            }
   174|      0|            Err(err) => return Err(Err::Failure(err)),
   175|       |        }
-  176|   208k|        q = skip_whitespace(q);
-  177|   208k|
-  178|   208k|        match char::<_, nom::error::Error<_>>(',')(q) {
-  179|   183k|            Ok((rest, _)) => q = rest,
+  176|   155k|        q = skip_whitespace(q);
+  177|   155k|
+  178|   155k|        match char::<_, nom::error::Error<_>>(',')(q) {
+  179|   125k|            Ok((rest, _)) => q = rest,
   180|       |            Err(_) => {
-  181|  25.0k|                if let Ok((rest, _)) = char::<_, nom::error::Error<_>>(']')(q) {
-  182|  25.0k|                    q = rest;
-  183|  25.0k|                    break;
+  181|  30.4k|                if let Ok((rest, _)) = char::<_, nom::error::Error<_>>(']')(q) {
+  182|  30.4k|                    q = rest;
+  183|  30.4k|                    break;
   184|      0|                } else if q.is_empty() {
   185|      0|                    syntax_errors.push(SyntaxError::new(SyntaxErrorKind::MissingClosingBracket, 0, 1));
   186|      0|                    break;
@@ -1760,20 +1794,29 @@ _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser19bracketed_selection:
   191|       |        }
   192|       |    }
   193|       |
-  194|  25.0k|    if syntax_errors.is_empty() {
-  195|  25.0k|        Ok((q, Selectors::many(selectors)))
+  194|  30.4k|    if syntax_errors.is_empty() {
+  195|  30.4k|        Ok((q, Selectors::many(selectors)))
   196|       |    } else {
   197|      0|        Err(Err::Failure(InternalParseError::SyntaxErrors(syntax_errors, q)))
   198|       |    }
-  199|  25.0k|}
-_RNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17wildcard_selector0B5_:
-  250|  58.1k|    map(tag("*"), |_| Selector::Wildcard)(q)
+  199|  30.4k|}
+_RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB4_8SelectorNvB2_14index_selectorNtNtB4_5error18InternalParseErrorEB4_:
+   22|   155k|fn ignore_whitespace<'a, T, F, E>(mut inner: F) -> impl FnMut(&'a str) -> IResult<&'a str, T, E>
+   23|   155k|where
+   24|   155k|    F: nom::Parser<&'a str, T, E>,
+   25|   155k|{
+   26|       |    move |q: &'a str| {
+   27|       |        inner
+   28|       |            .parse(skip_whitespace(q))
+   29|       |            .map(|(rest, res)| (skip_whitespace(rest), res))
+   30|       |    }
+   31|   155k|}
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17wildcard_selector:
-  249|   168k|fn wildcard_selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
-  250|   168k|    map(tag("*"), |_| Selector::Wildcard)(q)
-  251|   168k|}
+  249|   121k|fn wildcard_selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
+  250|   121k|    map(tag("*"), |_| Selector::Wildcard)(q)
+  251|   121k|}
 _RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14failed_segmentNtB4_9SelectorsEB4_:
-  143|  32.1k|fn failed_segment<T>(kind: SyntaxErrorKind) -> impl FnMut(&str) -> IResult<&str, T, InternalParseError> {
+  143|  36.4k|fn failed_segment<T>(kind: SyntaxErrorKind) -> impl FnMut(&str) -> IResult<&str, T, InternalParseError> {
   144|       |    move |q: &str| {
   145|       |        let rest = skip_one(q)
   146|       |            .trim_start_matches('.')
@@ -1783,96 +1826,47 @@ _RINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser14failed_segmentNtB4_9SelectorsEB4_
   150|       |            rest,
   151|       |        )))
   152|       |    }
-  153|  32.1k|}
+  153|  36.4k|}
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser13name_selector:
-  239|   208k|fn name_selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
-  240|   208k|    return map(
-  241|   208k|        alt((
-  242|   208k|            preceded(char('\''), string(StringParseMode::SingleQuoted)),
-  243|   208k|            preceded(char('"'), string(StringParseMode::DoubleQuoted)),
-  244|   208k|        )),
-  245|   208k|        Selector::Name,
-  246|   208k|    )(q);
-  247|   208k|}
+  239|   155k|fn name_selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
+  240|   155k|    return map(
+  241|   155k|        alt((
+  242|   155k|            preceded(char('\''), string(StringParseMode::SingleQuoted)),
+  243|   155k|            preceded(char('"'), string(StringParseMode::DoubleQuoted)),
+  244|   155k|        )),
+  245|   155k|        Selector::Name,
+  246|   155k|    )(q);
+  247|   155k|}
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser8selector:
-  224|   208k|fn selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
-  225|   208k|    alt((
-  226|   208k|        ignore_whitespace(name_selector),
-  227|   208k|        ignore_whitespace(wildcard_selector),
-  228|   208k|        ignore_whitespace(index_selector),
-  229|   208k|        failed_selector,
-  230|   208k|    ))(q)
-  231|   208k|}
-_RNCNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB8_8SelectorNvB6_17wildcard_selectorNtNtB8_5error18InternalParseErrorE00B8_:
-   29|  58.1k|            .map(|(rest, res)| (skip_whitespace(rest), res))
-_RNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB6_8SelectorNvB4_14index_selectorNtNtB6_5error18InternalParseErrorE0B6_:
-   26|   109k|    move |q: &'a str| {
-   27|   109k|        inner
-   28|   109k|            .parse(skip_whitespace(q))
-   29|   109k|            .map(|(rest, res)| (skip_whitespace(rest), res))
-   30|   109k|    }
-_RINvNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string023read_hexadecimal_escapeNtNtNtCslATUeuPuGvJ_4core3str4iter11CharIndicesEB8_:
-  451|  5.82k|        fn read_hexadecimal_escape<I>(
-  452|  5.82k|            q_len: usize,
-  453|  5.82k|            c_idx: usize,
-  454|  5.82k|            chars: &mut Peekable<I>,
-  455|  5.82k|        ) -> std::result::Result<u32, SyntaxError>
-  456|  5.82k|        where
-  457|  5.82k|            I: Iterator<Item = (usize, char)>,
-  458|  5.82k|        {
-  459|  5.82k|            let mut x = 0;
-  460|  29.1k|            for i in 0..4 {
-  461|  23.3k|                let &(_, c) = chars.peek().ok_or(SyntaxError::new(
-  462|  23.3k|                    SyntaxErrorKind::InvalidEscapeSequence,
-  463|  23.3k|                    q_len - c_idx + 1,
-  464|  23.3k|                    2 + i,
-  465|  23.3k|                ))?;
-  466|  23.3k|                let v = match c {
-  467|  23.3k|                    '0'..='9' => c as u32 - '0' as u32,
-  468|       |                    // RFC8259.7-2 The hexadecimal letters A through F can be uppercase or lowercase.
-  469|    657|                    'a'..='f' => c as u32 - 'a' as u32 + 10,
-  470|      0|                    'A'..='F' => c as u32 - 'A' as u32 + 10,
-  471|       |                    _ => {
-  472|      0|                        return Err(SyntaxError::new(
-  473|      0|                            SyntaxErrorKind::InvalidHexDigitInUnicodeEscape,
-  474|      0|                            q_len - c_idx - i - 1,
-  475|      0|                            1,
-  476|      0|                        ))
-  477|       |                    }
-  478|       |                };
-  479|  23.3k|                x <<= 4;
-  480|  23.3k|                x += v;
-  481|  23.3k|                chars.next();
-  482|       |            }
-  483|  5.82k|            Ok(x)
-  484|  5.82k|        }
-_RNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB6_8SelectorNvB4_17wildcard_selectorNtNtB6_5error18InternalParseErrorE0B6_:
-   26|   168k|    move |q: &'a str| {
-   27|   168k|        inner
-   28|   168k|            .parse(skip_whitespace(q))
-   29|   168k|            .map(|(rest, res)| (skip_whitespace(rest), res))
-   30|   168k|    }
+  224|   155k|fn selector(q: &str) -> IResult<&str, Selector, InternalParseError> {
+  225|   155k|    alt((
+  226|   155k|        ignore_whitespace(name_selector),
+  227|   155k|        ignore_whitespace(wildcard_selector),
+  228|   155k|        ignore_whitespace(index_selector),
+  229|   155k|        failed_selector,
+  230|   155k|    ))(q)
+  231|   155k|}
+_RNCNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB8_8SelectorNvB6_14index_selectorNtNtB8_5error18InternalParseErrorE00B8_:
+   29|  78.9k|            .map(|(rest, res)| (skip_whitespace(rest), res))
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser15skip_whitespace:
-   12|   936k|fn skip_whitespace(q: &str) -> &str {
-   13|   936k|    q.trim_start_matches(WHITESPACE)
-   14|   936k|}
-_RNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB6_8SelectorNvB4_13name_selectorNtNtB6_5error18InternalParseErrorE0B6_:
-   26|   208k|    move |q: &'a str| {
-   27|   208k|        inner
-   28|   208k|            .parse(skip_whitespace(q))
-   29|   208k|            .map(|(rest, res)| (skip_whitespace(rest), res))
-   30|   208k|    }
+   12|   704k|fn skip_whitespace(q: &str) -> &str {
+   13|   704k|    q.trim_start_matches(WHITESPACE)
+   14|   704k|}
+_RNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17wildcard_selector0B5_:
+  250|  43.0k|    map(tag("*"), |_| Selector::Wildcard)(q)
+_RNCNCNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6string00B7_:
+  339|  33.7k|                    let rest = stream.next().map_or("", |(i, _)| &q[i..]);
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser7segment:
-  101|  25.0k|fn segment(q: &str) -> IResult<&str, Segment, InternalParseError> {
-  102|  25.0k|    // It's important to check descendant first, since we can always cut based on whether the prefix is ".." or not.
-  103|  25.0k|    alt((
-  104|  25.0k|        descendant_segment,
-  105|  25.0k|        child_segment,
-  106|  25.0k|        failed_segment(SyntaxErrorKind::InvalidSegmentStart),
-  107|  25.0k|    ))(q)
-  108|  25.0k|}
+  101|  30.4k|fn segment(q: &str) -> IResult<&str, Segment, InternalParseError> {
+  102|  30.4k|    // It's important to check descendant first, since we can always cut based on whether the prefix is ".." or not.
+  103|  30.4k|    alt((
+  104|  30.4k|        descendant_segment,
+  105|  30.4k|        child_segment,
+  106|  30.4k|        failed_segment(SyntaxErrorKind::InvalidSegmentStart),
+  107|  30.4k|    ))(q)
+  108|  30.4k|}
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6stringB3_:
-  320|   417k|fn string<'a>(mode: StringParseMode) -> impl FnMut(&'a str) -> IResult<&'a str, JsonString, InternalParseError> {
+  320|   311k|fn string<'a>(mode: StringParseMode) -> impl FnMut(&'a str) -> IResult<&'a str, JsonString, InternalParseError> {
   321|       |    move |q: &'a str| {
   322|       |        let mut builder = JsonStringBuilder::new();
   323|       |        let mut syntax_errors = vec![];
@@ -2038,111 +2032,117 @@ _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser6stringB3_:
   483|       |            Ok(x)
   484|       |        }
   485|       |    }
-  486|   417k|}
+  486|   311k|}
+_RNCINvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser17ignore_whitespaceNtB6_8SelectorNvB4_14index_selectorNtNtB6_5error18InternalParseErrorE0B6_:
+   26|  78.9k|    move |q: &'a str| {
+   27|  78.9k|        inner
+   28|  78.9k|            .parse(skip_whitespace(q))
+   29|  78.9k|            .map(|(rest, res)| (skip_whitespace(rest), res))
+   30|  78.9k|    }
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax6parser3int:
-  298|   109k|fn int(q: &str) -> IResult<&str, &str, InternalParseError> {
-  299|   109k|    let (rest, int) = recognize(alt((preceded(char('-'), digit1), digit1)))(q)?;
+  298|  78.9k|fn int(q: &str) -> IResult<&str, &str, InternalParseError> {
+  299|  78.9k|    let (rest, int) = recognize(alt((preceded(char('-'), digit1), digit1)))(q)?;
   300|       |
-  301|   109k|    if int != "0" {
-  302|   109k|        if int == "-0" {
+  301|  78.9k|    if int != "0" {
+  302|  78.4k|        if int == "-0" {
   303|      0|            return Err(Err::Failure(InternalParseError::SyntaxError(
   304|      0|                SyntaxError::new(SyntaxErrorKind::NegativeZeroInteger, q.len(), int.len()),
   305|      0|                rest,
   306|      0|            )));
-  307|   109k|        }
-  308|   109k|        let without_minus = int.strip_prefix('-').unwrap_or(int);
-  309|   109k|        if without_minus.strip_prefix(['0']).is_some() {
+  307|  78.4k|        }
+  308|  78.4k|        let without_minus = int.strip_prefix('-').unwrap_or(int);
+  309|  78.4k|        if without_minus.strip_prefix(['0']).is_some() {
   310|      0|            return Err(Err::Failure(InternalParseError::SyntaxError(
   311|      0|                SyntaxError::new(SyntaxErrorKind::LeadingZeros, q.len(), int.len()),
   312|      0|                rest,
   313|      0|            )));
-  314|   109k|        }
-  315|    441|    }
+  314|  78.4k|        }
+  315|    421|    }
   316|       |
-  317|   109k|    Ok((rest, int))
-  318|   109k|}
+  317|  78.9k|    Ok((rest, int))
+  318|  78.9k|}
 
 _RNvNtCs8kepUdDqpxJ_15rsonpath_syntax3str6escapeCshcHWsNMhkOo_21query_fuzz_round_trip:
-  131|  40.8k|pub fn escape(str: &str, mode: EscapeMode) -> String {
-  132|  40.8k|    use std::fmt::Write;
-  133|  40.8k|    let mut result = String::new();
-  134|   364k|    for c in str.chars() {
+  131|  33.7k|pub fn escape(str: &str, mode: EscapeMode) -> String {
+  132|  33.7k|    use std::fmt::Write;
+  133|  33.7k|    let mut result = String::new();
+  134|   238k|    for c in str.chars() {
   135|      0|        match c {
   136|       |            // # Mode-dependent quote escapes.
-  137|  3.14k|            '\'' if mode == EscapeMode::SingleQuoted => result.push_str(r"\'"),
+  137|  2.08k|            '\'' if mode == EscapeMode::SingleQuoted => result.push_str(r"\'"),
   138|      0|            '\'' if mode == EscapeMode::DoubleQuoted => result.push('\''),
-  139|  4.37k|            '"' if mode == EscapeMode::SingleQuoted => result.push('"'),
+  139|  4.15k|            '"' if mode == EscapeMode::SingleQuoted => result.push('"'),
   140|      0|            '"' if mode == EscapeMode::DoubleQuoted => result.push_str(r#"\""#),
   141|       |            // # Mode-independent escapes.
-  142|  16.9k|            '\\' => result.push_str(r"\\"),
+  142|  16.7k|            '\\' => result.push_str(r"\\"),
   143|       |            // ## Special control sequences.
-  144|    607|            '\u{0008}' => result.push_str(r"\b"),
-  145|    887|            '\u{000C}' => result.push_str(r"\f"),
-  146|  1.40k|            '\n' => result.push_str(r"\n"),
-  147|  1.98k|            '\r' => result.push_str(r"\r"),
-  148|  1.14k|            '\t' => result.push_str(r"\t"),
+  144|    814|            '\u{0008}' => result.push_str(r"\b"),
+  145|  1.23k|            '\u{000C}' => result.push_str(r"\f"),
+  146|  1.02k|            '\n' => result.push_str(r"\n"),
+  147|  1.67k|            '\r' => result.push_str(r"\r"),
+  148|    987|            '\t' => result.push_str(r"\t"),
   149|       |            // ## Other control sequences escaped as Unicode escapes.
-  150|   334k|            '\u{0000}'..='\u{001F}' => write!(result, "\\u{:0>4x}", c as u8).unwrap(),
+  150|   210k|            '\u{0000}'..='\u{001F}' => write!(result, "\\u{:0>4x}", c as u8).unwrap(),
   151|       |            // # Non-escapable characters.
-  152|   328k|            _ => result.push(c),
+  152|   204k|            _ => result.push(c),
   153|       |        }
   154|       |    }
   155|       |
-  156|  40.8k|    result
-  157|  40.8k|}
+  156|  33.7k|    result
+  157|  33.7k|}
 _RNvMs2_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB5_10JsonString8unquoted:
-  187|   122k|    pub fn unquoted(&self) -> &str {
-  188|   122k|        let len = self.quoted.len();
-  189|   122k|        debug_assert!(len >= 2);
-  190|   122k|        &self.quoted[1..len - 1]
-  191|   122k|    }
+  187|   101k|    pub fn unquoted(&self) -> &str {
+  188|   101k|        let len = self.quoted.len();
+  189|   101k|        debug_assert!(len >= 2);
+  190|   101k|        &self.quoted[1..len - 1]
+  191|   101k|    }
 _RNvXsc_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB5_10EscapeModeNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eqCshcHWsNMhkOo_21query_fuzz_round_trip:
-   71|  7.51k|#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+   71|  6.23k|#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 _RNvXs3_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB5_10JsonStringNtNtCslATUeuPuGvJ_4core3cmp9PartialEq2eq:
-  210|  40.8k|    fn eq(&self, other: &Self) -> bool {
-  211|  40.8k|        self.unquoted() == other.unquoted()
-  212|  40.8k|    }
+  210|  33.7k|    fn eq(&self, other: &Self) -> bool {
+  211|  33.7k|        self.unquoted() == other.unquoted()
+  212|  33.7k|    }
 _RNvXs6_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB5_10JsonStringNtCs6flZAYNibw_9arbitrary9Arbitrary9arbitraryB7_:
-  228|  40.8k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
-  229|  40.8k|        let chars = u.arbitrary_iter()?;
-  230|  40.8k|        let mut builder = JsonStringBuilder::new();
+  228|  33.7k|    fn arbitrary(u: &mut arbitrary::Unstructured<'a>) -> arbitrary::Result<Self> {
+  229|  33.7k|        let chars = u.arbitrary_iter()?;
+  230|  33.7k|        let mut builder = JsonStringBuilder::new();
   231|       |
   232|       |        // RFC 7159: All Unicode characters may be placed [in the string],
   233|       |        // except for characters that must be escaped: quotation mark,
   234|       |        // reverse solidus, and the control characters (U+0000 through U+001F).
-  235|   389k|        for c in chars {
-  236|   348k|            let c = c?;
-  237|   348k|            match c {
-  238|   348k|                '\u{0000}'..='\u{001F}' | '\"' | '\\' => {
-  239|  16.5k|                    builder.push('\\');
-  240|  16.5k|                    builder.push(c);
-  241|  16.5k|                }
-  242|   331k|                _ => {
-  243|   331k|                    builder.push(c);
-  244|   331k|                }
+  235|   256k|        for c in chars {
+  236|   222k|            let c = c?;
+  237|   222k|            match c {
+  238|   222k|                '\u{0000}'..='\u{001F}' | '\"' | '\\' => {
+  239|  16.1k|                    builder.push('\\');
+  240|  16.1k|                    builder.push(c);
+  241|  16.1k|                }
+  242|   206k|                _ => {
+  243|   206k|                    builder.push(c);
+  244|   206k|                }
   245|       |            }
   246|       |        }
   247|       |
-  248|  40.8k|        Ok(builder.into())
-  249|  40.8k|    }
+  248|  33.7k|        Ok(builder.into())
+  249|  33.7k|    }
 _RNvMs_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB4_17JsonStringBuilder3new:
-   39|  81.7k|    pub(crate) fn new() -> Self {
-   40|  81.7k|        Self {
-   41|  81.7k|            quoted: String::from('"'),
-   42|  81.7k|        }
-   43|  81.7k|    }
+   39|  67.4k|    pub(crate) fn new() -> Self {
+   40|  67.4k|        Self {
+   41|  67.4k|            quoted: String::from('"'),
+   42|  67.4k|        }
+   43|  67.4k|    }
 _RNvXs0_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB5_10JsonStringINtNtCslATUeuPuGvJ_4core7convert4FromNtB5_17JsonStringBuilderE4from:
-   58|  40.8k|    fn from(value: JsonStringBuilder) -> Self {
-   59|  40.8k|        value.finish()
-   60|  40.8k|    }
+   58|  33.7k|    fn from(value: JsonStringBuilder) -> Self {
+   59|  33.7k|        value.finish()
+   60|  33.7k|    }
 _RNvMs_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB4_17JsonStringBuilder6finish:
-   50|  81.7k|    pub(crate) fn finish(mut self) -> JsonString {
-   51|  81.7k|        self.quoted.push('"');
-   52|  81.7k|        JsonString { quoted: self.quoted }
-   53|  81.7k|    }
+   50|  67.4k|    pub(crate) fn finish(mut self) -> JsonString {
+   51|  67.4k|        self.quoted.push('"');
+   52|  67.4k|        JsonString { quoted: self.quoted }
+   53|  67.4k|    }
 _RNvMs_NtCs8kepUdDqpxJ_15rsonpath_syntax3strNtB4_17JsonStringBuilder4push:
-   45|   729k|    pub(crate) fn push(&mut self, char: char) -> &mut Self {
-   46|   729k|        self.quoted.push(char);
-   47|   729k|        self
-   48|   729k|    }
+   45|   477k|    pub(crate) fn push(&mut self, char: char) -> &mut Self {
+   46|   477k|        self.quoted.push(char);
+   47|   477k|        self
+   48|   477k|    }
 
