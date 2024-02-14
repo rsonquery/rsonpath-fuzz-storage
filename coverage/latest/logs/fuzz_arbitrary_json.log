@@ -1,30 +1,30 @@
 INFO: Running with entropic power schedule (0xFF, 100).
-INFO: Seed: 2346772996
-INFO: Loaded 1 modules   (578050 inline 8-bit counters): 578050 [0x55a4da878520, 0x55a4da905722), 
-INFO: Loaded 1 PC tables (578050 PCs): 578050 [0x55a4da905728,0x55a4db1d7748), 
-MERGE-OUTER: 3119 files, 0 in the initial corpus, 0 processed earlier
+INFO: Seed: 2797533433
+INFO: Loaded 1 modules   (578050 inline 8-bit counters): 578050 [0x563198405520, 0x563198492722), 
+INFO: Loaded 1 PC tables (578050 PCs): 578050 [0x563198492728,0x563198d64748), 
+MERGE-OUTER: 3047 files, 0 in the initial corpus, 0 processed earlier
 MERGE-OUTER: attempt 1
 INFO: Running with entropic power schedule (0xFF, 100).
-INFO: Seed: 2346833867
-INFO: Loaded 1 modules   (578050 inline 8-bit counters): 578050 [0x5641314de520, 0x56413156b722), 
-INFO: Loaded 1 PC tables (578050 PCs): 578050 [0x56413156b728,0x564131e3d748), 
+INFO: Seed: 2797590444
+INFO: Loaded 1 modules   (578050 inline 8-bit counters): 578050 [0x5587171e2520, 0x55871726f722), 
+INFO: Loaded 1 PC tables (578050 PCs): 578050 [0x55871726f728,0x558717b41748), 
 INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 1048576 bytes
-MERGE-INNER: using the control file '/tmp/libFuzzerTemp.Merge262.txt'
-MERGE-INNER: 3119 total files; 0 processed earlier; will process 3119 files now
+MERGE-INNER: using the control file '/tmp/libFuzzerTemp.Merge255.txt'
+MERGE-INNER: 3047 total files; 0 processed earlier; will process 3047 files now
 #1	pulse  cov: 406 ft: 407 exec/s: 0 rss: 60Mb
 #2	pulse  cov: 408 ft: 409 exec/s: 0 rss: 61Mb
-#4	pulse  cov: 453 ft: 462 exec/s: 0 rss: 61Mb
-#8	pulse  cov: 601 ft: 612 exec/s: 0 rss: 62Mb
-#16	pulse  cov: 868 ft: 935 exec/s: 0 rss: 63Mb
-#32	pulse  cov: 928 ft: 1023 exec/s: 0 rss: 63Mb
-#64	pulse  cov: 1000 ft: 1312 exec/s: 0 rss: 64Mb
-#128	pulse  cov: 1134 ft: 1955 exec/s: 0 rss: 65Mb
-#256	pulse  cov: 2397 ft: 5125 exec/s: 0 rss: 70Mb
-#512	pulse  cov: 2722 ft: 7991 exec/s: 0 rss: 75Mb
-#1024	pulse  cov: 3008 ft: 12309 exec/s: 1024 rss: 84Mb
-#2048	pulse  cov: 3299 ft: 17378 exec/s: 1024 rss: 89Mb
-#3119	DONE   cov: 3439 ft: 21907 exec/s: 779 rss: 106Mb
+#4	pulse  cov: 491 ft: 495 exec/s: 0 rss: 62Mb
+#8	pulse  cov: 624 ft: 636 exec/s: 0 rss: 62Mb
+#16	pulse  cov: 721 ft: 777 exec/s: 0 rss: 62Mb
+#32	pulse  cov: 934 ft: 1033 exec/s: 0 rss: 63Mb
+#64	pulse  cov: 999 ft: 1303 exec/s: 0 rss: 64Mb
+#128	pulse  cov: 1137 ft: 1959 exec/s: 0 rss: 65Mb
+#256	pulse  cov: 2432 ft: 5260 exec/s: 0 rss: 70Mb
+#512	pulse  cov: 2742 ft: 8016 exec/s: 0 rss: 75Mb
+#1024	pulse  cov: 3012 ft: 12366 exec/s: 1024 rss: 83Mb
+#2048	pulse  cov: 3307 ft: 17574 exec/s: 1024 rss: 88Mb
+#3047	DONE   cov: 3441 ft: 21913 exec/s: 761 rss: 105Mb
 MERGE-OUTER: successful in 1 attempt(s)
-MERGE-OUTER: the control file has 582707 bytes
-MERGE-OUTER: consumed 0Mb (66Mb rss) to parse the control file
-MERGE-OUTER: 2298 new files with 21907 new features added; 3439 new coverage edges
+MERGE-OUTER: the control file has 573687 bytes
+MERGE-OUTER: consumed 0Mb (64Mb rss) to parse the control file
+MERGE-OUTER: 2286 new files with 21913 new features added; 3441 new coverage edges
