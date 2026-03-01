@@ -671,69 +671,69 @@ _RNvXsv_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engi
  2148|  2.63k|    fn drop(&mut self) {
  2149|       |        unsafe {
  2150|  2.63k|            if self.spilled() {
- 2151|     31|                let (ptr, &mut len) = self.data.heap_mut();
- 2152|     31|                drop(Vec::from_raw_parts(ptr.as_ptr(), len, self.capacity));
- 2153|  2.60k|            } else {
- 2154|  2.60k|                ptr::drop_in_place(&mut self[..]);
- 2155|  2.60k|            }
+ 2151|     28|                let (ptr, &mut len) = self.data.heap_mut();
+ 2152|     28|                drop(Vec::from_raw_parts(ptr.as_ptr(), len, self.capacity));
+ 2153|  2.61k|            } else {
+ 2154|  2.61k|                ptr::drop_in_place(&mut self[..]);
+ 2155|  2.61k|            }
  2156|       |        }
  2157|  2.63k|    }
 _RINvCs1ktF1oi6Xw_8smallvec12layout_arrayNtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFrameECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  332|     31|fn layout_array<T>(n: usize) -> Result<Layout, CollectionAllocErr> {
-  333|     31|    let size = mem::size_of::<T>()
-  334|     31|        .checked_mul(n)
-  335|     31|        .ok_or(CollectionAllocErr::CapacityOverflow)?;
-  336|     31|    let align = mem::align_of::<T>();
-  337|     31|    Layout::from_size_align(size, align).map_err(|_| CollectionAllocErr::CapacityOverflow)
-  338|     31|}
+  332|     28|fn layout_array<T>(n: usize) -> Result<Layout, CollectionAllocErr> {
+  333|     28|    let size = mem::size_of::<T>()
+  334|     28|        .checked_mul(n)
+  335|     28|        .ok_or(CollectionAllocErr::CapacityOverflow)?;
+  336|     28|    let align = mem::align_of::<T>();
+  337|     28|    Layout::from_size_align(size, align).map_err(|_| CollectionAllocErr::CapacityOverflow)
+  338|     28|}
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E10inline_mutCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  645|  19.8k|    unsafe fn inline_mut(&mut self) -> NonNull<A::Item> {
-  646|  19.8k|        NonNull::new(self.inline.as_mut_ptr() as *mut A::Item).unwrap()
-  647|  19.8k|    }
+  645|  20.5k|    unsafe fn inline_mut(&mut self) -> NonNull<A::Item> {
+  646|  20.5k|        NonNull::new(self.inline.as_mut_ptr() as *mut A::Item).unwrap()
+  647|  20.5k|    }
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E4heapCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   659|    472|    unsafe fn heap(&self) -> (ConstNonNull<A::Item>, usize) {
   660|    472|        (ConstNonNull(self.heap.0), self.heap.1)
   661|    472|    }
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E6inlineCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  641|  2.40k|    unsafe fn inline(&self) -> ConstNonNull<A::Item> {
-  642|  2.40k|        ConstNonNull::new(self.inline.as_ptr() as *const A::Item).unwrap()
-  643|  2.40k|    }
+  641|  2.38k|    unsafe fn inline(&self) -> ConstNonNull<A::Item> {
+  642|  2.38k|        ConstNonNull::new(self.inline.as_ptr() as *const A::Item).unwrap()
+  643|  2.38k|    }
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E8heap_mutCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  663|  2.36k|    unsafe fn heap_mut(&mut self) -> (NonNull<A::Item>, &mut usize) {
-  664|  2.36k|        let h = &mut self.heap;
-  665|  2.36k|        (h.0, &mut h.1)
-  666|  2.36k|    }
+  663|  2.11k|    unsafe fn heap_mut(&mut self) -> (NonNull<A::Item>, &mut usize) {
+  664|  2.11k|        let h = &mut self.heap;
+  665|  2.11k|        (h.0, &mut h.1)
+  666|  2.11k|    }
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E9from_heapCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  668|     31|    fn from_heap(ptr: NonNull<A::Item>, len: usize) -> SmallVecData<A> {
-  669|     31|        SmallVecData { heap: (ptr, len) }
-  670|     31|    }
+  668|     28|    fn from_heap(ptr: NonNull<A::Item>, len: usize) -> SmallVecData<A> {
+  669|     28|        SmallVecData { heap: (ptr, len) }
+  670|     28|    }
 _RNvMsR_Cs1ktF1oi6Xw_8smallvecINtB5_12ConstNonNullNtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFrameE3newCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 2486|  2.40k|    fn new(ptr: *const T) -> Option<Self> {
- 2487|  2.40k|        NonNull::new(ptr as *mut T).map(Self)
- 2488|  2.40k|    }
+ 2486|  2.38k|    fn new(ptr: *const T) -> Option<Self> {
+ 2487|  2.38k|        NonNull::new(ptr as *mut T).map(Self)
+ 2488|  2.38k|    }
 _RNvMsR_Cs1ktF1oi6Xw_8smallvecINtB5_12ConstNonNullNtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFrameE6as_ptrCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 2490|  2.84k|    fn as_ptr(self) -> *const T {
- 2491|  2.84k|        self.0.as_ptr()
- 2492|  2.84k|    }
+ 2490|  2.83k|    fn as_ptr(self) -> *const T {
+ 2491|  2.83k|        self.0.as_ptr()
+ 2492|  2.83k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E10triple_mutCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  988|  22.1k|    fn triple_mut(&mut self) -> (NonNull<A::Item>, &mut usize, usize) {
+  988|  22.6k|    fn triple_mut(&mut self) -> (NonNull<A::Item>, &mut usize, usize) {
   989|       |        unsafe {
-  990|  22.1k|            if self.spilled() {
-  991|  2.30k|                let (ptr, len_ptr) = self.data.heap_mut();
-  992|  2.30k|                (ptr, len_ptr, self.capacity)
+  990|  22.6k|            if self.spilled() {
+  991|  2.06k|                let (ptr, len_ptr) = self.data.heap_mut();
+  992|  2.06k|                (ptr, len_ptr, self.capacity)
   993|       |            } else {
-  994|  19.8k|                (
-  995|  19.8k|                    self.data.inline_mut(),
-  996|  19.8k|                    &mut self.capacity,
-  997|  19.8k|                    Self::inline_capacity(),
-  998|  19.8k|                )
+  994|  20.5k|                (
+  995|  20.5k|                    self.data.inline_mut(),
+  996|  20.5k|                    &mut self.capacity,
+  997|  20.5k|                    Self::inline_capacity(),
+  998|  20.5k|                )
   999|       |            }
  1000|       |        }
- 1001|  22.1k|    }
+ 1001|  22.6k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E15inline_capacityCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  930|  49.9k|    fn inline_capacity() -> usize {
-  931|  49.9k|        if mem::size_of::<A::Item>() > 0 {
-  932|  49.9k|            A::size()
+  930|  51.1k|    fn inline_capacity() -> usize {
+  931|  51.1k|        if mem::size_of::<A::Item>() > 0 {
+  932|  51.1k|            A::size()
   933|       |        } else {
   934|       |            // For zero-size items code like `ptr.add(offset)` always returns the same pointer.
   935|       |            // Therefore all items are at the same address,
@@ -747,20 +747,20 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engi
   943|       |            // and we never try to allocate zero bytes which `std::alloc::alloc` disallows.
   944|      0|            core::usize::MAX
   945|       |        }
-  946|  49.9k|    }
+  946|  51.1k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E21reserve_one_uncheckedCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 1229|     31|    fn reserve_one_unchecked(&mut self) {
- 1230|     31|        debug_assert_eq!(self.len(), self.capacity());
- 1231|     31|        let new_cap = self.len()
- 1232|     31|            .checked_add(1)
- 1233|     31|            .and_then(usize::checked_next_power_of_two)
- 1234|     31|            .expect("capacity overflow");
- 1235|     31|        infallible(self.try_grow(new_cap))
- 1236|     31|    }
+ 1229|     28|    fn reserve_one_unchecked(&mut self) {
+ 1230|     28|        debug_assert_eq!(self.len(), self.capacity());
+ 1231|     28|        let new_cap = self.len()
+ 1232|     28|            .checked_add(1)
+ 1233|     28|            .and_then(usize::checked_next_power_of_two)
+ 1234|     28|            .expect("capacity overflow");
+ 1235|     28|        infallible(self.try_grow(new_cap))
+ 1236|     28|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E3lenCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  956|     31|    pub fn len(&self) -> usize {
-  957|     31|        self.triple().1
-  958|     31|    }
+  956|     28|    pub fn len(&self) -> usize {
+  957|     28|        self.triple().1
+  958|     28|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E3popCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
  1134|  2.80k|    pub fn pop(&mut self) -> Option<A::Item> {
  1135|       |        unsafe {
@@ -775,41 +775,41 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engi
  1144|       |        }
  1145|  2.80k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E4pushCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 1118|  16.7k|    pub fn push(&mut self, value: A::Item) {
+ 1118|  17.1k|    pub fn push(&mut self, value: A::Item) {
  1119|       |        unsafe {
- 1120|  16.7k|            let (mut ptr, mut len, cap) = self.triple_mut();
- 1121|  16.7k|            if *len == cap {
- 1122|     31|                self.reserve_one_unchecked();
- 1123|     31|                let (heap_ptr, heap_len) = self.data.heap_mut();
- 1124|     31|                ptr = heap_ptr;
- 1125|     31|                len = heap_len;
- 1126|  16.6k|            }
- 1127|  16.7k|            ptr::write(ptr.as_ptr().add(*len), value);
- 1128|  16.7k|            *len += 1;
+ 1120|  17.1k|            let (mut ptr, mut len, cap) = self.triple_mut();
+ 1121|  17.1k|            if *len == cap {
+ 1122|     28|                self.reserve_one_unchecked();
+ 1123|     28|                let (heap_ptr, heap_len) = self.data.heap_mut();
+ 1124|     28|                ptr = heap_ptr;
+ 1125|     28|                len = heap_len;
+ 1126|  17.1k|            }
+ 1127|  17.1k|            ptr::write(ptr.as_ptr().add(*len), value);
+ 1128|  17.1k|            *len += 1;
  1129|       |        }
- 1130|  16.7k|    }
+ 1130|  17.1k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E6tripleCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  975|  2.87k|    fn triple(&self) -> (ConstNonNull<A::Item>, usize, usize) {
+  975|  2.86k|    fn triple(&self) -> (ConstNonNull<A::Item>, usize, usize) {
   976|       |        unsafe {
-  977|  2.87k|            if self.spilled() {
+  977|  2.86k|            if self.spilled() {
   978|    472|                let (ptr, len) = self.data.heap();
   979|    472|                (ptr, len, self.capacity)
   980|       |            } else {
-  981|  2.40k|                (self.data.inline(), self.capacity, Self::inline_capacity())
+  981|  2.38k|                (self.data.inline(), self.capacity, Self::inline_capacity())
   982|       |            }
   983|       |        }
-  984|  2.87k|    }
+  984|  2.86k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E7spilledCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 1005|  27.6k|    pub fn spilled(&self) -> bool {
- 1006|  27.6k|        self.capacity > Self::inline_capacity()
- 1007|  27.6k|    }
+ 1005|  28.1k|    pub fn spilled(&self) -> bool {
+ 1006|  28.1k|        self.capacity > Self::inline_capacity()
+ 1007|  28.1k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E8try_growCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 1177|     31|    pub fn try_grow(&mut self, new_cap: usize) -> Result<(), CollectionAllocErr> {
+ 1177|     28|    pub fn try_grow(&mut self, new_cap: usize) -> Result<(), CollectionAllocErr> {
  1178|       |        unsafe {
- 1179|     31|            let unspilled = !self.spilled();
- 1180|     31|            let (ptr, &mut len, cap) = self.triple_mut();
- 1181|     31|            assert!(new_cap >= len);
- 1182|     31|            if new_cap <= Self::inline_capacity() {
+ 1179|     28|            let unspilled = !self.spilled();
+ 1180|     28|            let (ptr, &mut len, cap) = self.triple_mut();
+ 1181|     28|            assert!(new_cap >= len);
+ 1182|     28|            if new_cap <= Self::inline_capacity() {
  1183|      0|                if unspilled {
  1184|      0|                    return Ok(());
  1185|      0|                }
@@ -817,15 +817,15 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engi
  1187|      0|                ptr::copy_nonoverlapping(ptr.as_ptr(), self.data.inline_mut().as_ptr(), len);
  1188|      0|                self.capacity = len;
  1189|      0|                deallocate(ptr, cap);
- 1190|     31|            } else if new_cap != cap {
- 1191|     31|                let layout = layout_array::<A::Item>(new_cap)?;
- 1192|     31|                debug_assert!(layout.size() > 0);
+ 1190|     28|            } else if new_cap != cap {
+ 1191|     28|                let layout = layout_array::<A::Item>(new_cap)?;
+ 1192|     28|                debug_assert!(layout.size() > 0);
  1193|       |                let new_alloc;
- 1194|     31|                if unspilled {
- 1195|     31|                    new_alloc = NonNull::new(alloc::alloc::alloc(layout))
- 1196|     31|                        .ok_or(CollectionAllocErr::AllocErr { layout })?
- 1197|     31|                        .cast();
- 1198|     31|                    ptr::copy_nonoverlapping(ptr.as_ptr(), new_alloc.as_ptr(), len);
+ 1194|     28|                if unspilled {
+ 1195|     28|                    new_alloc = NonNull::new(alloc::alloc::alloc(layout))
+ 1196|     28|                        .ok_or(CollectionAllocErr::AllocErr { layout })?
+ 1197|     28|                        .cast();
+ 1198|     28|                    ptr::copy_nonoverlapping(ptr.as_ptr(), new_alloc.as_ptr(), len);
  1199|       |                } else {
  1200|       |                    // This should never fail since the same succeeded
  1201|       |                    // when previously allocating `ptr`.
@@ -837,30 +837,30 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engi
  1207|      0|                        .ok_or(CollectionAllocErr::AllocErr { layout })?
  1208|      0|                        .cast();
  1209|       |                }
- 1210|     31|                self.data = SmallVecData::from_heap(new_alloc, len);
- 1211|     31|                self.capacity = new_cap;
+ 1210|     28|                self.data = SmallVecData::from_heap(new_alloc, len);
+ 1211|     28|                self.capacity = new_cap;
  1212|      0|            }
- 1213|     31|            Ok(())
+ 1213|     28|            Ok(())
  1214|       |        }
- 1215|     31|    }
+ 1215|     28|    }
 _RNvXsf_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref5Deref5derefCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 1850|  2.84k|    fn deref(&self) -> &[A::Item] {
+ 1850|  2.83k|    fn deref(&self) -> &[A::Item] {
  1851|       |        unsafe {
- 1852|  2.84k|            let (ptr, len, _) = self.triple();
- 1853|  2.84k|            slice::from_raw_parts(ptr.as_ptr(), len)
+ 1852|  2.83k|            let (ptr, len, _) = self.triple();
+ 1853|  2.83k|            slice::from_raw_parts(ptr.as_ptr(), len)
  1854|       |        }
- 1855|  2.84k|    }
+ 1855|  2.83k|    }
 _RNvXsg_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref8DerefMut9deref_mutCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 1860|  2.60k|    fn deref_mut(&mut self) -> &mut [A::Item] {
- 1861|  2.60k|        unsafe {
- 1862|  2.60k|            let (ptr, &mut len, _) = self.triple_mut();
- 1863|  2.60k|            slice::from_raw_parts_mut(ptr.as_ptr(), len)
- 1864|  2.60k|        }
- 1865|  2.60k|    }
+ 1860|  2.61k|    fn deref_mut(&mut self) -> &mut [A::Item] {
+ 1861|  2.61k|        unsafe {
+ 1862|  2.61k|            let (ptr, &mut len, _) = self.triple_mut();
+ 1863|  2.61k|            slice::from_raw_parts_mut(ptr.as_ptr(), len)
+ 1864|  2.61k|        }
+ 1865|  2.61k|    }
 _RNvXsp_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_EINtNtNtCs6SNw0SRvItZ_4core3ops5index8IndexMutNtNtB1I_5range9RangeFullE9index_mutCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
- 2066|  2.60k|    fn index_mut(&mut self, index: I) -> &mut I::Output {
- 2067|  2.60k|        &mut (&mut **self)[index]
- 2068|  2.60k|    }
+ 2066|  2.61k|    fn index_mut(&mut self, index: I) -> &mut I::Output {
+ 2067|  2.61k|        &mut (&mut **self)[index]
+ 2068|  2.61k|    }
 _RINvCs1ktF1oi6Xw_8smallvec10infallibleuECsdseA3k6TUM9_8rsonpath:
   322|  10.5k|fn infallible<T>(result: Result<T, CollectionAllocErr>) -> T {
   323|      0|    match result {
@@ -940,9 +940,9 @@ _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtCsdseA3k6TUM9_8rsonpath9a
   652|  13.1k|        }
   653|  13.1k|    }
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_E6inlineBQ_:
-  641|  13.2k|    unsafe fn inline(&self) -> ConstNonNull<A::Item> {
-  642|  13.2k|        ConstNonNull::new(self.inline.as_ptr() as *const A::Item).unwrap()
-  643|  13.2k|    }
+  641|  13.9k|    unsafe fn inline(&self) -> ConstNonNull<A::Item> {
+  642|  13.9k|        ConstNonNull::new(self.inline.as_ptr() as *const A::Item).unwrap()
+  643|  13.9k|    }
 _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E11from_inlineBS_:
   649|  2.63k|    fn from_inline(inline: MaybeUninit<A>) -> SmallVecData<A> {
   650|  2.63k|        SmallVecData {
@@ -974,13 +974,13 @@ _RNvMs9_Cs1ktF1oi6Xw_8smallvecINtB5_12SmallVecDataATINtNtCshDtJu3Ru83O_5alloc4sy
   642|  25.8k|        ConstNonNull::new(self.inline.as_ptr() as *const A::Item).unwrap()
   643|  25.8k|    }
 _RNvMsR_Cs1ktF1oi6Xw_8smallvecINtB5_12ConstNonNullNtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionE3newBP_:
- 2486|  13.2k|    fn new(ptr: *const T) -> Option<Self> {
- 2487|  13.2k|        NonNull::new(ptr as *mut T).map(Self)
- 2488|  13.2k|    }
+ 2486|  13.9k|    fn new(ptr: *const T) -> Option<Self> {
+ 2487|  13.9k|        NonNull::new(ptr as *mut T).map(Self)
+ 2488|  13.9k|    }
 _RNvMsR_Cs1ktF1oi6Xw_8smallvecINtB5_12ConstNonNullNtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionE6as_ptrBP_:
- 2490|  13.2k|    fn as_ptr(self) -> *const T {
- 2491|  13.2k|        self.0.as_ptr()
- 2492|  13.2k|    }
+ 2490|  13.9k|    fn as_ptr(self) -> *const T {
+ 2491|  13.9k|        self.0.as_ptr()
+ 2492|  13.9k|    }
 _RNvMsR_Cs1ktF1oi6Xw_8smallvecINtB5_12ConstNonNullTINtNtCshDtJu3Ru83O_5alloc4sync3ArcNtNtCsdseA3k6TUM9_8rsonpath14string_pattern13StringPatternENtNtNtB1o_9automaton5state5StateEE3newB1o_:
  2486|  25.8k|    fn new(ptr: *const T) -> Option<Self> {
  2487|  25.8k|        NonNull::new(ptr as *mut T).map(Self)
@@ -1019,9 +1019,9 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automa
  1252|      0|        self.try_grow(new_cap)
  1253|  5.27k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_E15inline_capacityBL_:
-  930|  87.2k|    fn inline_capacity() -> usize {
-  931|  87.2k|        if mem::size_of::<A::Item>() > 0 {
-  932|  87.2k|            A::size()
+  930|  88.6k|    fn inline_capacity() -> usize {
+  931|  88.6k|        if mem::size_of::<A::Item>() > 0 {
+  932|  88.6k|            A::size()
   933|       |        } else {
   934|       |            // For zero-size items code like `ptr.add(offset)` always returns the same pointer.
   935|       |            // Therefore all items are at the same address,
@@ -1035,7 +1035,7 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automa
   943|       |            // and we never try to allocate zero bytes which `std::alloc::alloc` disallows.
   944|      0|            core::usize::MAX
   945|       |        }
-  946|  87.2k|    }
+  946|  88.6k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_E3newBL_:
   783|  13.1k|    pub fn new() -> SmallVec<A> {
   784|       |        // Try to detect invalid custom implementations of `Array`. Hopefully,
@@ -1050,24 +1050,24 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automa
   793|  13.1k|        }
   794|  13.1k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_E6tripleBL_:
-  975|  13.2k|    fn triple(&self) -> (ConstNonNull<A::Item>, usize, usize) {
+  975|  13.9k|    fn triple(&self) -> (ConstNonNull<A::Item>, usize, usize) {
   976|       |        unsafe {
-  977|  13.2k|            if self.spilled() {
+  977|  13.9k|            if self.spilled() {
   978|      0|                let (ptr, len) = self.data.heap();
   979|      0|                (ptr, len, self.capacity)
   980|       |            } else {
-  981|  13.2k|                (self.data.inline(), self.capacity, Self::inline_capacity())
+  981|  13.9k|                (self.data.inline(), self.capacity, Self::inline_capacity())
   982|       |            }
   983|       |        }
-  984|  13.2k|    }
+  984|  13.9k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_E7reserveBL_:
  1223|  5.27k|    pub fn reserve(&mut self, additional: usize) {
  1224|  5.27k|        infallible(self.try_reserve(additional))
  1225|  5.27k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_E7spilledBL_:
- 1005|  50.2k|    pub fn spilled(&self) -> bool {
- 1006|  50.2k|        self.capacity > Self::inline_capacity()
- 1007|  50.2k|    }
+ 1005|  50.9k|    pub fn spilled(&self) -> bool {
+ 1006|  50.9k|        self.capacity > Self::inline_capacity()
+ 1007|  50.9k|    }
 _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_E3newBN_:
   783|  2.63k|    pub fn new() -> SmallVec<A> {
   784|       |        // Try to detect invalid custom implementations of `Array`. Hopefully,
@@ -1238,12 +1238,12 @@ _RNvMsc_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecATINtNtCshDtJu3Ru83O_5alloc4sync3Ar
  1006|  62.7k|        self.capacity > Self::inline_capacity()
  1007|  62.7k|    }
 _RNvXsf_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref5Deref5derefBL_:
- 1850|  13.2k|    fn deref(&self) -> &[A::Item] {
+ 1850|  13.9k|    fn deref(&self) -> &[A::Item] {
  1851|       |        unsafe {
- 1852|  13.2k|            let (ptr, len, _) = self.triple();
- 1853|  13.2k|            slice::from_raw_parts(ptr.as_ptr(), len)
+ 1852|  13.9k|            let (ptr, len, _) = self.triple();
+ 1853|  13.9k|            slice::from_raw_parts(ptr.as_ptr(), len)
  1854|       |        }
- 1855|  13.2k|    }
+ 1855|  13.9k|    }
 _RNvXsf_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecATINtNtCshDtJu3Ru83O_5alloc4sync3ArcNtNtCsdseA3k6TUM9_8rsonpath14string_pattern13StringPatternENtNtNtB1k_9automaton5state5StateEj2_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref5Deref5derefB1k_:
  1850|  25.8k|    fn deref(&self) -> &[A::Item] {
  1851|       |        unsafe {
@@ -1293,7 +1293,7 @@ _RNvXsu_Cs1ktF1oi6Xw_8smallvecINtB5_8SmallVecATINtNtCshDtJu3Ru83O_5alloc4sync3Ar
  2128|  5.27k|        SmallVec::new()
  2129|  5.27k|    }
 _RNvXs1v_Cs1ktF1oi6Xw_8smallvecANtNtNtCsdseA3k6TUM9_8rsonpath6engine4main10StackFramej80_NtB6_5Array4sizeBz_:
- 2451|  52.6k|                fn size() -> usize { $size }
+ 2451|  53.7k|                fn size() -> usize { $size }
 _RNvXsX_Cs1ktF1oi6Xw_8smallvecANtNtNtCsdseA3k6TUM9_8rsonpath9automaton9small_set11SmallSet256j2_NtB5_5Array4sizeBy_:
  2451|  36.9k|                fn size() -> usize { $size }
 _RNvXsP_Cs1ktF1oi6Xw_8smallvecNtB5_12SetLenOnDropNtNtNtCs6SNw0SRvItZ_4core3ops4drop4Drop4dropCsdseA3k6TUM9_8rsonpath:
@@ -1347,7 +1347,7 @@ _RNvMsO_Cs1ktF1oi6Xw_8smallvecNtB5_12SetLenOnDrop3newCsdseA3k6TUM9_8rsonpath:
  2372|  10.5k|        }
  2373|  10.5k|    }
 _RNvXsX_Cs1ktF1oi6Xw_8smallvecANtNtCsdseA3k6TUM9_8rsonpath9automaton15ArrayTransitionj2_NtB5_5Array4sizeBw_:
- 2451|   100k|                fn size() -> usize { $size }
+ 2451|   101k|                fn size() -> usize { $size }
 
 _RINvMCs9JJgTs6xWGx_10vector_mapINtB3_6VecMapNtNtNtCsdseA3k6TUM9_8rsonpath9automaton9small_set11SmallSet256NtNtBK_3nfa10NfaStateIdE3getBG_EBM_:
    79|  2.63k|    pub fn get<'l, Q: PartialEq<K> + ?Sized>(&'l self, key: &Q) -> Option<&'l V> {
@@ -1500,37 +1500,37 @@ _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton3newCsbDKGoAz4hhA_20fu
   167|  2.63k|        Self::minimize(nfa)
   168|  2.63k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton12is_accepting:
-  272|  58.5k|    pub fn is_accepting(&self, state: State) -> bool {
-  273|  58.5k|        self[state].attributes.is_accepting()
-  274|  58.5k|    }
+  272|  60.4k|    pub fn is_accepting(&self, state: State) -> bool {
+  273|  60.4k|        self[state].attributes.is_accepting()
+  274|  60.4k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton13initial_state:
   255|  5.27k|    pub fn initial_state(&self) -> State {
   256|  5.27k|        State(1)
   257|  5.27k|    }
 _RNvMs7_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_10StateTable14fallback_state:
-  411|  61.2k|    pub fn fallback_state(&self) -> State {
-  412|  61.2k|        self.fallback_state
-  413|  61.2k|    }
+  411|  63.0k|    pub fn fallback_state(&self) -> State {
+  412|  63.0k|        self.fallback_state
+  413|  63.0k|    }
 _RNvMs7_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_10StateTable17array_transitions:
-  421|  8.02k|    pub fn array_transitions(&self) -> &[ArrayTransition] {
-  422|  8.02k|        &self.array_transitions
-  423|  8.02k|    }
+  421|  8.69k|    pub fn array_transitions(&self) -> &[ArrayTransition] {
+  422|  8.69k|        &self.array_transitions
+  423|  8.69k|    }
 _RNvMs7_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_10StateTable18member_transitions:
   431|  20.5k|    pub fn member_transitions(&self) -> &[MemberTransition] {
   432|  20.5k|        &self.member_transitions
   433|  20.5k|    }
 _RNvXs1_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9AutomatonINtNtNtCs6SNw0SRvItZ_4core3ops5index5IndexNtNtB5_5state5StateE5index:
-  102|   186k|    fn index(&self, index: State) -> &Self::Output {
-  103|   186k|        &self.states[index.0 as usize]
-  104|   186k|    }
+  102|   191k|    fn index(&self, index: State) -> &Self::Output {
+  103|   191k|        &self.states[index.0 as usize]
+  104|   191k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton10is_unitary:
-  395|  10.1k|    pub fn is_unitary(&self, state: State) -> bool {
-  396|  10.1k|        self[state].attributes.is_unitary()
-  397|  10.1k|    }
+  395|  10.2k|    pub fn is_unitary(&self, state: State) -> bool {
+  396|  10.2k|        self[state].attributes.is_unitary()
+  397|  10.2k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton12is_rejecting:
-  374|  16.7k|    pub fn is_rejecting(&self, state: State) -> bool {
-  375|  16.7k|        self[state].attributes.is_rejecting()
-  376|  16.7k|    }
+  374|  17.1k|    pub fn is_rejecting(&self, state: State) -> bool {
+  375|  17.1k|        self[state].attributes.is_rejecting()
+  376|  17.1k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton14is_empty_query:
   221|  2.63k|    pub fn is_empty_query(&self) -> bool {
   222|  2.63k|        self.states.len() == 2
@@ -1548,9 +1548,9 @@ _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton20is_select_root_query
   195|      0|            && self.states[1].attributes.is_accepting()
   196|  2.63k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton27has_transition_to_accepting:
-  357|  11.3k|    pub fn has_transition_to_accepting(&self, state: State) -> bool {
-  358|  11.3k|        self[state].attributes.has_transition_to_accepting()
-  359|  11.3k|    }
+  357|  11.0k|    pub fn has_transition_to_accepting(&self, state: State) -> bool {
+  358|  11.0k|        self[state].attributes.has_transition_to_accepting()
+  359|  11.0k|    }
 _RNvMs6_NtCsdseA3k6TUM9_8rsonpath9automatonNtB5_9Automaton8minimize:
   399|  2.63k|    fn minimize(nfa: NondeterministicAutomaton) -> Result<Self, CompilerError> {
   400|  2.63k|        minimizer::minimize(nfa)
@@ -2117,13 +2117,13 @@ _RNvXNtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB2_11SmallSet256INtB2_8Sma
    80|  15.8k|        }
    81|  15.8k|    }
 _RNvXNtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB2_11SmallSet256INtB2_8SmallSethE6insert:
-   55|  21.0k|    fn insert(&mut self, elem: u8) {
-   56|  21.0k|        if elem < 128 {
-   57|  21.0k|            self.half_1.insert(elem)
+   55|  21.1k|    fn insert(&mut self, elem: u8) {
+   56|  21.1k|        if elem < 128 {
+   57|  21.1k|            self.half_1.insert(elem)
    58|       |        } else {
    59|      0|            self.half_2.insert(elem - 128)
    60|       |        }
-   61|  21.0k|    }
+   61|  21.1k|    }
 _RNvXNtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB2_11SmallSet256INtB2_8SmallSethE8contains:
    68|  15.8k|    fn contains(&self, elem: u8) -> bool {
    69|  15.8k|        if elem < 128 {
@@ -2143,9 +2143,9 @@ _RNvXNtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB2_11SmallSet256INtB2_8Sma
    90|       |        }
    91|  5.27k|    }
 _RNvXs6_NtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB5_15SmallSet256IterNtNtNtNtCs6SNw0SRvItZ_4core4iter6traits8iterator8Iterator4next:
-  258|  42.1k|    fn next(&mut self) -> Option<Self::Item> {
-  259|  42.1k|        self.half_1.next().or_else(|| self.half_2.next().map(|x| x + 128))
-  260|  42.1k|    }
+  258|  42.2k|    fn next(&mut self) -> Option<Self::Item> {
+  259|  42.2k|        self.half_1.next().or_else(|| self.half_2.next().map(|x| x + 128))
+  260|  42.2k|    }
 _RNvXsd_NtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB5_11SmallSet128INtB5_8SmallSethE17remove_all_before:
   159|  5.27k|            fn remove_all_before(&mut self, cutoff: u8) {
   160|  5.27k|                let mask: $mask = <$mask>::MAX << cutoff;
@@ -2158,9 +2158,9 @@ _RNvXsd_NtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB5_11SmallSet128INtB5_8
   143|  31.6k|                }
   144|  31.6k|            }
 _RNvXsd_NtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB5_11SmallSet128INtB5_8SmallSethE6insert:
-  128|  21.0k|            fn insert(&mut self, elem: u8) {
-  129|  21.0k|                self.bitmask |= 1 << elem;
-  130|  21.0k|            }
+  128|  21.1k|            fn insert(&mut self, elem: u8) {
+  129|  21.1k|                self.bitmask |= 1 << elem;
+  130|  21.1k|            }
 _RNvXsd_NtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB5_11SmallSet128INtB5_8SmallSethE8contains:
   136|  15.8k|            fn contains(&self, elem: u8) -> bool {
   137|  15.8k|                (self.bitmask & (1 << elem)) != 0
@@ -2194,25 +2194,25 @@ _RNvXsf_NtNtCsdseA3k6TUM9_8rsonpath9automaton9small_setNtB5_15SmallSet128IterNtN
   189|  58.0k|            }
 
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB5_15StateAttributes12is_accepting:
-  119|  58.5k|    pub fn is_accepting(&self) -> bool {
-  120|  58.5k|        self.is_set(StateAttribute::Accepting)
-  121|  58.5k|    }
+  119|  60.4k|    pub fn is_accepting(&self) -> bool {
+  120|  60.4k|        self.is_set(StateAttribute::Accepting)
+  121|  60.4k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB5_15StateAttributes6is_set:
-  165|  96.7k|    fn is_set(&self, attr: StateAttribute) -> bool {
-  166|  96.7k|        (self.0 & attr as u8) != 0
-  167|  96.7k|    }
+  165|  98.9k|    fn is_set(&self, attr: StateAttribute) -> bool {
+  166|  98.9k|        (self.0 & attr as u8) != 0
+  167|  98.9k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB5_15StateAttributes10is_unitary:
-  144|  10.1k|    pub fn is_unitary(&self) -> bool {
-  145|  10.1k|        self.is_set(StateAttribute::Unitary)
-  146|  10.1k|    }
+  144|  10.2k|    pub fn is_unitary(&self) -> bool {
+  145|  10.2k|        self.is_set(StateAttribute::Unitary)
+  146|  10.2k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB5_15StateAttributes12is_rejecting:
-  127|  16.7k|    pub fn is_rejecting(&self) -> bool {
-  128|  16.7k|        self.is_set(StateAttribute::Rejecting)
-  129|  16.7k|    }
+  127|  17.1k|    pub fn is_rejecting(&self) -> bool {
+  128|  17.1k|        self.is_set(StateAttribute::Rejecting)
+  129|  17.1k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB5_15StateAttributes27has_transition_to_accepting:
-  135|  11.3k|    pub fn has_transition_to_accepting(&self) -> bool {
-  136|  11.3k|        self.is_set(StateAttribute::TransitionsToAccepting)
-  137|  11.3k|    }
+  135|  11.0k|    pub fn has_transition_to_accepting(&self) -> bool {
+  136|  11.0k|        self.is_set(StateAttribute::TransitionsToAccepting)
+  137|  11.0k|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB2_22StateAttributesBuilder24transitions_to_accepting:
    56|  5.27k|    pub(crate) fn transitions_to_accepting(self) -> Self {
    57|  5.27k|        self.set(StateAttribute::TransitionsToAccepting)
@@ -2247,23 +2247,23 @@ _RNvXs_NtNtCsdseA3k6TUM9_8rsonpath9automaton5stateNtB4_15StateAttributesINtNtCs6
    83|  7.91k|    }
 
 _RNvNtNtNtCsdseA3k6TUM9_8rsonpath14classification4mask3m6410combine_32:
-   63|  40.0k|    pub(crate) fn combine_32(m1: u32, m2: u32) -> u64 {
-   64|  40.0k|        u64::from(m1) | (u64::from(m2) << 32)
-   65|  40.0k|    }
+   63|  38.9k|    pub(crate) fn combine_32(m1: u32, m2: u32) -> u64 {
+   64|  38.9k|        u64::from(m1) | (u64::from(m2) << 32)
+   65|  38.9k|    }
 
 _RINvMNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64NtB3_19BlockAvx2Classifier8classifyRShECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   22|  11.4k|    unsafe fn classify<'a, B: InputBlock<'a, 64>>(&mut self, blocks: &B) -> u64 {
+   22|  11.0k|    unsafe fn classify<'a, B: InputBlock<'a, 64>>(&mut self, blocks: &B) -> u64 {
    23|       |        block!(blocks[..64]);
    24|       |
-   25|  11.4k|        let (block1, block2) = blocks.halves();
-   26|  11.4k|        let classification1 = vector_256::classify_block(block1);
-   27|  11.4k|        let classification2 = vector_256::classify_block(block2);
+   25|  11.0k|        let (block1, block2) = blocks.halves();
+   26|  11.0k|        let classification1 = vector_256::classify_block(block1);
+   27|  11.0k|        let classification2 = vector_256::classify_block(block2);
    28|       |
-   29|  11.4k|        let slashes = m64::combine_32(classification1.slashes, classification2.slashes);
-   30|  11.4k|        let quotes = m64::combine_32(classification1.quotes, classification2.quotes);
+   29|  11.0k|        let slashes = m64::combine_32(classification1.slashes, classification2.slashes);
+   30|  11.0k|        let quotes = m64::combine_32(classification1.quotes, classification2.quotes);
    31|       |
-   32|  11.4k|        self.internal_classifier.classify(slashes, quotes)
-   33|  11.4k|    }
+   32|  11.0k|        self.internal_classifier.classify(slashes, quotes)
+   33|  11.0k|    }
 _RNvMNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64NtB2_19BlockAvx2Classifier3new:
    15|  2.63k|    fn new() -> Self {
    16|  2.63k|        Self {
@@ -2272,24 +2272,24 @@ _RNvMNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64NtB2_19BlockAvx
    19|  2.63k|    }
 
 _RNvXs0_NtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64INtB5_21Avx2QuoteClassifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EENtBb_16FallibleIterator4nextCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   86|  13.5k|            fn next(&mut self) -> Result<Option<Self::Item>, Self::Error> {
-   87|  13.5k|                match self.iter.next().e()? {
-   88|  11.4k|                    Some(block) => {
+   86|  13.1k|            fn next(&mut self) -> Result<Option<Self::Item>, Self::Error> {
+   87|  13.1k|                match self.iter.next().e()? {
+   88|  11.0k|                    Some(block) => {
    89|       |                        // SAFETY: target_feature invariant
-   90|  11.4k|                        let mask = unsafe { self.classifier.classify(&block) };
-   91|  11.4k|                        let classified_block = QuoteClassifiedBlock {
-   92|  11.4k|                            block,
-   93|  11.4k|                            within_quotes_mask: mask,
-   94|  11.4k|                        };
-   95|  11.4k|                        Ok(Some(classified_block))
+   90|  11.0k|                        let mask = unsafe { self.classifier.classify(&block) };
+   91|  11.0k|                        let classified_block = QuoteClassifiedBlock {
+   92|  11.0k|                            block,
+   93|  11.0k|                            within_quotes_mask: mask,
+   94|  11.0k|                        };
+   95|  11.0k|                        Ok(Some(classified_block))
    96|       |                    }
-   97|  2.06k|                    None => Ok(None),
+   97|  2.09k|                    None => Ok(None),
    98|       |                }
-   99|  13.5k|            }
+   99|  13.1k|            }
 _RNvXs1_NtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64INtB5_21Avx2QuoteClassifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EEINtB7_23QuoteClassifiedIteratorB1w_yKB4p_E10get_offsetCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  107|  46.3k|            fn get_offset(&self) -> usize {
-  108|  46.3k|                self.iter.get_offset() - $size
-  109|  46.3k|            }
+  107|  46.9k|            fn get_offset(&self) -> usize {
+  108|  46.9k|                self.iter.get_offset() - $size
+  109|  46.9k|            }
 _RINvXs_NtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64NtB5_11ConstructorNtB7_10QuotesImpl3newINtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1L_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3d_5MatchEEKj40_EECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
    28|  2.63k|            fn new<'i, I>(iter: I) -> Self::Classifier<'i, I>
    29|  2.63k|            where
@@ -2303,51 +2303,51 @@ _RINvXs_NtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes7avx2_64NtB5_11Const
    37|  2.63k|            }
 
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_64NtB2_20BlockClassifier64Bit19get_prev_quote_mask:
-   49|  11.4k|    fn get_prev_quote_mask(&self) -> u64 {
-   50|  11.4k|        u64::from((self.prev_block_mask & 0x02) >> 1)
-   51|  11.4k|    }
+   49|  11.0k|    fn get_prev_quote_mask(&self) -> u64 {
+   50|  11.0k|        u64::from((self.prev_block_mask & 0x02) >> 1)
+   51|  11.0k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_64NtB2_20BlockClassifier64Bit19get_prev_slash_mask:
-   44|  11.5k|    fn get_prev_slash_mask(&self) -> u64 {
-   45|  11.5k|        u64::from(self.prev_block_mask & 0x01)
-   46|  11.5k|    }
+   44|  11.2k|    fn get_prev_slash_mask(&self) -> u64 {
+   45|  11.2k|        u64::from(self.prev_block_mask & 0x01)
+   46|  11.2k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_64NtB2_20BlockClassifier64Bit22update_prev_block_mask:
-   31|  11.4k|    fn update_prev_block_mask(&mut self, set_slash_mask: bool, quotes: u64) {
-   32|  11.4k|        let slash_mask = u8::from(set_slash_mask);
-   33|  11.4k|        let quote_mask = (((quotes & (1 << 63)) >> 62) as u8) & 0x02;
-   34|  11.4k|        self.prev_block_mask = slash_mask | quote_mask;
-   35|  11.4k|    }
+   31|  11.0k|    fn update_prev_block_mask(&mut self, set_slash_mask: bool, quotes: u64) {
+   32|  11.0k|        let slash_mask = u8::from(set_slash_mask);
+   33|  11.0k|        let quote_mask = (((quotes & (1 << 63)) >> 62) as u8) & 0x02;
+   34|  11.0k|        self.prev_block_mask = slash_mask | quote_mask;
+   35|  11.0k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_64NtB2_20BlockClassifier64Bit3new:
    26|  2.63k|    pub(crate) fn new() -> Self {
    27|  2.63k|        Self { prev_block_mask: 0 }
    28|  2.63k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_64NtB2_20BlockClassifier64Bit8classify:
-   55|  11.4k|    pub(crate) unsafe fn classify(&mut self, slashes: u64, quotes: u64) -> u64 {
-   56|  11.4k|        let (escaped, set_prev_slash_mask) = if slashes == 0 {
-   57|  11.2k|            (self.get_prev_slash_mask(), false)
+   55|  11.0k|    pub(crate) unsafe fn classify(&mut self, slashes: u64, quotes: u64) -> u64 {
+   56|  11.0k|        let (escaped, set_prev_slash_mask) = if slashes == 0 {
+   57|  10.8k|            (self.get_prev_slash_mask(), false)
    58|       |        } else {
-   59|    155|            let slashes_excluding_escaped_first = slashes & !self.get_prev_slash_mask();
-   60|    155|            let starts = slashes_excluding_escaped_first & !(slashes_excluding_escaped_first << 1);
-   61|    155|            let odd_starts = ODD & starts;
-   62|    155|            let even_starts = EVEN & starts;
+   59|    200|            let slashes_excluding_escaped_first = slashes & !self.get_prev_slash_mask();
+   60|    200|            let starts = slashes_excluding_escaped_first & !(slashes_excluding_escaped_first << 1);
+   61|    200|            let odd_starts = ODD & starts;
+   62|    200|            let even_starts = EVEN & starts;
    63|       |
-   64|    155|            let odd_starts_carry = odd_starts.wrapping_add(slashes);
-   65|    155|            let (even_starts_carry, set_prev_slash_mask) = even_starts.overflowing_add(slashes);
+   64|    200|            let odd_starts_carry = odd_starts.wrapping_add(slashes);
+   65|    200|            let (even_starts_carry, set_prev_slash_mask) = even_starts.overflowing_add(slashes);
    66|       |
-   67|    155|            let ends_of_odd_starts = odd_starts_carry & !slashes;
-   68|    155|            let ends_of_even_starts = even_starts_carry & !slashes;
+   67|    200|            let ends_of_odd_starts = odd_starts_carry & !slashes;
+   68|    200|            let ends_of_even_starts = even_starts_carry & !slashes;
    69|       |
-   70|    155|            let escaped = (ends_of_odd_starts & EVEN) | (ends_of_even_starts & ODD) | self.get_prev_slash_mask();
+   70|    200|            let escaped = (ends_of_odd_starts & EVEN) | (ends_of_even_starts & ODD) | self.get_prev_slash_mask();
    71|       |
-   72|    155|            (escaped, set_prev_slash_mask)
+   72|    200|            (escaped, set_prev_slash_mask)
    73|       |        };
    74|       |
-   75|  11.4k|        let nonescaped_quotes = (quotes & !escaped) ^ self.get_prev_quote_mask();
+   75|  11.0k|        let nonescaped_quotes = (quotes & !escaped) ^ self.get_prev_quote_mask();
    76|       |
-   77|  11.4k|        let nonescaped_quotes_vector = _mm_set_epi64x(0, nonescaped_quotes as i64);
-   78|  11.4k|        let cumulative_xor = _mm_clmulepi64_si128::<0>(nonescaped_quotes_vector, all_ones128());
+   77|  11.0k|        let nonescaped_quotes_vector = _mm_set_epi64x(0, nonescaped_quotes as i64);
+   78|  11.0k|        let cumulative_xor = _mm_clmulepi64_si128::<0>(nonescaped_quotes_vector, all_ones128());
    79|       |
-   80|  11.4k|        let within_quotes = _mm_cvtsi128_si64(cumulative_xor) as u64;
-   81|  11.4k|        self.update_prev_block_mask(set_prev_slash_mask, within_quotes);
+   80|  11.0k|        let within_quotes = _mm_cvtsi128_si64(cumulative_xor) as u64;
+   81|  11.0k|        self.update_prev_block_mask(set_prev_slash_mask, within_quotes);
    82|       |
    83|       |        bin_u64!("slashes", slashes);
    84|       |        bin_u64!("quotes", quotes);
@@ -2358,33 +2358,33 @@ _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_64NtB2_2
    89|       |        bin_u64!("nonescaped_quotes", nonescaped_quotes);
    90|       |        bin_u64!("within_quotes", within_quotes);
    91|       |
-   92|  11.4k|        within_quotes
-   93|  11.4k|    }
+   92|  11.0k|        within_quotes
+   93|  11.0k|    }
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared7mask_6411all_ones128:
-   13|  11.4k|unsafe fn all_ones128() -> __m128i {
-   14|  11.4k|    _mm_set1_epi8(0xFF_u8 as i8)
-   15|  11.4k|}
+   13|  11.0k|unsafe fn all_ones128() -> __m128i {
+   14|  11.0k|    _mm_set1_epi8(0xFF_u8 as i8)
+   15|  11.0k|}
 
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared10vector_25610quote_mask:
-    7|  22.8k|pub(crate) unsafe fn quote_mask() -> __m256i {
-    8|  22.8k|    _mm256_set1_epi8(b'"' as i8)
-    9|  22.8k|}
+    7|  22.1k|pub(crate) unsafe fn quote_mask() -> __m256i {
+    8|  22.1k|    _mm256_set1_epi8(b'"' as i8)
+    9|  22.1k|}
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared10vector_25610slash_mask:
-   12|  22.8k|pub(crate) unsafe fn slash_mask() -> __m256i {
-   13|  22.8k|    _mm256_set1_epi8(b'\\' as i8)
-   14|  22.8k|}
+   12|  22.1k|pub(crate) unsafe fn slash_mask() -> __m256i {
+   13|  22.1k|    _mm256_set1_epi8(b'\\' as i8)
+   14|  22.1k|}
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification6quotes6shared10vector_25614classify_block:
-   17|  22.8k|pub(crate) unsafe fn classify_block(block: &[u8]) -> BlockClassification256 {
-   18|  22.8k|    let byte_vector = _mm256_loadu_si256(block.as_ptr().cast::<__m256i>());
+   17|  22.1k|pub(crate) unsafe fn classify_block(block: &[u8]) -> BlockClassification256 {
+   18|  22.1k|    let byte_vector = _mm256_loadu_si256(block.as_ptr().cast::<__m256i>());
    19|       |
-   20|  22.8k|    let slash_cmp = _mm256_cmpeq_epi8(byte_vector, slash_mask());
-   21|  22.8k|    let slashes = _mm256_movemask_epi8(slash_cmp) as u32;
+   20|  22.1k|    let slash_cmp = _mm256_cmpeq_epi8(byte_vector, slash_mask());
+   21|  22.1k|    let slashes = _mm256_movemask_epi8(slash_cmp) as u32;
    22|       |
-   23|  22.8k|    let quote_cmp = _mm256_cmpeq_epi8(byte_vector, quote_mask());
-   24|  22.8k|    let quotes = _mm256_movemask_epi8(quote_cmp) as u32;
+   23|  22.1k|    let quote_cmp = _mm256_cmpeq_epi8(byte_vector, quote_mask());
+   24|  22.1k|    let quotes = _mm256_movemask_epi8(quote_cmp) as u32;
    25|       |
-   26|  22.8k|    BlockClassification256 { slashes, quotes }
-   27|  22.8k|}
+   26|  22.1k|    BlockClassification256 { slashes, quotes }
+   27|  22.1k|}
 
 _RNvXs1_NtNtCsdseA3k6TUM9_8rsonpath14classification4simdINtB5_12ResolvedSimdNtNtNtB7_6quotes7avx2_6411ConstructorNtNtNtB7_10structural7avx2_6411ConstructorNtNtNtB7_5depth7avx2_6411ConstructorNtNtNtB7_6memmem7avx2_6411ConstructorKj2_ENtB5_4Simd12dispatch_tagCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   376|  2.63k|    fn dispatch_tag(self) -> usize {
@@ -2483,32 +2483,32 @@ _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath14classification4simdNtB5_17SimdConfiguration
   487|  2.63k|    }
 
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath14classification10structuralNtB2_10Structural6offset:
-   69|  40.5k|    pub fn offset(self, amount: usize) -> Self {
-   70|  40.5k|        match self {
-   71|  2.84k|            Closing(b, idx) => Closing(b, idx + amount),
-   72|  8.16k|            Colon(idx) => Colon(idx + amount),
-   73|  19.3k|            Opening(b, idx) => Opening(b, idx + amount),
-   74|  10.2k|            Comma(idx) => Comma(idx + amount),
+   69|  41.0k|    pub fn offset(self, amount: usize) -> Self {
+   70|  41.0k|        match self {
+   71|  2.83k|            Closing(b, idx) => Closing(b, idx + amount),
+   72|  8.46k|            Colon(idx) => Colon(idx + amount),
+   73|  19.8k|            Opening(b, idx) => Opening(b, idx + amount),
+   74|  9.96k|            Comma(idx) => Comma(idx + amount),
    75|       |        }
-   76|  40.5k|    }
+   76|  41.0k|    }
 
 _RINvMNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64NtB3_21BlockAvx2Classifier648classifyRShECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   28|  17.1k|    unsafe fn classify<'i, B: InputBlock<'i, 64>>(
-   29|  17.1k|        &mut self,
-   30|  17.1k|        quote_classified_block: QuoteClassifiedBlock<B, u64, 64>,
-   31|  17.1k|    ) -> mask_64::StructuralsBlock<B> {
-   32|  17.1k|        let (block1, block2) = quote_classified_block.block.halves();
-   33|  17.1k|        let classification1 = self.internal_classifier.classify_block(block1);
-   34|  17.1k|        let classification2 = self.internal_classifier.classify_block(block2);
+   28|  16.7k|    unsafe fn classify<'i, B: InputBlock<'i, 64>>(
+   29|  16.7k|        &mut self,
+   30|  16.7k|        quote_classified_block: QuoteClassifiedBlock<B, u64, 64>,
+   31|  16.7k|    ) -> mask_64::StructuralsBlock<B> {
+   32|  16.7k|        let (block1, block2) = quote_classified_block.block.halves();
+   33|  16.7k|        let classification1 = self.internal_classifier.classify_block(block1);
+   34|  16.7k|        let classification2 = self.internal_classifier.classify_block(block2);
    35|       |
-   36|  17.1k|        let structural = m64::combine_32(classification1.structural, classification2.structural);
-   37|  17.1k|        let nonquoted_structural = structural & !quote_classified_block.within_quotes_mask;
+   36|  16.7k|        let structural = m64::combine_32(classification1.structural, classification2.structural);
+   37|  16.7k|        let nonquoted_structural = structural & !quote_classified_block.within_quotes_mask;
    38|       |
    39|       |        bin_u64!("structural", structural);
    40|       |        bin_u64!("nonquoted_structural", nonquoted_structural);
    41|       |
-   42|  17.1k|        mask_64::StructuralsBlock::new(quote_classified_block, nonquoted_structural)
-   43|  17.1k|    }
+   42|  16.7k|        mask_64::StructuralsBlock::new(quote_classified_block, nonquoted_structural)
+   43|  16.7k|    }
 _RNvMNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64NtB2_21BlockAvx2Classifier643new:
    20|  2.63k|    fn new() -> Self {
    21|  2.63k|        Self {
@@ -2518,32 +2518,32 @@ _RNvMNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64NtB2_21Blo
    25|  2.63k|    }
 
 _RNvMs0_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EE22current_block_is_spentCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   55|  54.0k|            fn current_block_is_spent(&self) -> bool {
-   56|  54.0k|                self.block
-   57|  54.0k|                    .as_ref()
-   58|  54.0k|                    .map_or(true, $mask_mod::StructuralsBlock::is_empty)
-   59|  54.0k|            }
+   55|  54.2k|            fn current_block_is_spent(&self) -> bool {
+   56|  54.2k|                self.block
+   57|  54.2k|                    .as_ref()
+   58|  54.2k|                    .map_or(true, $mask_mod::StructuralsBlock::is_empty)
+   59|  54.2k|            }
 _RNvXs1_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EENtBb_16FallibleIterator4nextCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   90|  42.6k|            fn next(&mut self) -> Result<Option<Structural>, Self::Error> {
-   91|  54.0k|                while self.current_block_is_spent() {
-   92|  13.5k|                    match self.iter.next() {
-   93|  11.4k|                        Ok(Some(block)) => {
-   94|  11.4k|                            // SAFETY: target_feature invariant
-   95|  11.4k|                            self.block = unsafe { Some(self.classifier.classify(block)) };
-   96|  11.4k|                        }
+   90|  43.1k|            fn next(&mut self) -> Result<Option<Structural>, Self::Error> {
+   91|  54.2k|                while self.current_block_is_spent() {
+   92|  13.1k|                    match self.iter.next() {
+   93|  11.0k|                        Ok(Some(block)) => {
+   94|  11.0k|                            // SAFETY: target_feature invariant
+   95|  11.0k|                            self.block = unsafe { Some(self.classifier.classify(block)) };
+   96|  11.0k|                        }
    97|       |                        Ok(None) => {
-   98|  2.06k|                            self.block = None;
-   99|  2.06k|                            break;
+   98|  2.09k|                            self.block = None;
+   99|  2.09k|                            break;
   100|       |                        }
   101|      0|                        Err(err) => return Err(err),
   102|       |                    }
   103|       |                }
   104|       |
-  105|  42.6k|                Ok(self
-  106|  42.6k|                    .block
-  107|  42.6k|                    .as_mut()
-  108|  42.6k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
-  109|  42.6k|            }
+  105|  43.1k|                Ok(self
+  106|  43.1k|                    .block
+  107|  43.1k|                    .as_mut()
+  108|  43.1k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
+  109|  43.1k|            }
 _RINvXs_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64NtB5_11ConstructorNtB7_14StructuralImpl3newINtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1U_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3m_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1P_EECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
    27|  2.63k|            fn new<'i, I, Q>(iter: Q) -> Self::Classifier<'i, I, Q>
    28|  2.63k|            where
@@ -2559,90 +2559,90 @@ _RINvXs_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64NtB5_11
    38|  2.63k|                }
    39|  2.63k|            }
 _RNCNCNvXs1_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB9_16Avx2Classifier64INtNtNtBf_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBf_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtBd_6quotes7avx2_6421Avx2QuoteClassifier64B1A_EENtBf_16FallibleIterator4next00CsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  108|  40.5k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
+  108|  41.0k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
 _RNCNvXs1_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB7_16Avx2Classifier64INtNtNtBd_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1D_7padding19TwoSidesPaddedInputINtNtNtBd_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB35_5MatchEEKj40_EINtNtNtBb_6quotes7avx2_6421Avx2QuoteClassifier64B1y_EENtBd_16FallibleIterator4next0CsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  108|  40.5k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
+  108|  41.0k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
 _RNvMs0_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EE10reclassifyCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   62|  5.79k|            fn reclassify(&mut self, idx: usize) {
-   63|  5.79k|                if let Some(block) = self.block.take() {
-   64|  5.79k|                    let relative_idx = idx + 1 - self.iter.get_offset();
-   65|  5.79k|                    let quote_classified_block = block.quote_classified;
+   62|  5.83k|            fn reclassify(&mut self, idx: usize) {
+   63|  5.83k|                if let Some(block) = self.block.take() {
+   64|  5.83k|                    let relative_idx = idx + 1 - self.iter.get_offset();
+   65|  5.83k|                    let quote_classified_block = block.quote_classified;
    66|       |                    debug!("relative_idx is {relative_idx}.");
    67|       |
-   68|  5.79k|                    if relative_idx < $size {
-   69|  5.70k|                        debug!("need to reclassify.");
-   70|  5.70k|
-   71|  5.70k|                        let mask = <$mask_ty>::MAX << relative_idx;
-   72|  5.70k|                        // SAFETY: target_feature invariant
-   73|  5.70k|                        let mut new_block = unsafe { self.classifier.classify(quote_classified_block) };
-   74|  5.70k|                        new_block.structural_mask &= mask;
-   75|  5.70k|                        self.block = Some(new_block);
-   76|  5.70k|                    }
+   68|  5.83k|                    if relative_idx < $size {
+   69|  5.69k|                        debug!("need to reclassify.");
+   70|  5.69k|
+   71|  5.69k|                        let mask = <$mask_ty>::MAX << relative_idx;
+   72|  5.69k|                        // SAFETY: target_feature invariant
+   73|  5.69k|                        let mut new_block = unsafe { self.classifier.classify(quote_classified_block) };
+   74|  5.69k|                        new_block.structural_mask &= mask;
+   75|  5.69k|                        self.block = Some(new_block);
+   76|  5.69k|                    }
    77|      0|                }
-   78|  5.79k|            }
+   78|  5.83k|            }
 _RNvXs2_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E14turn_colons_onCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  172|  3.16k|            fn turn_colons_on(&mut self, idx: usize) {
-  173|  3.16k|                if !self.are_colons_on {
-  174|  3.16k|                    self.are_colons_on = true;
-  175|  3.16k|                    debug!("Turning colons on at {idx}.");
-  176|  3.16k|                    // SAFETY: target_feature invariant
-  177|  3.16k|                    unsafe { self.classifier.internal_classifier.toggle_colons() }
-  178|  3.16k|
-  179|  3.16k|                    self.reclassify(idx);
-  180|  3.16k|                }
-  181|  3.16k|            }
+  172|  3.21k|            fn turn_colons_on(&mut self, idx: usize) {
+  173|  3.21k|                if !self.are_colons_on {
+  174|  3.21k|                    self.are_colons_on = true;
+  175|  3.21k|                    debug!("Turning colons on at {idx}.");
+  176|  3.21k|                    // SAFETY: target_feature invariant
+  177|  3.21k|                    unsafe { self.classifier.internal_classifier.toggle_colons() }
+  178|  3.21k|
+  179|  3.21k|                    self.reclassify(idx);
+  180|  3.21k|                }
+  181|  3.21k|            }
 _RNvXs2_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E14turn_commas_onCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  150|  10.8k|            fn turn_commas_on(&mut self, idx: usize) {
-  151|  10.8k|                if !self.are_commas_on {
-  152|    558|                    self.are_commas_on = true;
-  153|    558|                    debug!("Turning commas on at {idx}.");
-  154|    558|                    // SAFETY: target_feature invariant
-  155|    558|                    unsafe { self.classifier.internal_classifier.toggle_commas() }
-  156|    558|
-  157|    558|                    self.reclassify(idx);
-  158|  10.3k|                }
-  159|  10.8k|            }
+  150|  11.5k|            fn turn_commas_on(&mut self, idx: usize) {
+  151|  11.5k|                if !self.are_commas_on {
+  152|    610|                    self.are_commas_on = true;
+  153|    610|                    debug!("Turning commas on at {idx}.");
+  154|    610|                    // SAFETY: target_feature invariant
+  155|    610|                    unsafe { self.classifier.internal_classifier.toggle_commas() }
+  156|    610|
+  157|    610|                    self.reclassify(idx);
+  158|  10.9k|                }
+  159|  11.5k|            }
 _RNvXs2_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E15turn_colons_offCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  184|  9.75k|            fn turn_colons_off(&mut self) {
-  185|  9.75k|                if self.are_colons_on {
-  186|  4.10k|                    self.are_colons_on = false;
+  184|  10.4k|            fn turn_colons_off(&mut self) {
+  185|  10.4k|                if self.are_colons_on {
+  186|  4.07k|                    self.are_colons_on = false;
   187|       |                    debug!("Turning colons off.");
   188|       |                    // SAFETY: target_feature invariant
-  189|  4.10k|                    unsafe { self.classifier.internal_classifier.toggle_colons() }
-  190|  5.65k|                }
-  191|  9.75k|            }
+  189|  4.07k|                    unsafe { self.classifier.internal_classifier.toggle_colons() }
+  190|  6.34k|                }
+  191|  10.4k|            }
 _RNvXs2_NtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E25turn_colons_and_commas_onCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  118|  11.3k|            fn turn_colons_and_commas_on(&mut self, idx: usize) {
-  119|  11.3k|                if !self.are_commas_on && !self.are_colons_on {
-  120|  2.06k|                    self.are_commas_on = true;
-  121|  2.06k|                    self.are_colons_on = true;
-  122|  2.06k|                    debug!("Turning both commas and colons on at {idx}.");
-  123|  2.06k|                    // SAFETY: target_feature invariant
-  124|  2.06k|                    unsafe { self.classifier.internal_classifier.toggle_colons_and_commas() }
-  125|  2.06k|
-  126|  2.06k|                    self.reclassify(idx);
-  127|  9.24k|                } else if !self.are_commas_on {
+  118|  11.0k|            fn turn_colons_and_commas_on(&mut self, idx: usize) {
+  119|  11.0k|                if !self.are_commas_on && !self.are_colons_on {
+  120|  2.01k|                    self.are_commas_on = true;
+  121|  2.01k|                    self.are_colons_on = true;
+  122|  2.01k|                    debug!("Turning both commas and colons on at {idx}.");
+  123|  2.01k|                    // SAFETY: target_feature invariant
+  124|  2.01k|                    unsafe { self.classifier.internal_classifier.toggle_colons_and_commas() }
+  125|  2.01k|
+  126|  2.01k|                    self.reclassify(idx);
+  127|  9.06k|                } else if !self.are_commas_on {
   128|      0|                    self.turn_commas_on(idx);
-  129|  9.24k|                } else if !self.are_colons_on {
-  130|  3.16k|                    self.turn_colons_on(idx);
-  131|  6.07k|                }
-  132|  11.3k|            }
+  129|  9.06k|                } else if !self.are_colons_on {
+  130|  3.21k|                    self.turn_colons_on(idx);
+  131|  5.84k|                }
+  132|  11.0k|            }
 
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared7mask_64INtB2_16StructuralsBlockRShE3newCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   16|  17.1k|    pub(crate) fn new(block: QuoteClassifiedBlock<B, u64, SIZE>, structural_mask: u64) -> Self {
-   17|  17.1k|        Self {
-   18|  17.1k|            quote_classified: block,
-   19|  17.1k|            structural_mask,
-   20|  17.1k|        }
-   21|  17.1k|    }
+   16|  16.7k|    pub(crate) fn new(block: QuoteClassifiedBlock<B, u64, SIZE>, structural_mask: u64) -> Self {
+   17|  16.7k|        Self {
+   18|  16.7k|            quote_classified: block,
+   19|  16.7k|            structural_mask,
+   20|  16.7k|        }
+   21|  16.7k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared7mask_64INtB2_16StructuralsBlockRShE7get_idxCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   29|  40.5k|    pub(crate) fn get_idx(&self) -> u32 {
-   30|  40.5k|        self.structural_mask.trailing_zeros()
-   31|  40.5k|    }
+   29|  41.0k|    pub(crate) fn get_idx(&self) -> u32 {
+   30|  41.0k|        self.structural_mask.trailing_zeros()
+   31|  41.0k|    }
 _RNvXs_NtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared7mask_64INtB4_16StructuralsBlockRShENtNtNtNtCs6SNw0SRvItZ_4core4iter6traits8iterator8Iterator4nextCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   38|  40.5k|    fn next(&mut self) -> Option<Structural> {
-   39|  40.5k|        let idx = self.get_idx() as usize;
-   40|  40.5k|        (idx < SIZE).then(|| {
+   38|  41.0k|    fn next(&mut self) -> Option<Structural> {
+   39|  41.0k|        let idx = self.get_idx() as usize;
+   40|  41.0k|        (idx < SIZE).then(|| {
    41|       |            let bit_mask = 1 << idx;
    42|       |
    43|       |            self.structural_mask ^= bit_mask;
@@ -2659,74 +2659,74 @@ _RNvXs_NtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared7mask_6
    54|       |                _ => Structural::Closing(BracketType::Square, idx),
    55|       |            }
    56|       |        })
-   57|  40.5k|    }
+   57|  41.0k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared7mask_64INtB2_16StructuralsBlockRShE8is_emptyCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   24|  51.3k|    pub(crate) fn is_empty(&self) -> bool {
-   25|  51.3k|        self.structural_mask == 0
-   26|  51.3k|    }
+   24|  51.4k|    pub(crate) fn is_empty(&self) -> bool {
+   25|  51.4k|        self.structural_mask == 0
+   26|  51.4k|    }
 _RNCNvXs_NtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared7mask_64INtB6_16StructuralsBlockRShENtNtNtNtCs6SNw0SRvItZ_4core4iter6traits8iterator8Iterator4next0CsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   40|  40.5k|        (idx < SIZE).then(|| {
-   41|  40.5k|            let bit_mask = 1 << idx;
+   40|  41.0k|        (idx < SIZE).then(|| {
+   41|  41.0k|            let bit_mask = 1 << idx;
    42|       |
-   43|  40.5k|            self.structural_mask ^= bit_mask;
+   43|  41.0k|            self.structural_mask ^= bit_mask;
    44|       |
    45|       |            // The last match being a catch-all *is important*.
    46|       |            // It has major performance implications, since the jump table generated here is a hot path for the engine.
    47|       |            // Changing this match must be accompanied with benchmark runs to make sure perf does not regress.
-   48|  40.5k|            match self.quote_classified.block[idx] {
-   49|  8.16k|                b':' => Structural::Colon(idx),
-   50|  9.57k|                b'{' => Structural::Opening(BracketType::Curly, idx),
-   51|  9.75k|                b'[' => Structural::Opening(BracketType::Square, idx),
-   52|  10.2k|                b',' => Structural::Comma(idx),
-   53|    493|                b'}' => Structural::Closing(BracketType::Curly, idx),
-   54|  2.35k|                _ => Structural::Closing(BracketType::Square, idx),
+   48|  41.0k|            match self.quote_classified.block[idx] {
+   49|  8.46k|                b':' => Structural::Colon(idx),
+   50|  9.38k|                b'{' => Structural::Opening(BracketType::Curly, idx),
+   51|  10.4k|                b'[' => Structural::Opening(BracketType::Square, idx),
+   52|  9.96k|                b',' => Structural::Comma(idx),
+   53|    410|                b'}' => Structural::Closing(BracketType::Curly, idx),
+   54|  2.42k|                _ => Structural::Closing(BracketType::Square, idx),
    55|       |            }
-   56|  40.5k|        })
+   56|  41.0k|        })
 
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25613toggle_colonsCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   80|  7.26k|    pub(crate) unsafe fn toggle_colons(&mut self) {
-   81|  7.26k|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, colons_toggle_mask());
-   82|  7.26k|    }
+   80|  7.29k|    pub(crate) unsafe fn toggle_colons(&mut self) {
+   81|  7.29k|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, colons_toggle_mask());
+   82|  7.29k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25613toggle_commasCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   74|    558|    pub(crate) unsafe fn toggle_commas(&mut self) {
-   75|    558|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, commas_toggle_mask());
-   76|    558|    }
+   74|    610|    pub(crate) unsafe fn toggle_commas(&mut self) {
+   75|    610|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, commas_toggle_mask());
+   76|    610|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25614classify_blockCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   92|  34.2k|    pub(crate) unsafe fn classify_block(&self, block: &[u8]) -> BlockClassification256 {
-   93|  34.2k|        let byte_vector = _mm256_loadu_si256(block.as_ptr().cast::<__m256i>());
-   94|  34.2k|        let shifted_byte_vector = _mm256_srli_epi16::<4>(byte_vector);
-   95|  34.2k|        let upper_nibble_byte_vector = _mm256_and_si256(shifted_byte_vector, upper_nibble_zeroing_mask());
-   96|  34.2k|        let lower_nibble_lookup = _mm256_shuffle_epi8(lower_nibble_mask(), byte_vector);
-   97|  34.2k|        let upper_nibble_lookup = _mm256_shuffle_epi8(self.upper_nibble_mask, upper_nibble_byte_vector);
-   98|  34.2k|        let structural_vector = _mm256_cmpeq_epi8(lower_nibble_lookup, upper_nibble_lookup);
-   99|  34.2k|        let structural = _mm256_movemask_epi8(structural_vector) as u32;
+   92|  33.5k|    pub(crate) unsafe fn classify_block(&self, block: &[u8]) -> BlockClassification256 {
+   93|  33.5k|        let byte_vector = _mm256_loadu_si256(block.as_ptr().cast::<__m256i>());
+   94|  33.5k|        let shifted_byte_vector = _mm256_srli_epi16::<4>(byte_vector);
+   95|  33.5k|        let upper_nibble_byte_vector = _mm256_and_si256(shifted_byte_vector, upper_nibble_zeroing_mask());
+   96|  33.5k|        let lower_nibble_lookup = _mm256_shuffle_epi8(lower_nibble_mask(), byte_vector);
+   97|  33.5k|        let upper_nibble_lookup = _mm256_shuffle_epi8(self.upper_nibble_mask, upper_nibble_byte_vector);
+   98|  33.5k|        let structural_vector = _mm256_cmpeq_epi8(lower_nibble_lookup, upper_nibble_lookup);
+   99|  33.5k|        let structural = _mm256_movemask_epi8(structural_vector) as u32;
   100|       |
-  101|  34.2k|        BlockClassification256 { structural }
-  102|  34.2k|    }
+  101|  33.5k|        BlockClassification256 { structural }
+  102|  33.5k|    }
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25624toggle_colons_and_commasCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   86|  2.06k|    pub(crate) unsafe fn toggle_colons_and_commas(&mut self) {
-   87|  2.06k|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, colons_and_commas_toggle_mask());
-   88|  2.06k|    }
+   86|  2.01k|    pub(crate) unsafe fn toggle_colons_and_commas(&mut self) {
+   87|  2.01k|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, colons_and_commas_toggle_mask());
+   88|  2.01k|    }
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_25617lower_nibble_maskCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   31|  34.2k|pub(crate) unsafe fn lower_nibble_mask() -> __m256i {
-   32|  34.2k|    _mm256_loadu_si256(LOWER_NIBBLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
-   33|  34.2k|}
+   31|  33.5k|pub(crate) unsafe fn lower_nibble_mask() -> __m256i {
+   32|  33.5k|    _mm256_loadu_si256(LOWER_NIBBLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
+   33|  33.5k|}
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_25618colons_toggle_maskCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   49|  9.33k|pub(crate) unsafe fn colons_toggle_mask() -> __m256i {
-   50|  9.33k|    _mm256_loadu_si256(COLON_TOGGLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
-   51|  9.33k|}
+   49|  9.30k|pub(crate) unsafe fn colons_toggle_mask() -> __m256i {
+   50|  9.30k|    _mm256_loadu_si256(COLON_TOGGLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
+   51|  9.30k|}
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_25618commas_toggle_maskCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
    43|  2.62k|pub(crate) unsafe fn commas_toggle_mask() -> __m256i {
    44|  2.62k|    _mm256_loadu_si256(COMMAS_TOGGLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
    45|  2.62k|}
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_25625upper_nibble_zeroing_maskCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   25|  34.2k|pub(crate) unsafe fn upper_nibble_zeroing_mask() -> __m256i {
-   26|  34.2k|    _mm256_set1_epi8(0x0F)
-   27|  34.2k|}
+   25|  33.5k|pub(crate) unsafe fn upper_nibble_zeroing_mask() -> __m256i {
+   26|  33.5k|    _mm256_set1_epi8(0x0F)
+   27|  33.5k|}
 _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_25629colons_and_commas_toggle_maskCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   55|  2.06k|pub(crate) unsafe fn colons_and_commas_toggle_mask() -> __m256i {
-   56|  2.06k|    _mm256_or_si256(colons_toggle_mask(), commas_toggle_mask())
-   57|  2.06k|}
+   55|  2.01k|pub(crate) unsafe fn colons_and_commas_toggle_mask() -> __m256i {
+   56|  2.01k|    _mm256_or_si256(colons_toggle_mask(), commas_toggle_mask())
+   57|  2.01k|}
 _RNvMNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier2563newBa_:
    66|  2.63k|    pub(crate) unsafe fn new() -> Self {
    67|  2.63k|        Self {
@@ -2739,30 +2739,30 @@ _RNvNtNtNtNtCsdseA3k6TUM9_8rsonpath14classification10structural6shared10vector_2
    39|  2.63k|}
 
 _RNvMNtCsdseA3k6TUM9_8rsonpath5depthNtB2_5Depth9decrement:
-   28|  2.84k|    pub fn decrement(&mut self) -> Result<(), DepthError> {
-   29|  2.84k|        *self = (*self - 1)?;
-   30|  2.84k|        Ok(())
-   31|  2.84k|    }
+   28|  2.83k|    pub fn decrement(&mut self) -> Result<(), DepthError> {
+   29|  2.83k|        *self = (*self - 1)?;
+   30|  2.83k|        Ok(())
+   31|  2.83k|    }
 _RNvMNtCsdseA3k6TUM9_8rsonpath5depthNtB2_5Depth9increment:
-   21|  19.3k|    pub fn increment(&mut self) -> Result<(), DepthError> {
-   22|  19.3k|        *self = (*self + 1)?;
-   23|  19.3k|        Ok(())
-   24|  19.3k|    }
+   21|  19.8k|    pub fn increment(&mut self) -> Result<(), DepthError> {
+   22|  19.8k|        *self = (*self + 1)?;
+   23|  19.8k|        Ok(())
+   24|  19.8k|    }
 _RNvXs0_NtCsdseA3k6TUM9_8rsonpath5depthNtB5_5DepthNtNtNtCs6SNw0SRvItZ_4core3ops5deref5Deref5deref:
-   80|  19.5k|    fn deref(&self) -> &Self::Target {
-   81|  19.5k|        &self.0
-   82|  19.5k|    }
+   80|  20.0k|    fn deref(&self) -> &Self::Target {
+   81|  20.0k|        &self.0
+   82|  20.0k|    }
 _RNvXsb_NtCsdseA3k6TUM9_8rsonpath5depthNtB5_5DepthINtNtNtCs6SNw0SRvItZ_4core3ops5arith3AddhE3addB7_:
-   40|  19.3k|            fn add(self, rhs: u8) -> Self::Output {
-   41|  19.3k|                self.0
-   42|  19.3k|                    .checked_add(rhs)
-   43|  19.3k|                    .ok_or(DepthError::AboveLimit(u8::MAX as usize))
-   44|  19.3k|                    .map(Depth)
-   45|  19.3k|            }
+   40|  19.8k|            fn add(self, rhs: u8) -> Self::Output {
+   41|  19.8k|                self.0
+   42|  19.8k|                    .checked_add(rhs)
+   43|  19.8k|                    .ok_or(DepthError::AboveLimit(u8::MAX as usize))
+   44|  19.8k|                    .map(Depth)
+   45|  19.8k|            }
 _RNvXse_NtCsdseA3k6TUM9_8rsonpath5depthNtB5_5DepthINtNtNtCs6SNw0SRvItZ_4core3ops5arith3SubhE3subB7_:
-   56|  2.84k|            fn sub(self, rhs: u8) -> Self::Output {
-   57|  2.84k|                self.0.checked_sub(rhs).ok_or(DepthError::BelowZero).map(Depth)
-   58|  2.84k|            }
+   56|  2.83k|            fn sub(self, rhs: u8) -> Self::Output {
+   57|  2.83k|                self.0.checked_sub(rhs).ok_or(DepthError::BelowZero).map(Depth)
+   58|  2.83k|            }
 
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath6engine13head_skippingINtB2_8HeadSkipNtNtNtB6_5input8borrowed13BorrowedBytesINtNtNtB6_14classification4simd12ResolvedSimdNtNtNtB1M_6quotes7avx2_6411ConstructorNtNtNtB1M_10structural7avx2_6411ConstructorNtNtNtB1M_5depth7avx2_6411ConstructorNtNtNtB1M_6memmem7avx2_6411ConstructorKj2_EKj40_E3newCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
    98|  2.63k|    pub(super) fn new(bytes: &'b I, automaton: &Automaton, simd: V) -> Option<Self> {
@@ -2797,22 +2797,22 @@ _RNvXs_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB4_10MainEngineNtB6_8Compiler13c
   101|  2.63k|        Ok(Self { automaton, simd })
   102|  2.63k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB5_10SmallStack18pop_if_at_or_belowCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  764|  2.84k|    fn pop_if_at_or_below(&mut self, depth: u8) -> Option<StackFrame> {
-  765|  2.84k|        if let Some(stack_frame) = self.peek() {
+  764|  2.83k|    fn pop_if_at_or_below(&mut self, depth: u8) -> Option<StackFrame> {
+  765|  2.83k|        if let Some(stack_frame) = self.peek() {
   766|  2.80k|            if depth <= stack_frame.depth {
   767|  2.80k|                return self.contents.pop();
   768|      0|            }
-  769|     34|        }
-  770|     34|        None
-  771|  2.84k|    }
+  769|     31|        }
+  770|     31|        None
+  771|  2.83k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB5_10SmallStack4peekCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  759|  2.84k|    fn peek(&self) -> Option<StackFrame> {
-  760|  2.84k|        self.contents.last().copied()
-  761|  2.84k|    }
+  759|  2.83k|    fn peek(&self) -> Option<StackFrame> {
+  760|  2.83k|        self.contents.last().copied()
+  761|  2.83k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB5_10SmallStack4pushCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  774|  16.7k|    fn push(&mut self, value: StackFrame) {
-  775|  16.7k|        self.contents.push(value)
-  776|  16.7k|    }
+  774|  17.1k|    fn push(&mut self, value: StackFrame) {
+  775|  17.1k|        self.contents.push(value)
+  776|  17.1k|    }
 _RINvNtNtCsdseA3k6TUM9_8rsonpath6engine4main14query_executorNtNtNtB6_5input8borrowed13BorrowedBytesINtNtNtB6_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1D_5MatchEEINtNtNtB6_14classification4simd12ResolvedSimdNtNtNtB33_6quotes7avx2_6411ConstructorNtNtNtB33_10structural7avx2_6411ConstructorNtNtNtB33_5depth7avx2_6411ConstructorNtNtNtB33_6memmem7avx2_6411ConstructorKj2_EECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   252|  2.63k|fn query_executor<'i, 'r, I, R, V: Simd>(
   253|  2.63k|    automaton: &'i Automaton,
@@ -2841,13 +2841,13 @@ _RINvNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB8_8ExecutorpppE14run_on_su
   319|  2.63k|        {
   320|       |            loop {
   321|       |                // Fetch the next element only if the lookahead is empty.
-  322|  42.6k|                if eng.next_event.is_none() {
-  323|  42.6k|                    eng.next_event = match classifier.next() {
-  324|  42.6k|                        Ok(e) => e,
+  322|  43.1k|                if eng.next_event.is_none() {
+  323|  43.1k|                    eng.next_event = match classifier.next() {
+  324|  43.1k|                        Ok(e) => e,
   325|      0|                        Err(err) => return Err(EngineError::InputError(err)),
   326|       |                    };
   327|      0|                }
-  328|  42.6k|                if let Some(event) = eng.next_event.take() {
+  328|  43.1k|                if let Some(event) = eng.next_event.take() {
   329|       |                    debug!("====================");
   330|       |                    debug!("Event = {:?}", event);
   331|       |                    debug!("Depth = {:?}", eng.depth);
@@ -2855,24 +2855,24 @@ _RINvNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB8_8ExecutorpppE14run_on_su
   333|       |                    debug!("State = {:?}", eng.state);
   334|       |                    debug!("====================");
   335|       |
-  336|  40.5k|                    match event {
-  337|  8.16k|                        Structural::Colon(idx) => eng.handle_colon(classifier, idx)?,
-  338|  10.2k|                        Structural::Comma(idx) => eng.handle_comma(classifier, idx)?,
-  339|  19.3k|                        Structural::Opening(b, idx) => eng.handle_opening(classifier, b, idx)?,
-  340|  2.84k|                        Structural::Closing(_, idx) => {
-  341|  2.84k|                            eng.handle_closing(classifier, idx)?;
+  336|  41.0k|                    match event {
+  337|  8.46k|                        Structural::Colon(idx) => eng.handle_colon(classifier, idx)?,
+  338|  9.96k|                        Structural::Comma(idx) => eng.handle_comma(classifier, idx)?,
+  339|  19.8k|                        Structural::Opening(b, idx) => eng.handle_opening(classifier, b, idx)?,
+  340|  2.83k|                        Structural::Closing(_, idx) => {
+  341|  2.83k|                            eng.handle_closing(classifier, idx)?;
   342|       |
-  343|  2.84k|                            if eng.depth == Depth::ZERO {
-  344|     34|                                break;
+  343|  2.83k|                            if eng.depth == Depth::ZERO {
+  344|     31|                                break;
   345|  2.80k|                            }
   346|       |                        }
   347|       |                    }
   348|       |                } else {
-  349|  2.06k|                    break;
+  349|  2.09k|                    break;
   350|       |                }
   351|       |            }
   352|       |
-  353|  2.10k|            Ok(())
+  353|  2.12k|            Ok(())
 _RINvXs0_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB6_10MainEngineNtB8_6Engine7matchesNtNtNtBa_5input8borrowed13BorrowedBytesINtNtCshDtJu3Ru83O_5alloc3vec3VecNtNtBa_6result5MatchEECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   189|  2.63k|    fn matches<I, S>(&self, input: &I, sink: &mut S) -> Result<(), EngineError>
   190|  2.63k|    where
@@ -2892,29 +2892,29 @@ _RINvXs0_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB6_10MainEngineNtB8_6Engine7ma
   204|      0|            executor.run()
   205|  2.59k|        })?;
   206|       |
-  207|     45|        Ok(())
+  207|     43|        Ok(())
   208|  2.63k|    }
 _RNCNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB7_8ExecutorNtNtNtBb_5input8borrowed13BorrowedBytesINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1H_5MatchEEINtNtNtBb_14classification4simd12ResolvedSimdNtNtNtB37_6quotes7avx2_6411ConstructorNtNtNtB37_10structural7avx2_6411ConstructorNtNtNtB37_5depth7avx2_6411ConstructorNtNtNtB37_6memmem7avx2_6411ConstructorKj2_EE14handle_closing0CsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   600|      2|            .map_err(|err| EngineError::DepthBelowZero(idx, err))?;
 _RNCNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB7_8ExecutorNtNtNtBb_5input8borrowed13BorrowedBytesINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1H_5MatchEEINtNtNtBb_14classification4simd12ResolvedSimdNtNtNtB37_6quotes7avx2_6411ConstructorNtNtNtB37_10structural7avx2_6411ConstructorNtNtNtB37_5depth7avx2_6411ConstructorNtNtNtB37_6memmem7avx2_6411ConstructorKj2_EE14handle_opening0CsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  535|      4|            .map_err(|err| EngineError::DepthAboveLimit(idx, err))?;
+  535|      3|            .map_err(|err| EngineError::DepthAboveLimit(idx, err))?;
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE12handle_colonCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  361|  8.16k|    fn handle_colon(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
+  361|  8.46k|    fn handle_colon(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
   362|       |        debug!("Colon");
   363|       |
   364|       |        // Lookahead to see if the next character is an opening.
   365|       |        // If yes, the logic will be handled in handle_opening and we bail.
-  366|  8.16k|        if let Some((_, c)) = self.input.seek_non_whitespace_forward(idx + 1).e()? {
-  367|  7.90k|            if c == b'{' || c == b'[' {
-  368|  1.51k|                return Ok(());
-  369|  6.38k|            }
-  370|    256|        }
+  366|  8.46k|        if let Some((_, c)) = self.input.seek_non_whitespace_forward(idx + 1).e()? {
+  367|  8.22k|            if c == b'{' || c == b'[' {
+  368|  1.65k|                return Ok(());
+  369|  6.57k|            }
+  370|    237|        }
   371|       |
   372|       |        // Atomic values are only relevant if the automaton accepts.
   373|       |        // Look at accepting transitions and try to match them with the label.
-  374|  6.64k|        let mut any_matched = false;
+  374|  6.80k|        let mut any_matched = false;
   375|       |
-  376|  6.64k|        for (member_name, target) in self.automaton[self.state].member_transitions() {
+  376|  6.80k|        for (member_name, target) in self.automaton[self.state].member_transitions() {
   377|      0|            if self.automaton.is_accepting(*target) && self.is_match(idx, member_name.as_ref())? {
   378|      0|                self.record_match_detected_at(idx + 1, NodeType::Atomic)?;
   379|      0|                any_matched = true;
@@ -2922,15 +2922,15 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   381|      0|            }
   382|       |        }
   383|       |        // Alternatively, match consider the fallback transition if it accepts.
-  384|  6.64k|        let fallback_state = self.automaton[self.state].fallback_state();
-  385|  6.64k|        if !any_matched && self.automaton.is_accepting(fallback_state) {
-  386|  6.64k|            self.record_match_detected_at(idx + 1, NodeType::Atomic)?;
+  384|  6.80k|        let fallback_state = self.automaton[self.state].fallback_state();
+  385|  6.80k|        if !any_matched && self.automaton.is_accepting(fallback_state) {
+  386|  6.80k|            self.record_match_detected_at(idx + 1, NodeType::Atomic)?;
   387|      0|        }
   388|       |
   389|       |        // Tail skipping.
   390|       |        // If we are in a unitary state and have matched a transition, we can skip the rest of the subtree,
   391|       |        // since member names are unique.
-  392|  6.38k|        if any_matched && self.automaton.is_unitary(self.state) {
+  392|  6.57k|        if any_matched && self.automaton.is_unitary(self.state) {
   393|       |            // We need to look ahead for some bookkeeping.
   394|       |            // 1. If the next event is closing then there's no reason to spin up the skipping machinery,
   395|       |            //    since it would exit immediately anyway.
@@ -2950,42 +2950,42 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   409|       |            // Skipping stops at the closing character *and consumes it*. We still need the main loop to properly
   410|       |            // handle a closing, so we set the lookahead to the correct character.
   411|      0|            self.next_event = Some(Structural::Closing(bracket_type, stop_at));
-  412|  6.38k|        }
+  412|  6.57k|        }
   413|       |
-  414|  6.38k|        Ok(())
-  415|  8.16k|    }
+  414|  6.57k|        Ok(())
+  415|  8.46k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE12handle_commaCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  421|  10.2k|    fn handle_comma(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
+  421|  9.96k|    fn handle_comma(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
   422|       |        debug!("Comma");
   423|       |
-  424|  10.2k|        self.recorder.record_value_terminator(idx, self.depth)?;
+  424|  9.96k|        self.recorder.record_value_terminator(idx, self.depth)?;
   425|       |
-  426|  10.2k|        if self.is_list {
+  426|  9.96k|        if self.is_list {
   427|       |            // If the index increment exceeds the field's limit, give up.
-  428|  8.45k|            if self.array_count.try_increment().is_err() {
+  428|  8.44k|            if self.array_count.try_increment().is_err() {
   429|      0|                return Ok(());
-  430|  8.45k|            }
+  430|  8.44k|            }
   431|       |
   432|       |            // Lookahead to see if the next character is an opening.
   433|       |            // If yes, the logic will be handled in handle_opening and we bail.
-  434|  8.45k|            if let Some((_, c)) = self.input.seek_non_whitespace_forward(idx + 1).e()? {
-  435|  8.18k|                if c == b'{' || c == b'[' {
-  436|    792|                    return Ok(());
-  437|  7.39k|                }
+  434|  8.44k|            if let Some((_, c)) = self.input.seek_non_whitespace_forward(idx + 1).e()? {
+  435|  8.16k|                if c == b'{' || c == b'[' {
+  436|    727|                    return Ok(());
+  437|  7.44k|                }
   438|    274|            }
   439|       |
   440|       |            // Check the fallback transition first since it's cheap, then check for the specific index.
-  441|  7.66k|            let is_fallback_accepting = self.automaton.is_accepting(self.automaton[self.state].fallback_state());
+  441|  7.71k|            let is_fallback_accepting = self.automaton.is_accepting(self.automaton[self.state].fallback_state());
   442|       |
-  443|  7.66k|            if is_fallback_accepting
+  443|  7.71k|            if is_fallback_accepting
   444|      0|                || self
   445|      0|                    .automaton
   446|      0|                    .has_array_index_transition_to_accepting(self.state, &self.array_count)
   447|       |            {
   448|       |                debug!("Accepting list item on comma.");
-  449|  7.66k|                self.record_match_detected_at(idx + 1, NodeType::Atomic)?;
+  449|  7.71k|                self.record_match_detected_at(idx + 1, NodeType::Atomic)?;
   450|       |
-  451|  7.39k|                if self.automaton.is_unitary(self.state) {
+  451|  7.44k|                if self.automaton.is_unitary(self.state) {
   452|      0|                    self.next_event = classifier.next()?;
   453|      0|                    match self.next_event {
   454|       |                        None | Some(Structural::Closing(_, _)) => {
@@ -2997,12 +2997,12 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   460|       |                    debug!("Skipping unique state from {:?}", BracketType::Square);
   461|      0|                    let stop_at = classifier.skip(BracketType::Square)?;
   462|      0|                    self.next_event = Some(Structural::Closing(BracketType::Square, stop_at));
-  463|  7.39k|                }
+  463|  7.44k|                }
   464|      0|            }
-  465|  1.76k|        }
+  465|  1.52k|        }
   466|       |
-  467|  9.15k|        Ok(())
-  468|  10.2k|    }
+  467|  8.96k|        Ok(())
+  468|  9.96k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE12run_and_exitCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   297|  2.63k|    fn run_and_exit(mut self) -> Result<(), EngineError> {
   298|  2.63k|        let iter = self.input.iter_blocks(self.recorder);
@@ -3012,43 +3012,43 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   302|       |
   303|  2.63k|        self.run_on_subtree(&mut classifier)?;
   304|       |
-  305|  2.10k|        self.verify_subtree_closed()
+  305|  2.12k|        self.verify_subtree_closed()
   306|  2.63k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE13transition_toCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  644|  16.7k|    fn transition_to(&mut self, target: State, opening: BracketType) {
-  645|  16.7k|        let target_is_list = opening == BracketType::Square;
+  644|  17.1k|    fn transition_to(&mut self, target: State, opening: BracketType) {
+  645|  17.1k|        let target_is_list = opening == BracketType::Square;
   646|       |
-  647|  16.7k|        let fallback = self.automaton[self.state].fallback_state();
-  648|  16.7k|        let is_fallback_accepting = self.automaton.is_accepting(fallback);
-  649|  16.7k|        let searching_list = is_fallback_accepting || self.automaton.has_any_array_item_transition(self.state);
+  647|  17.1k|        let fallback = self.automaton[self.state].fallback_state();
+  648|  17.1k|        let is_fallback_accepting = self.automaton.is_accepting(fallback);
+  649|  17.1k|        let searching_list = is_fallback_accepting || self.automaton.has_any_array_item_transition(self.state);
   650|       |
   651|       |        // To keep the stack small, we only push if the state only changes in any meaningful way.
-  652|  16.7k|        if target != self.state || target_is_list != self.is_list || searching_list {
-  653|  16.7k|            debug!(
-  654|  16.7k|                "push {}, goto {target}, is_list = {target_is_list}, array_count: {}",
-  655|  16.7k|                self.state, self.array_count
-  656|  16.7k|            );
-  657|  16.7k|
-  658|  16.7k|            self.stack.push(StackFrame {
-  659|  16.7k|                depth: *self.depth,
-  660|  16.7k|                state: self.state,
-  661|  16.7k|                is_list: self.is_list,
-  662|  16.7k|                array_count: self.array_count,
-  663|  16.7k|            });
-  664|  16.7k|            self.state = target;
-  665|  16.7k|        }
-  666|  16.7k|    }
+  652|  17.1k|        if target != self.state || target_is_list != self.is_list || searching_list {
+  653|  17.1k|            debug!(
+  654|  17.1k|                "push {}, goto {target}, is_list = {target_is_list}, array_count: {}",
+  655|  17.1k|                self.state, self.array_count
+  656|  17.1k|            );
+  657|  17.1k|
+  658|  17.1k|            self.stack.push(StackFrame {
+  659|  17.1k|                depth: *self.depth,
+  660|  17.1k|                state: self.state,
+  661|  17.1k|                is_list: self.is_list,
+  662|  17.1k|                array_count: self.array_count,
+  663|  17.1k|            });
+  664|  17.1k|            self.state = target;
+  665|  17.1k|        }
+  666|  17.1k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE14handle_closingCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  595|  2.84k|    fn handle_closing(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
+  595|  2.83k|    fn handle_closing(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
   596|       |        debug!("Closing, decreasing depth and popping stack.");
   597|       |
-  598|  2.84k|        self.depth
-  599|  2.84k|            .decrement()
-  600|  2.84k|            .map_err(|err| EngineError::DepthBelowZero(idx, err))?;
-  601|  2.84k|        self.recorder.record_value_terminator(idx, self.depth)?;
+  598|  2.83k|        self.depth
+  599|  2.83k|            .decrement()
+  600|  2.83k|            .map_err(|err| EngineError::DepthBelowZero(idx, err))?;
+  601|  2.83k|        self.recorder.record_value_terminator(idx, self.depth)?;
   602|       |
   603|       |        // Restore the state from the stack if the transition was not a loop.
-  604|  2.84k|        if let Some(stack_frame) = self.stack.pop_if_at_or_below(*self.depth) {
+  604|  2.83k|        if let Some(stack_frame) = self.stack.pop_if_at_or_below(*self.depth) {
   605|  2.80k|            self.state = stack_frame.state;
   606|  2.80k|            self.is_list = stack_frame.is_list;
   607|  2.80k|            self.array_count = stack_frame.array_count;
@@ -3066,37 +3066,37 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   619|      0|                self.next_event = Some(Structural::Closing(bracket_type, close_idx));
   620|      0|                return Ok(());
   621|  2.80k|            }
-  622|     34|        }
+  622|     31|        }
   623|       |
-  624|  2.84k|        if self.is_list {
-  625|  1.10k|            if self.automaton.is_accepting(self.automaton[self.state].fallback_state())
+  624|  2.83k|        if self.is_list {
+  625|  1.13k|            if self.automaton.is_accepting(self.automaton[self.state].fallback_state())
   626|      0|                || self.automaton.has_any_array_item_transition(self.state)
-  627|  1.10k|            {
-  628|  1.10k|                classifier.turn_commas_on(idx);
-  629|  1.10k|            } else {
+  627|  1.13k|            {
+  628|  1.13k|                classifier.turn_commas_on(idx);
+  629|  1.13k|            } else {
   630|      0|                classifier.turn_commas_off();
   631|      0|            }
-  632|  1.73k|        } else if self.automaton.has_transition_to_accepting(self.state) {
-  633|  1.73k|            classifier.turn_colons_and_commas_on(idx);
-  634|  1.73k|        } else {
+  632|  1.69k|        } else if self.automaton.has_transition_to_accepting(self.state) {
+  633|  1.69k|            classifier.turn_colons_and_commas_on(idx);
+  634|  1.69k|        } else {
   635|      0|            classifier.turn_colons_off();
   636|      0|        }
   637|       |
-  638|  2.84k|        Ok(())
-  639|  2.84k|    }
+  638|  2.83k|        Ok(())
+  639|  2.83k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE14handle_openingCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  472|  19.3k|    fn handle_opening(
-  473|  19.3k|        &mut self,
-  474|  19.3k|        classifier: &mut Classifier!(),
-  475|  19.3k|        bracket_type: BracketType,
-  476|  19.3k|        idx: usize,
-  477|  19.3k|    ) -> Result<(), EngineError> {
+  472|  19.8k|    fn handle_opening(
+  473|  19.8k|        &mut self,
+  474|  19.8k|        classifier: &mut Classifier!(),
+  475|  19.8k|        bracket_type: BracketType,
+  476|  19.8k|        idx: usize,
+  477|  19.8k|    ) -> Result<(), EngineError> {
   478|       |        debug!("Opening {bracket_type:?}, increasing depth and pushing stack.",);
   479|       |
   480|       |        // Check all transitions relevant to the current subtree - array if in list, member if not.
-  481|  19.3k|        let mut any_matched = false;
-  482|  19.3k|        if self.is_list {
-  483|  8.02k|            for trans in self.automaton[self.state].array_transitions() {
+  481|  19.8k|        let mut any_matched = false;
+  482|  19.8k|        if self.is_list {
+  483|  8.69k|            for trans in self.automaton[self.state].array_transitions() {
   484|      0|                if trans.matches(self.array_count) {
   485|      0|                    let target = trans.target_state();
   486|      0|                    any_matched = true;
@@ -3109,9 +3109,9 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   493|      0|                }
   494|       |            }
   495|       |        } else {
-  496|  11.3k|            let colon_idx = self.find_preceding_colon(idx);
+  496|  11.1k|            let colon_idx = self.find_preceding_colon(idx);
   497|       |
-  498|  11.3k|            for (member_name, target) in self.automaton[self.state].member_transitions() {
+  498|  11.1k|            for (member_name, target) in self.automaton[self.state].member_transitions() {
   499|      0|                if let Some(colon_idx) = colon_idx {
   500|      0|                    if self.is_match(colon_idx, member_name.as_ref())? {
   501|      0|                        any_matched = true;
@@ -3127,51 +3127,51 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   511|       |        }
   512|       |
   513|       |        // If nothing matched trigger the fallback transition.
-  514|  19.3k|        if !any_matched && self.depth != Depth::ZERO {
-  515|  16.7k|            let fallback = self.automaton[self.state].fallback_state();
+  514|  19.8k|        if !any_matched && self.depth != Depth::ZERO {
+  515|  17.1k|            let fallback = self.automaton[self.state].fallback_state();
   516|       |            debug!("Falling back to {fallback}");
   517|       |
-  518|  16.7k|            if self.automaton.is_rejecting(fallback) {
+  518|  17.1k|            if self.automaton.is_rejecting(fallback) {
   519|       |                // Tail skipping. Skip the entire subtree. The skipping consumes the closing character.
   520|       |                // We still need to notify the recorder - in case the value being skipped was actually accepted.
   521|      0|                let closing_idx = classifier.skip(bracket_type)?;
   522|      0|                return self.recorder.record_value_terminator(closing_idx, self.depth);
-  523|  16.7k|            } else {
-  524|  16.7k|                self.transition_to(fallback, bracket_type);
-  525|  16.7k|            }
+  523|  17.1k|            } else {
+  524|  17.1k|                self.transition_to(fallback, bracket_type);
+  525|  17.1k|            }
   526|       |
-  527|  16.7k|            if self.automaton.is_accepting(fallback) {
-  528|  16.7k|                self.record_match_detected_at(idx, NodeType::Complex(bracket_type))?;
+  527|  17.1k|            if self.automaton.is_accepting(fallback) {
+  528|  17.1k|                self.record_match_detected_at(idx, NodeType::Complex(bracket_type))?;
   529|      0|            }
   530|  2.62k|        }
   531|       |
   532|       |        // At this point we will be actually digging into the subtree.
-  533|  19.3k|        self.depth
-  534|  19.3k|            .increment()
-  535|  19.3k|            .map_err(|err| EngineError::DepthAboveLimit(idx, err))?;
+  533|  19.8k|        self.depth
+  534|  19.8k|            .increment()
+  535|  19.8k|            .map_err(|err| EngineError::DepthAboveLimit(idx, err))?;
   536|       |
-  537|  19.3k|        self.is_list = bracket_type == BracketType::Square;
-  538|  19.3k|        let mut needs_commas = false;
+  537|  19.8k|        self.is_list = bracket_type == BracketType::Square;
+  538|  19.8k|        let mut needs_commas = false;
   539|       |
   540|       |        // If we're starting a list, there's a very hairy problem of accepting the first element in the list,
   541|       |        // if it is atomic. We process objects and arrays on their opening character, and atomics on their preceding comma.
   542|       |        // The first element doesn't have a preceding comma, so if it needs to be accepted we need to handle it now.
   543|       |        //
   544|       |        // Additionally, whether to enable commas or not depends on whether an item of the list can ever be accepted.
-  545|  19.3k|        if self.is_list {
-  546|  9.75k|            let fallback = self.automaton[self.state].fallback_state();
-  547|  9.75k|            let is_fallback_accepting = self.automaton.is_accepting(fallback);
+  545|  19.8k|        if self.is_list {
+  546|  10.4k|            let fallback = self.automaton[self.state].fallback_state();
+  547|  10.4k|            let is_fallback_accepting = self.automaton.is_accepting(fallback);
   548|       |
-  549|  9.75k|            if is_fallback_accepting || self.automaton.has_any_array_item_transition(self.state) {
-  550|  9.75k|                needs_commas = true;
-  551|  9.75k|                self.array_count = JsonUInt::ZERO;
+  549|  10.4k|            if is_fallback_accepting || self.automaton.has_any_array_item_transition(self.state) {
+  550|  10.4k|                needs_commas = true;
+  551|  10.4k|                self.array_count = JsonUInt::ZERO;
   552|       |                debug!("Initialized array count to {}", self.array_count);
   553|       |
-  554|  9.75k|                let wants_first_item =
-  555|  9.75k|                    is_fallback_accepting || self.automaton.has_first_array_index_transition_to_accepting(self.state);
+  554|  10.4k|                let wants_first_item =
+  555|  10.4k|                    is_fallback_accepting || self.automaton.has_first_array_index_transition_to_accepting(self.state);
   556|       |
-  557|  9.75k|                if wants_first_item {
-  558|  9.75k|                    let next = self.input.seek_non_whitespace_forward(idx + 1).e()?;
+  557|  10.4k|                if wants_first_item {
+  558|  10.4k|                    let next = self.input.seek_non_whitespace_forward(idx + 1).e()?;
   559|       |
   560|       |                    // We only handle the match if it exists and is atomic. The possible cases
   561|       |                    // in a well-formed JSON for the next character are:
@@ -3179,32 +3179,32 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   563|       |                    // - '{' for an object value
   564|       |                    // - ']' if the list was empty and has no values
   565|       |                    // - otherwise it's the first character of an atomic value.
-  566|  9.75k|                    match next {
-  567|  5.61k|                        Some((_, b'[' | b'{' | b']')) => (), // Complex value or empty list.
-  568|  3.30k|                        Some((value_idx, _)) => {
-  569|  3.30k|                            self.record_match_detected_at(value_idx, NodeType::Atomic)?;
+  566|  10.4k|                    match next {
+  567|  5.80k|                        Some((_, b'[' | b'{' | b']')) => (), // Complex value or empty list.
+  568|  3.79k|                        Some((value_idx, _)) => {
+  569|  3.79k|                            self.record_match_detected_at(value_idx, NodeType::Atomic)?;
   570|       |                        }
-  571|    837|                        _ => (),
+  571|    828|                        _ => (),
   572|       |                    }
   573|      0|                }
   574|      0|            }
-  575|  9.57k|        }
+  575|  9.37k|        }
   576|       |
   577|       |        // Decide which structural characters need to be handled in this subtree.
-  578|  19.3k|        if !self.is_list && self.automaton.has_transition_to_accepting(self.state) {
-  579|  9.57k|            // When accepting values in an object we need colons for the member names,
-  580|  9.57k|            // and commas to report where atomic values end (for the Recorder).
-  581|  9.57k|            // This is the only case that needs colons.
-  582|  9.57k|            classifier.turn_colons_and_commas_on(idx);
-  583|  9.75k|        } else if needs_commas {
-  584|  9.75k|            classifier.turn_colons_off();
-  585|  9.75k|            classifier.turn_commas_on(idx);
-  586|  9.75k|        } else {
+  578|  19.8k|        if !self.is_list && self.automaton.has_transition_to_accepting(self.state) {
+  579|  9.37k|            // When accepting values in an object we need colons for the member names,
+  580|  9.37k|            // and commas to report where atomic values end (for the Recorder).
+  581|  9.37k|            // This is the only case that needs colons.
+  582|  9.37k|            classifier.turn_colons_and_commas_on(idx);
+  583|  10.4k|        } else if needs_commas {
+  584|  10.4k|            classifier.turn_colons_off();
+  585|  10.4k|            classifier.turn_commas_on(idx);
+  586|  10.4k|        } else {
   587|      0|            classifier.turn_colons_and_commas_off();
   588|      0|        }
   589|       |
-  590|  19.3k|        Ok(())
-  591|  19.3k|    }
+  590|  19.8k|        Ok(())
+  591|  19.8k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE14run_on_subtreeCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   311|  2.63k|    fn run_on_subtree(&mut self, classifier: &mut Classifier!()) -> Result<(), EngineError> {
   312|  2.63k|        dispatch_simd!(self.simd; self, classifier =>
@@ -3252,39 +3252,39 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   354|       |        })
   355|  2.63k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE20find_preceding_colonCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  669|  11.3k|    fn find_preceding_colon(&self, idx: usize) -> Option<usize> {
-  670|  11.3k|        if self.depth == Depth::ZERO {
+  669|  11.1k|    fn find_preceding_colon(&self, idx: usize) -> Option<usize> {
+  670|  11.1k|        if self.depth == Depth::ZERO {
   671|  2.62k|            None
   672|       |        } else {
-  673|  8.68k|            let (char_idx, char) = self.input.seek_non_whitespace_backward(idx - 1)?;
+  673|  8.48k|            let (char_idx, char) = self.input.seek_non_whitespace_backward(idx - 1)?;
   674|       |
-  675|  8.68k|            (char == b':').then_some(char_idx)
+  675|  8.48k|            (char == b':').then_some(char_idx)
   676|       |        }
-  677|  11.3k|    }
+  677|  11.1k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE21verify_subtree_closedCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  720|  2.10k|    fn verify_subtree_closed(&self) -> Result<(), EngineError> {
-  721|  2.10k|        if self.depth != Depth::ZERO {
-  722|  2.05k|            Err(EngineError::MissingClosingCharacter())
+  720|  2.12k|    fn verify_subtree_closed(&self) -> Result<(), EngineError> {
+  721|  2.12k|        if self.depth != Depth::ZERO {
+  722|  2.07k|            Err(EngineError::MissingClosingCharacter())
   723|       |        } else {
-  724|     45|            Ok(())
+  724|     43|            Ok(())
   725|       |        }
-  726|  2.10k|    }
+  726|  2.12k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE24record_match_detected_atCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  703|  34.3k|    fn record_match_detected_at(&self, start_idx: usize, ty: NodeType) -> Result<(), EngineError> {
+  703|  35.5k|    fn record_match_detected_at(&self, start_idx: usize, ty: NodeType) -> Result<(), EngineError> {
   704|       |        debug!("Reporting result somewhere after {start_idx} with node type {ty:?}");
   705|       |
-  706|  34.3k|        let index = match ty {
-  707|  7.50k|            NodeType::Complex(BracketType::Curly) => self.input.seek_forward(start_idx, [b'{']).e()?,
-  708|  9.19k|            NodeType::Complex(BracketType::Square) => self.input.seek_forward(start_idx, [b'[']).e()?,
-  709|  17.6k|            NodeType::Atomic => self.input.seek_non_whitespace_forward(start_idx).e()?,
+  706|  35.5k|        let index = match ty {
+  707|  7.36k|            NodeType::Complex(BracketType::Curly) => self.input.seek_forward(start_idx, [b'{']).e()?,
+  708|  9.81k|            NodeType::Complex(BracketType::Square) => self.input.seek_forward(start_idx, [b'[']).e()?,
+  709|  18.3k|            NodeType::Atomic => self.input.seek_non_whitespace_forward(start_idx).e()?,
   710|       |        }
-  711|  34.3k|        .map(|x| x.0);
+  711|  35.5k|        .map(|x| x.0);
   712|       |
-  713|  34.3k|        match index {
-  714|  33.7k|            Some(idx) => self.recorder.record_match(idx, self.depth, ty.into()),
-  715|    530|            None => Err(EngineError::MissingItem()),
+  713|  35.5k|        match index {
+  714|  34.9k|            Some(idx) => self.recorder.record_match(idx, self.depth, ty.into()),
+  715|    511|            None => Err(EngineError::MissingItem()),
   716|       |        }
-  717|  34.3k|    }
+  717|  35.5k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE3runCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   283|  2.63k|    fn run(mut self) -> Result<(), EngineError> {
   284|       |        // First we check if head-skipping is possible for a given query automaton.
@@ -3298,12 +3298,12 @@ _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   292|       |        }
   293|  2.63k|    }
 _RNvXs4_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtNtB9_6result15MatchedNodeTypeINtNtCs6SNw0SRvItZ_4core7convert4FromNtB5_8NodeTypeE4from:
-  816|  33.7k|    fn from(value: NodeType) -> Self {
-  817|  33.7k|        match value {
-  818|  17.0k|            NodeType::Atomic => Self::Atomic,
-  819|  16.7k|            NodeType::Complex(_) => Self::Complex,
+  816|  34.9k|    fn from(value: NodeType) -> Self {
+  817|  34.9k|        match value {
+  818|  17.8k|            NodeType::Atomic => Self::Atomic,
+  819|  17.1k|            NodeType::Complex(_) => Self::Complex,
   820|       |        }
-  821|  33.7k|    }
+  821|  34.9k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6engine4mainNtB5_10SmallStack3new:
   754|  2.63k|    fn new() -> Self {
   755|  2.63k|        Self { contents: smallvec![] }
@@ -3318,37 +3318,37 @@ _RNvMNtNtCsdseA3k6TUM9_8rsonpath6engine13tail_skippingINtB2_8TailSkipINtNtNtB6_5
    32|  2.63k|        }
    33|  2.63k|    }
 _RNvXs0_NtNtCsdseA3k6TUM9_8rsonpath6engine13tail_skippingINtB5_8TailSkipINtNtNtB9_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1c_7padding19TwoSidesPaddedInputINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2E_5MatchEEKj40_EINtNtNtNtB9_14classification6quotes7avx2_6421Avx2QuoteClassifier64B17_EINtNtNtB4c_10structural7avx2_6416Avx2Classifier64B17_B45_EINtNtB4c_4simd12ResolvedSimdNtB48_11ConstructorNtB5h_11ConstructorNtNtNtB4c_5depth7avx2_6411ConstructorNtNtNtB4c_6memmem7avx2_6411ConstructorKj2_EKB40_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref8DerefMut9deref_mutCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  141|  74.5k|    fn deref_mut(&mut self) -> &mut Self::Target {
-  142|  74.5k|        self.classifier
-  143|  74.5k|            .as_mut()
-  144|  74.5k|            .expect("tail skip must always hold a classifier")
-  145|  74.5k|    }
+  141|  76.2k|    fn deref_mut(&mut self) -> &mut Self::Target {
+  142|  76.2k|        self.classifier
+  143|  76.2k|            .as_mut()
+  144|  76.2k|            .expect("tail skip must always hold a classifier")
+  145|  76.2k|    }
 
 _RNvXNtCsdseA3k6TUM9_8rsonpath5inputRShINtB2_10InputBlockKj40_E6halvesCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  206|  28.5k|    fn halves(&self) -> (&[u8], &[u8]) {
-  207|  28.5k|        assert!(N.is_multiple_of(2), "block must be a power of two larger than 1");
-  208|  28.5k|        (&self[..N / 2], &self[N / 2..])
-  209|  28.5k|    }
+  206|  27.8k|    fn halves(&self) -> (&[u8], &[u8]) {
+  207|  27.8k|        assert!(N.is_multiple_of(2), "block must be a power of two larger than 1");
+  208|  27.8k|        (&self[..N / 2], &self[N / 2..])
+  209|  27.8k|    }
 _RINvNtCsdseA3k6TUM9_8rsonpath5input8align_toKj80_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   225|  2.63k|fn align_to<const N: usize>(bytes: &[u8]) -> (&[u8], &[u8], &[u8]) {
   226|  2.63k|    let ptr = bytes.as_ptr();
   227|  2.63k|    let offset = ptr.align_offset(N);
   228|  2.63k|    if offset > bytes.len() {
-  229|    634|        (bytes, &[], &[])
+  229|    978|        (bytes, &[], &[])
   230|       |    } else {
-  231|  2.00k|        let (left, rest) = bytes.split_at(offset);
-  232|  2.00k|        let middle_len = (rest.len() / N) * N;
-  233|  2.00k|        let (middle, right) = rest.split_at(middle_len);
+  231|  1.66k|        let (left, rest) = bytes.split_at(offset);
+  232|  1.66k|        let middle_len = (rest.len() / N) * N;
+  233|  1.66k|        let (middle, right) = rest.split_at(middle_len);
   234|       |
-  235|  2.00k|        (left, middle, right)
+  235|  1.66k|        (left, middle, right)
   236|       |    }
   237|  2.63k|}
 
 _RNvXs3_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedINtB5_26BorrowedBytesBlockIteratorNtNtB7_7padding19TwoSidesPaddedInputINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1Y_5MatchEEKj40_EINtB7_18InputBlockIteratorKB3k_E10get_offsetCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  291|  46.3k|    fn get_offset(&self) -> usize {
+  291|  46.9k|    fn get_offset(&self) -> usize {
   292|       |        debug!("getting input iter {}", self.idx);
-  293|  46.3k|        self.idx
-  294|  46.3k|    }
+  293|  46.9k|        self.idx
+  294|  46.9k|    }
 _RINvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB6_13BorrowedBytesNtB8_5Input11iter_blocksINtNtNtBa_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1z_5MatchEEKj40_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   119|  2.63k|    fn iter_blocks<'b, 'r, R, const N: usize>(&'b self, recorder: &'r R) -> Self::BlockIterator<'b, 'r, R, N>
   120|  2.63k|    where
@@ -3363,17 +3363,17 @@ _RINvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB6_13BorrowedBytesNtB8_5Inp
   129|  2.63k|        }
   130|  2.63k|    }
 _RNvXs3_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedINtB5_26BorrowedBytesBlockIteratorNtNtB7_7padding19TwoSidesPaddedInputINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1Y_5MatchEEKj40_EINtB7_18InputBlockIteratorKB3k_E4nextCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  250|  13.5k|    fn next(&mut self) -> Result<Option<Self::Block>, Self::Error> {
+  250|  13.1k|    fn next(&mut self) -> Result<Option<Self::Block>, Self::Error> {
   251|       |        debug!("next!");
-  252|  13.5k|        return if self.idx >= MAX_BLOCK_SIZE && self.idx < self.input.middle().len() + MAX_BLOCK_SIZE {
-  253|  1.70k|            let start = self.idx - MAX_BLOCK_SIZE;
+  252|  13.1k|        return if self.idx >= MAX_BLOCK_SIZE && self.idx < self.input.middle().len() + MAX_BLOCK_SIZE {
+  253|  1.30k|            let start = self.idx - MAX_BLOCK_SIZE;
   254|       |            // SAFETY: Bounds check above.
   255|       |            // self.idx >= MBS => start >= 0, and self.idx < middle.len + MBS => self.idx < middle.len
   256|       |            // By construction, middle has length divisible by N.
-  257|  1.70k|            let block = unsafe { self.input.middle().get_unchecked(start..start + N) };
-  258|  1.70k|            self.recorder.record_block_start(block);
-  259|  1.70k|            self.idx += N;
-  260|  1.70k|            Ok(Some(block))
+  257|  1.30k|            let block = unsafe { self.input.middle().get_unchecked(start..start + N) };
+  258|  1.30k|            self.recorder.record_block_start(block);
+  259|  1.30k|            self.idx += N;
+  260|  1.30k|            Ok(Some(block))
   261|       |        } else {
   262|  11.8k|            Ok(cold_path(self))
   263|       |        };
@@ -3394,7 +3394,7 @@ _RNvXs3_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedINtB5_26BorrowedBytesBlockIter
   278|       |
   279|       |            block
   280|       |        }
-  281|  13.5k|    }
+  281|  13.1k|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB2_13BorrowedBytes3new:
    44|  2.63k|    pub fn new(bytes: &'a [u8]) -> Self {
    45|  2.63k|        let (first, middle, last) = align_to::<MAX_BLOCK_SIZE>(bytes);
@@ -3421,22 +3421,22 @@ _RINvNvXs3_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedINtB8_26BorrowedBytesBlockI
   272|  11.8k|            let block = iter.input.try_slice(iter.idx, N);
   273|       |
   274|  11.8k|            if let Some(b) = block {
-  275|  9.73k|                iter.recorder.record_block_start(b);
-  276|  9.73k|                iter.idx += N;
-  277|  9.73k|            }
+  275|  9.76k|                iter.recorder.record_block_start(b);
+  276|  9.76k|                iter.idx += N;
+  277|  9.76k|            }
   278|       |
   279|  11.8k|            block
   280|  11.8k|        }
 _RINvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB6_13BorrowedBytesNtB8_5Input12seek_forwardKj1_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  151|  16.7k|    fn seek_forward<const N: usize>(&self, from: usize, needles: [u8; N]) -> Result<Option<(usize, u8)>, Infallible> {
+  151|  17.1k|    fn seek_forward<const N: usize>(&self, from: usize, needles: [u8; N]) -> Result<Option<(usize, u8)>, Infallible> {
   152|       |        return Ok(
-  153|  16.7k|            if from >= MAX_BLOCK_SIZE && from < self.middle_bytes.len() + MAX_BLOCK_SIZE {
-  154|  5.04k|                match self.middle_bytes.seek_forward(from - MAX_BLOCK_SIZE, needles) {
-  155|  5.04k|                    Some((x, y)) => Some((x + MAX_BLOCK_SIZE, y)),
+  153|  17.1k|            if from >= MAX_BLOCK_SIZE && from < self.middle_bytes.len() + MAX_BLOCK_SIZE {
+  154|  5.35k|                match self.middle_bytes.seek_forward(from - MAX_BLOCK_SIZE, needles) {
+  155|  5.35k|                    Some((x, y)) => Some((x + MAX_BLOCK_SIZE, y)),
   156|      0|                    None => handle_last(&self.last_block, MAX_BLOCK_SIZE + self.middle_bytes.len(), needles),
   157|       |                }
   158|       |            } else {
-  159|  11.6k|                self.as_padded_input().seek_forward(from, needles)
+  159|  11.8k|                self.as_padded_input().seek_forward(from, needles)
   160|       |            },
   161|       |        );
   162|       |
@@ -3452,20 +3452,20 @@ _RINvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB6_13BorrowedBytesNtB8_5Inp
   172|       |                .seek_forward(0, needles)
   173|       |                .map(|(x, y)| (x + offset, y))
   174|       |        }
-  175|  16.7k|    }
+  175|  17.1k|    }
 _RNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB5_13BorrowedBytesNtB7_5Input27seek_non_whitespace_forwardCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  178|  43.9k|    fn seek_non_whitespace_forward(&self, from: usize) -> Result<Option<(usize, u8)>, Infallible> {
+  178|  45.6k|    fn seek_non_whitespace_forward(&self, from: usize) -> Result<Option<(usize, u8)>, Infallible> {
   179|       |        return Ok(
   180|       |            // The hot path is when we start and end within the middle section.
   181|       |            // We use the regular slice path for that scenario, and fall back to the very expensive
   182|       |            // TwoSidesPaddedInput with all bells and whistles only when that doesn't work.
-  183|  43.9k|            if from >= MAX_BLOCK_SIZE && from < self.middle_bytes.len() + MAX_BLOCK_SIZE {
-  184|  16.1k|                match self.middle_bytes.seek_non_whitespace_forward(from - MAX_BLOCK_SIZE) {
-  185|  15.8k|                    Some((x, y)) => Some((x + MAX_BLOCK_SIZE, y)),
-  186|    330|                    None => handle_last(&self.last_block, MAX_BLOCK_SIZE + self.middle_bytes.len()),
+  183|  45.6k|            if from >= MAX_BLOCK_SIZE && from < self.middle_bytes.len() + MAX_BLOCK_SIZE {
+  184|  15.5k|                match self.middle_bytes.seek_non_whitespace_forward(from - MAX_BLOCK_SIZE) {
+  185|  15.3k|                    Some((x, y)) => Some((x + MAX_BLOCK_SIZE, y)),
+  186|    216|                    None => handle_last(&self.last_block, MAX_BLOCK_SIZE + self.middle_bytes.len()),
   187|       |                }
   188|       |            } else {
-  189|  27.8k|                self.as_padded_input().seek_non_whitespace_forward(from)
+  189|  30.1k|                self.as_padded_input().seek_non_whitespace_forward(from)
   190|       |            },
   191|       |        );
   192|       |
@@ -3477,16 +3477,16 @@ _RNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB5_13BorrowedBytesNtB7_5Inpu
   198|       |                .seek_non_whitespace_forward(0)
   199|       |                .map(|(x, y)| (x + offset, y))
   200|       |        }
-  201|  43.9k|    }
+  201|  45.6k|    }
 _RNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB5_13BorrowedBytesNtB7_5Input28seek_non_whitespace_backwardCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  204|  8.68k|    fn seek_non_whitespace_backward(&self, from: usize) -> Option<(usize, u8)> {
-  205|  8.68k|        return if from >= MAX_BLOCK_SIZE && from < self.middle_bytes.len() + MAX_BLOCK_SIZE {
-  206|  2.44k|            match self.middle_bytes.seek_non_whitespace_backward(from - MAX_BLOCK_SIZE) {
-  207|  2.41k|                Some((x, y)) => Some((x + MAX_BLOCK_SIZE, y)),
-  208|     37|                None => handle_first(&self.first_block),
+  204|  8.48k|    fn seek_non_whitespace_backward(&self, from: usize) -> Option<(usize, u8)> {
+  205|  8.48k|        return if from >= MAX_BLOCK_SIZE && from < self.middle_bytes.len() + MAX_BLOCK_SIZE {
+  206|  2.52k|            match self.middle_bytes.seek_non_whitespace_backward(from - MAX_BLOCK_SIZE) {
+  207|  2.50k|                Some((x, y)) => Some((x + MAX_BLOCK_SIZE, y)),
+  208|     26|                None => handle_first(&self.first_block),
   209|       |            }
   210|       |        } else {
-  211|  6.23k|            self.as_padded_input().seek_non_whitespace_backward(from)
+  211|  5.96k|            self.as_padded_input().seek_non_whitespace_backward(from)
   212|       |        };
   213|       |
   214|       |        #[cold]
@@ -3494,94 +3494,94 @@ _RNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB5_13BorrowedBytesNtB7_5Inpu
   216|       |        fn handle_first(first_block: &PaddedBlock) -> Option<(usize, u8)> {
   217|       |            first_block.bytes().seek_non_whitespace_backward(first_block.len() - 1)
   218|       |        }
-  219|  8.68k|    }
+  219|  8.48k|    }
 _RNCNvNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB9_13BorrowedBytesNtBb_5Input27seek_non_whitespace_forward11handle_last0Bd_:
-  199|    185|                .map(|(x, y)| (x + offset, y))
+  199|    126|                .map(|(x, y)| (x + offset, y))
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB2_13BorrowedBytes15as_padded_input:
-   56|  45.7k|    pub(super) fn as_padded_input(&self) -> TwoSidesPaddedInput<'_> {
-   57|  45.7k|        TwoSidesPaddedInput::new(&self.first_block, self.middle_bytes, &self.last_block)
-   58|  45.7k|    }
+   56|  47.9k|    pub(super) fn as_padded_input(&self) -> TwoSidesPaddedInput<'_> {
+   57|  47.9k|        TwoSidesPaddedInput::new(&self.first_block, self.middle_bytes, &self.last_block)
+   58|  47.9k|    }
 _RNvNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB7_13BorrowedBytesNtB9_5Input27seek_non_whitespace_forward11handle_last:
-  195|    330|        fn handle_last(last_block: &PaddedBlock, offset: usize) -> Option<(usize, u8)> {
-  196|    330|            last_block
-  197|    330|                .bytes()
-  198|    330|                .seek_non_whitespace_forward(0)
-  199|    330|                .map(|(x, y)| (x + offset, y))
-  200|    330|        }
+  195|    216|        fn handle_last(last_block: &PaddedBlock, offset: usize) -> Option<(usize, u8)> {
+  196|    216|            last_block
+  197|    216|                .bytes()
+  198|    216|                .seek_non_whitespace_forward(0)
+  199|    216|                .map(|(x, y)| (x + offset, y))
+  200|    216|        }
 _RNvNvXs2_NtNtCsdseA3k6TUM9_8rsonpath5input8borrowedNtB7_13BorrowedBytesNtB9_5Input28seek_non_whitespace_backward12handle_first:
-  216|     37|        fn handle_first(first_block: &PaddedBlock) -> Option<(usize, u8)> {
-  217|     37|            first_block.bytes().seek_non_whitespace_backward(first_block.len() - 1)
-  218|     37|        }
+  216|     26|        fn handle_first(first_block: &PaddedBlock) -> Option<(usize, u8)> {
+  217|     26|            first_block.bytes().seek_non_whitespace_backward(first_block.len() - 1)
+  218|     26|        }
 
 _RNvXNtNtCsdseA3k6TUM9_8rsonpath5input5errorINtNtCs6SNw0SRvItZ_4core6result6ResultINtNtBK_6option6OptionRShENtB2_10InfallibleEINtB2_21InputErrorConvertibleB1h_E1eCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   50|  13.5k|    fn e(self) -> Result<T, InputError> {
-   51|  13.5k|        self.map_err(std::convert::Into::into)
-   52|  13.5k|    }
+   50|  13.1k|    fn e(self) -> Result<T, InputError> {
+   51|  13.1k|        self.map_err(std::convert::Into::into)
+   52|  13.1k|    }
 _RNvXNtNtCsdseA3k6TUM9_8rsonpath5input5errorINtNtCs6SNw0SRvItZ_4core6result6ResultINtNtBK_6option6OptionTjhEENtB2_10InfallibleEINtB2_21InputErrorConvertibleB1h_E1eCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   50|  60.6k|    fn e(self) -> Result<T, InputError> {
-   51|  60.6k|        self.map_err(std::convert::Into::into)
-   52|  60.6k|    }
+   50|  62.8k|    fn e(self) -> Result<T, InputError> {
+   51|  62.8k|        self.map_err(std::convert::Into::into)
+   52|  62.8k|    }
 
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput6middle:
-  317|  9.95k|    pub(super) fn middle(&self) -> &'a [u8] {
-  318|  9.95k|        self.middle
-  319|  9.95k|    }
+  317|  9.20k|    pub(super) fn middle(&self) -> &'a [u8] {
+  318|  9.20k|        self.middle
+  319|  9.20k|    }
 _RINvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB6_19TwoSidesPaddedInput22seek_forward_from_lastKj1_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  387|  6.68k|    fn seek_forward_from_last<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
-  388|  6.68k|        assert!(N > 0, "cannot seek 0 needles");
-  389|  6.68k|        debug_assert!(
+  387|  4.92k|    fn seek_forward_from_last<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
+  388|  4.92k|        assert!(N > 0, "cannot seek 0 needles");
+  389|  4.92k|        debug_assert!(
   390|      0|            from >= self.middle.len() + MAX_BLOCK_SIZE,
   391|      0|            "from is before the last block"
   392|       |        );
-  393|  6.68k|        let bytes = &self.last_block.bytes;
+  393|  4.92k|        let bytes = &self.last_block.bytes;
   394|       |
-  395|  6.68k|        seek_forward_impl(bytes, from - self.middle.len() - MAX_BLOCK_SIZE, needles)
-  396|  6.68k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
-  397|  6.68k|    }
+  395|  4.92k|        seek_forward_impl(bytes, from - self.middle.len() - MAX_BLOCK_SIZE, needles)
+  396|  4.92k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
+  397|  4.92k|    }
 _RINvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB6_19TwoSidesPaddedInput23seek_forward_from_firstKj1_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  359|  4.97k|    fn seek_forward_from_first<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
-  360|  4.97k|        assert!(N > 0, "cannot seek 0 needles");
-  361|  4.97k|        debug_assert!(from < MAX_BLOCK_SIZE, "from is already outside of first");
-  362|  4.97k|        let bytes = &self.first_block.bytes;
+  359|  6.90k|    fn seek_forward_from_first<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
+  360|  6.90k|        assert!(N > 0, "cannot seek 0 needles");
+  361|  6.90k|        debug_assert!(from < MAX_BLOCK_SIZE, "from is already outside of first");
+  362|  6.90k|        let bytes = &self.first_block.bytes;
   363|       |
-  364|  4.97k|        seek_forward_impl(bytes, from, needles).or_else(|| {
+  364|  6.90k|        seek_forward_impl(bytes, from, needles).or_else(|| {
   365|       |            if self.middle.is_empty() {
   366|       |                self.seek_forward_from_last(bytes.len(), needles)
   367|       |            } else {
   368|       |                self.seek_forward_from_middle(bytes.len(), needles)
   369|       |            }
   370|       |        })
-  371|  4.97k|    }
+  371|  6.90k|    }
 _RINvNtNtCsdseA3k6TUM9_8rsonpath5input7padding17seek_forward_implKj1_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  569|  11.6k|fn seek_forward_impl<const N: usize>(bytes: &[u8], from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
-  570|  11.6k|    let mut idx = from;
-  571|  11.6k|    if idx >= bytes.len() {
+  569|  11.8k|fn seek_forward_impl<const N: usize>(bytes: &[u8], from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
+  570|  11.8k|    let mut idx = from;
+  571|  11.8k|    if idx >= bytes.len() {
   572|      0|        return None;
-  573|  11.6k|    }
+  573|  11.8k|    }
   574|       |
   575|       |    loop {
-  576|  11.6k|        let b = bytes[idx];
-  577|  11.6k|        if needles.contains(&b) {
-  578|  11.6k|            return Some((idx, b));
+  576|  11.8k|        let b = bytes[idx];
+  577|  11.8k|        if needles.contains(&b) {
+  578|  11.8k|            return Some((idx, b));
   579|      0|        }
   580|      0|        idx += 1;
   581|      0|        if idx == bytes.len() {
   582|      0|            return None;
   583|      0|        }
   584|       |    }
-  585|  11.6k|}
+  585|  11.8k|}
 _RINvXs0_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB6_19TwoSidesPaddedInputNtB8_13SliceSeekable12seek_forwardKj1_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  129|  11.6k|    fn seek_forward<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
-  130|  11.6k|        if from < MAX_BLOCK_SIZE {
-  131|  4.97k|            self.seek_forward_from_first(from, needles)
-  132|  6.68k|        } else if from < self.middle.len() + MAX_BLOCK_SIZE {
+  129|  11.8k|    fn seek_forward<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
+  130|  11.8k|        if from < MAX_BLOCK_SIZE {
+  131|  6.90k|            self.seek_forward_from_first(from, needles)
+  132|  4.92k|        } else if from < self.middle.len() + MAX_BLOCK_SIZE {
   133|      0|            self.seek_forward_from_middle(from, needles)
   134|       |        } else {
-  135|  6.68k|            self.seek_forward_from_last(from, needles)
+  135|  4.92k|            self.seek_forward_from_last(from, needles)
   136|       |        }
-  137|  11.6k|    }
+  137|  11.8k|    }
 _RNCINvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB8_19TwoSidesPaddedInput22seek_forward_from_lastKj1_E0CsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  396|  6.68k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
+  396|  4.92k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB2_11PaddedBlock11padding_len:
    29|  2.63k|    pub(super) fn padding_len(&self) -> usize {
    30|  2.63k|        self.padding_len
@@ -3613,290 +3613,290 @@ _RNvMNtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB2_11PaddedBlock15pad_first_bloc
    47|  2.63k|        }
    48|  2.63k|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB2_11PaddedBlock3len:
-   25|     37|    pub(super) const fn len(&self) -> usize {
-   26|     37|        MAX_BLOCK_SIZE
-   27|     37|    }
+   25|     26|    pub(super) const fn len(&self) -> usize {
+   26|     26|        MAX_BLOCK_SIZE
+   27|     26|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB2_11PaddedBlock5bytes:
-   33|    367|    pub(super) fn bytes(&self) -> &[u8] {
-   34|    367|        &self.bytes
-   35|    367|    }
+   33|    242|    pub(super) fn bytes(&self) -> &[u8] {
+   34|    242|        &self.bytes
+   35|    242|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput10slice_last:
-  495|  6.54k|    fn slice_last(&self, start: usize, len: usize) -> Option<&'a [u8]> {
-  496|  6.54k|        let start = start - self.middle.len() - MAX_BLOCK_SIZE;
-  497|  6.54k|        (start < MAX_BLOCK_SIZE).then(|| &self.last_block.bytes[start..start + len])
-  498|  6.54k|    }
+  495|  6.59k|    fn slice_last(&self, start: usize, len: usize) -> Option<&'a [u8]> {
+  496|  6.59k|        let start = start - self.middle.len() - MAX_BLOCK_SIZE;
+  497|  6.59k|        (start < MAX_BLOCK_SIZE).then(|| &self.last_block.bytes[start..start + len])
+  498|  6.59k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput11slice_first:
   486|  5.26k|    fn slice_first(&self, start: usize, len: usize) -> &'a [u8] {
   487|  5.26k|        &self.first_block.bytes[start..start + len]
   488|  5.26k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput37seek_non_whitespace_forward_from_last:
-  425|  16.1k|    fn seek_non_whitespace_forward_from_last(&self, from: usize) -> Option<(usize, u8)> {
-  426|  16.1k|        debug_assert!(
+  425|  13.9k|    fn seek_non_whitespace_forward_from_last(&self, from: usize) -> Option<(usize, u8)> {
+  426|  13.9k|        debug_assert!(
   427|      0|            from >= self.middle.len() + MAX_BLOCK_SIZE,
   428|      0|            "from is before the last block"
   429|       |        );
-  430|  16.1k|        let bytes = &self.last_block.bytes;
+  430|  13.9k|        let bytes = &self.last_block.bytes;
   431|       |
-  432|  16.1k|        seek_non_whitespace_forward_impl(bytes, from - self.middle.len() - MAX_BLOCK_SIZE)
-  433|  16.1k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
-  434|  16.1k|    }
+  432|  13.9k|        seek_non_whitespace_forward_impl(bytes, from - self.middle.len() - MAX_BLOCK_SIZE)
+  433|  13.9k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
+  434|  13.9k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput38seek_non_whitespace_backward_from_last:
-  456|  3.52k|    fn seek_non_whitespace_backward_from_last(&self, from: usize) -> Option<(usize, u8)> {
-  457|  3.52k|        debug_assert!(
+  456|  2.43k|    fn seek_non_whitespace_backward_from_last(&self, from: usize) -> Option<(usize, u8)> {
+  457|  2.43k|        debug_assert!(
   458|      0|            from >= self.middle.len() + MAX_BLOCK_SIZE,
   459|      0|            "from is before the last block"
   460|       |        );
-  461|  3.52k|        let bytes = &self.last_block.bytes;
+  461|  2.43k|        let bytes = &self.last_block.bytes;
   462|       |
-  463|  3.52k|        seek_non_whitespace_backward_impl(bytes, from - self.middle.len() - MAX_BLOCK_SIZE)
-  464|  3.52k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
-  465|  3.52k|            .or_else(|| {
+  463|  2.43k|        seek_non_whitespace_backward_impl(bytes, from - self.middle.len() - MAX_BLOCK_SIZE)
+  464|  2.43k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
+  465|  2.43k|            .or_else(|| {
   466|       |                if self.middle.is_empty() {
   467|       |                    self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1)
   468|       |                } else {
   469|       |                    self.seek_non_whitespace_backward_from_middle(self.middle.len() + MAX_BLOCK_SIZE - 1)
   470|       |                }
   471|       |            })
-  472|  3.52k|    }
+  472|  2.43k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput38seek_non_whitespace_forward_from_first:
-  399|  12.4k|    fn seek_non_whitespace_forward_from_first(&self, from: usize) -> Option<(usize, u8)> {
-  400|  12.4k|        debug_assert!(from < MAX_BLOCK_SIZE, "from is already outside of first");
-  401|  12.4k|        let bytes = &self.first_block.bytes;
+  399|  17.2k|    fn seek_non_whitespace_forward_from_first(&self, from: usize) -> Option<(usize, u8)> {
+  400|  17.2k|        debug_assert!(from < MAX_BLOCK_SIZE, "from is already outside of first");
+  401|  17.2k|        let bytes = &self.first_block.bytes;
   402|       |
-  403|  12.4k|        seek_non_whitespace_forward_impl(bytes, from).or_else(|| {
+  403|  17.2k|        seek_non_whitespace_forward_impl(bytes, from).or_else(|| {
   404|       |            if self.middle.is_empty() {
   405|       |                self.seek_non_whitespace_forward_from_last(bytes.len())
   406|       |            } else {
   407|       |                self.seek_non_whitespace_forward_from_middle(bytes.len())
   408|       |            }
   409|       |        })
-  410|  12.4k|    }
+  410|  17.2k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput39seek_non_whitespace_backward_from_first:
-  436|  3.08k|    fn seek_non_whitespace_backward_from_first(&self, from: usize) -> Option<(usize, u8)> {
-  437|  3.08k|        debug_assert!(from < MAX_BLOCK_SIZE, "from is already outside of first");
-  438|  3.08k|        let bytes = &self.first_block.bytes;
+  436|  3.95k|    fn seek_non_whitespace_backward_from_first(&self, from: usize) -> Option<(usize, u8)> {
+  437|  3.95k|        debug_assert!(from < MAX_BLOCK_SIZE, "from is already outside of first");
+  438|  3.95k|        let bytes = &self.first_block.bytes;
   439|       |
-  440|  3.08k|        seek_non_whitespace_backward_impl(bytes, from)
-  441|  3.08k|    }
+  440|  3.95k|        seek_non_whitespace_backward_impl(bytes, from)
+  441|  3.95k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput39seek_non_whitespace_forward_from_middle:
-  412|    250|    fn seek_non_whitespace_forward_from_middle(&self, from: usize) -> Option<(usize, u8)> {
-  413|    250|        debug_assert!(from >= MAX_BLOCK_SIZE, "from is inside of first");
-  414|    250|        debug_assert!(
+  412|    139|    fn seek_non_whitespace_forward_from_middle(&self, from: usize) -> Option<(usize, u8)> {
+  413|    139|        debug_assert!(from >= MAX_BLOCK_SIZE, "from is inside of first");
+  414|    139|        debug_assert!(
   415|      0|            from < self.middle.len() + MAX_BLOCK_SIZE,
   416|      0|            "from is already outside of middle"
   417|       |        );
-  418|    250|        let bytes = self.middle;
+  418|    139|        let bytes = self.middle;
   419|       |
-  420|    250|        seek_non_whitespace_forward_impl(bytes, from - MAX_BLOCK_SIZE)
-  421|    250|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
-  422|    250|            .or_else(|| self.seek_non_whitespace_forward_from_last(bytes.len() + MAX_BLOCK_SIZE))
-  423|    250|    }
+  420|    139|        seek_non_whitespace_forward_impl(bytes, from - MAX_BLOCK_SIZE)
+  421|    139|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
+  422|    139|            .or_else(|| self.seek_non_whitespace_forward_from_last(bytes.len() + MAX_BLOCK_SIZE))
+  423|    139|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput3new:
-  308|  48.3k|    pub(super) fn new(first: &'a PaddedBlock, middle: &'a [u8], last: &'a PaddedBlock) -> Self {
-  309|  48.3k|        Self {
-  310|  48.3k|            first_block: first,
-  311|  48.3k|            middle,
-  312|  48.3k|            last_block: last,
-  313|  48.3k|        }
-  314|  48.3k|    }
+  308|  50.5k|    pub(super) fn new(first: &'a PaddedBlock, middle: &'a [u8], last: &'a PaddedBlock) -> Self {
+  309|  50.5k|        Self {
+  310|  50.5k|            first_block: first,
+  311|  50.5k|            middle,
+  312|  50.5k|            last_block: last,
+  313|  50.5k|        }
+  314|  50.5k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput40seek_non_whitespace_backward_from_middle:
-  443|    244|    fn seek_non_whitespace_backward_from_middle(&self, from: usize) -> Option<(usize, u8)> {
-  444|    244|        debug_assert!(from >= MAX_BLOCK_SIZE, "from is inside of first");
-  445|    244|        debug_assert!(
+  443|    118|    fn seek_non_whitespace_backward_from_middle(&self, from: usize) -> Option<(usize, u8)> {
+  444|    118|        debug_assert!(from >= MAX_BLOCK_SIZE, "from is inside of first");
+  445|    118|        debug_assert!(
   446|      0|            from < self.middle.len() + MAX_BLOCK_SIZE,
   447|      0|            "from is already outside of middle"
   448|       |        );
-  449|    244|        let bytes = self.middle;
+  449|    118|        let bytes = self.middle;
   450|       |
-  451|    244|        seek_non_whitespace_backward_impl(bytes, from - MAX_BLOCK_SIZE)
-  452|    244|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
-  453|    244|            .or_else(|| self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1))
-  454|    244|    }
+  451|    118|        seek_non_whitespace_backward_impl(bytes, from - MAX_BLOCK_SIZE)
+  452|    118|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
+  453|    118|            .or_else(|| self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1))
+  454|    118|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInput9try_slice:
   474|  11.8k|    pub(super) fn try_slice(&self, start: usize, len: usize) -> Option<&'a [u8]> {
   475|  11.8k|        debug_assert!(len < MAX_BLOCK_SIZE, "cannot slice more than MAX_BLOCK_SIZE");
   476|       |
   477|  11.8k|        if start < MAX_BLOCK_SIZE {
   478|  5.26k|            Some(self.slice_first(start, len))
-  479|  6.54k|        } else if start < self.middle.len() + MAX_BLOCK_SIZE {
+  479|  6.59k|        } else if start < self.middle.len() + MAX_BLOCK_SIZE {
   480|      0|            Some(self.slice_middle(start, len))
   481|       |        } else {
-  482|  6.54k|            self.slice_last(start, len)
+  482|  6.59k|            self.slice_last(start, len)
   483|       |        }
   484|  11.8k|    }
 _RNvNtNtCsdseA3k6TUM9_8rsonpath5input7padding32seek_non_whitespace_forward_impl:
-  588|  28.8k|fn seek_non_whitespace_forward_impl(bytes: &[u8], from: usize) -> Option<(usize, u8)> {
-  589|  28.8k|    let mut idx = from;
-  590|  28.8k|    if idx >= bytes.len() {
+  588|  31.3k|fn seek_non_whitespace_forward_impl(bytes: &[u8], from: usize) -> Option<(usize, u8)> {
+  589|  31.3k|    let mut idx = from;
+  590|  31.3k|    if idx >= bytes.len() {
   591|      0|        return None;
-  592|  28.8k|    }
+  592|  31.3k|    }
   593|       |
   594|       |    loop {
-  595|   313k|        let b = bytes[idx];
-  596|   313k|        if !b.is_ascii_whitespace() {
-  597|  26.0k|            return Some((idx, b));
-  598|   287k|        }
-  599|   287k|        idx += 1;
-  600|   287k|        if idx == bytes.len() {
-  601|  2.81k|            return None;
-  602|   284k|        }
+  595|   322k|        let b = bytes[idx];
+  596|   322k|        if !b.is_ascii_whitespace() {
+  597|  28.3k|            return Some((idx, b));
+  598|   294k|        }
+  599|   294k|        idx += 1;
+  600|   294k|        if idx == bytes.len() {
+  601|  2.96k|            return None;
+  602|   291k|        }
   603|       |    }
-  604|  28.8k|}
+  604|  31.3k|}
 _RNvNtNtCsdseA3k6TUM9_8rsonpath5input7padding33seek_non_whitespace_backward_impl:
-  607|  6.85k|fn seek_non_whitespace_backward_impl(bytes: &[u8], from: usize) -> Option<(usize, u8)> {
-  608|  6.85k|    let mut idx = from;
-  609|  6.85k|    if idx >= bytes.len() {
+  607|  6.51k|fn seek_non_whitespace_backward_impl(bytes: &[u8], from: usize) -> Option<(usize, u8)> {
+  608|  6.51k|    let mut idx = from;
+  609|  6.51k|    if idx >= bytes.len() {
   610|      0|        return None;
-  611|  6.85k|    }
+  611|  6.51k|    }
   612|       |
   613|       |    loop {
-  614|  99.2k|        let b = bytes[idx];
-  615|  99.2k|        if !b.is_ascii_whitespace() {
-  616|  6.23k|            return Some((idx, b));
-  617|  92.9k|        }
-  618|  92.9k|        if idx == 0 {
-  619|    623|            return None;
-  620|  92.3k|        }
-  621|  92.3k|        idx -= 1;
+  614|  83.0k|        let b = bytes[idx];
+  615|  83.0k|        if !b.is_ascii_whitespace() {
+  616|  5.96k|            return Some((idx, b));
+  617|  77.1k|        }
+  618|  77.1k|        if idx == 0 {
+  619|    550|            return None;
+  620|  76.5k|        }
+  621|  76.5k|        idx -= 1;
   622|       |    }
-  623|  6.85k|}
+  623|  6.51k|}
 _RNvXs0_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInputNtB7_13SliceSeekable27seek_non_whitespace_forward:
-  141|  27.8k|    fn seek_non_whitespace_forward(&self, from: usize) -> Option<(usize, u8)> {
-  142|  27.8k|        if from < MAX_BLOCK_SIZE {
-  143|  12.4k|            self.seek_non_whitespace_forward_from_first(from)
-  144|  15.3k|        } else if from < self.middle.len() + MAX_BLOCK_SIZE {
+  141|  30.1k|    fn seek_non_whitespace_forward(&self, from: usize) -> Option<(usize, u8)> {
+  142|  30.1k|        if from < MAX_BLOCK_SIZE {
+  143|  17.2k|            self.seek_non_whitespace_forward_from_first(from)
+  144|  12.9k|        } else if from < self.middle.len() + MAX_BLOCK_SIZE {
   145|      0|            self.seek_non_whitespace_forward_from_middle(from)
   146|       |        } else {
-  147|  15.3k|            self.seek_non_whitespace_forward_from_last(from)
+  147|  12.9k|            self.seek_non_whitespace_forward_from_last(from)
   148|       |        }
-  149|  27.8k|    }
+  149|  30.1k|    }
 _RNvXs0_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB5_19TwoSidesPaddedInputNtB7_13SliceSeekable28seek_non_whitespace_backward:
-  153|  6.23k|    fn seek_non_whitespace_backward(&self, from: usize) -> Option<(usize, u8)> {
-  154|  6.23k|        if from < MAX_BLOCK_SIZE {
-  155|  2.70k|            self.seek_non_whitespace_backward_from_first(from)
-  156|  3.52k|        } else if from < self.middle.len() + MAX_BLOCK_SIZE {
+  153|  5.96k|    fn seek_non_whitespace_backward(&self, from: usize) -> Option<(usize, u8)> {
+  154|  5.96k|        if from < MAX_BLOCK_SIZE {
+  155|  3.52k|            self.seek_non_whitespace_backward_from_first(from)
+  156|  2.43k|        } else if from < self.middle.len() + MAX_BLOCK_SIZE {
   157|      0|            self.seek_non_whitespace_backward_from_middle(from)
   158|       |        } else {
-  159|  3.52k|            self.seek_non_whitespace_backward_from_last(from)
+  159|  2.43k|            self.seek_non_whitespace_backward_from_last(from)
   160|       |        }
-  161|  6.23k|    }
+  161|  5.96k|    }
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput10slice_last0Bb_:
-  497|  4.47k|        (start < MAX_BLOCK_SIZE).then(|| &self.last_block.bytes[start..start + len])
+  497|  4.49k|        (start < MAX_BLOCK_SIZE).then(|| &self.last_block.bytes[start..start + len])
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput37seek_non_whitespace_forward_from_last0Bb_:
-  433|  14.3k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
+  433|  12.2k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput38seek_non_whitespace_backward_from_last0Bb_:
-  464|  3.05k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
+  464|  1.94k|            .map(|(x, y)| (x + self.middle.len() + MAX_BLOCK_SIZE, y))
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput38seek_non_whitespace_backward_from_lasts_0Bb_:
-  465|    476|            .or_else(|| {
-  466|    476|                if self.middle.is_empty() {
-  467|    232|                    self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1)
+  465|    494|            .or_else(|| {
+  466|    494|                if self.middle.is_empty() {
+  467|    376|                    self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1)
   468|       |                } else {
-  469|    244|                    self.seek_non_whitespace_backward_from_middle(self.middle.len() + MAX_BLOCK_SIZE - 1)
+  469|    118|                    self.seek_non_whitespace_backward_from_middle(self.middle.len() + MAX_BLOCK_SIZE - 1)
   470|       |                }
-  471|    476|            })
+  471|    494|            })
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput38seek_non_whitespace_forward_from_first0Bb_:
-  403|    962|        seek_non_whitespace_forward_impl(bytes, from).or_else(|| {
-  404|    962|            if self.middle.is_empty() {
-  405|    712|                self.seek_non_whitespace_forward_from_last(bytes.len())
+  403|  1.14k|        seek_non_whitespace_forward_impl(bytes, from).or_else(|| {
+  404|  1.14k|            if self.middle.is_empty() {
+  405|  1.00k|                self.seek_non_whitespace_forward_from_last(bytes.len())
   406|       |            } else {
-  407|    250|                self.seek_non_whitespace_forward_from_middle(bytes.len())
+  407|    139|                self.seek_non_whitespace_forward_from_middle(bytes.len())
   408|       |            }
-  409|    962|        })
+  409|  1.14k|        })
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput39seek_non_whitespace_forward_from_middle0Bb_:
-  421|    151|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
+  421|     85|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput39seek_non_whitespace_forward_from_middles_0Bb_:
-  422|     99|            .or_else(|| self.seek_non_whitespace_forward_from_last(bytes.len() + MAX_BLOCK_SIZE))
+  422|     54|            .or_else(|| self.seek_non_whitespace_forward_from_last(bytes.len() + MAX_BLOCK_SIZE))
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput40seek_non_whitespace_backward_from_middle0Bb_:
-  452|     97|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
+  452|     62|            .map(|(x, y)| (x + MAX_BLOCK_SIZE, y))
 _RNCNvMs2_NtNtCsdseA3k6TUM9_8rsonpath5input7paddingNtB7_19TwoSidesPaddedInput40seek_non_whitespace_backward_from_middles_0Bb_:
-  453|    147|            .or_else(|| self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1))
+  453|     56|            .or_else(|| self.seek_non_whitespace_backward_from_first(MAX_BLOCK_SIZE - 1))
 
 _RINvXNtNtCsdseA3k6TUM9_8rsonpath5input5sliceRShNtB5_13SliceSeekable12seek_forwardKj1_ECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   33|  5.04k|    fn seek_forward<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
-   34|  5.04k|        let bytes = self.as_ref();
+   33|  5.35k|    fn seek_forward<const N: usize>(&self, from: usize, needles: [u8; N]) -> Option<(usize, u8)> {
+   34|  5.35k|        let bytes = self.as_ref();
    35|       |
-   36|  5.04k|        assert!(N > 0, "cannot seek 0 needles");
-   37|  5.04k|        let mut idx = from;
+   36|  5.35k|        assert!(N > 0, "cannot seek 0 needles");
+   37|  5.35k|        let mut idx = from;
    38|       |
-   39|  5.04k|        if idx >= bytes.len() {
+   39|  5.35k|        if idx >= bytes.len() {
    40|      0|            return None;
-   41|  5.04k|        }
+   41|  5.35k|        }
    42|       |
    43|       |        loop {
-   44|  5.04k|            let b = bytes[idx];
-   45|  5.04k|            if needles.contains(&b) {
-   46|  5.04k|                return Some((idx, b));
+   44|  5.35k|            let b = bytes[idx];
+   45|  5.35k|            if needles.contains(&b) {
+   46|  5.35k|                return Some((idx, b));
    47|      0|            }
    48|      0|            idx += 1;
    49|      0|            if idx == bytes.len() {
    50|      0|                return None;
    51|      0|            }
    52|       |        }
-   53|  5.04k|    }
+   53|  5.35k|    }
 _RNvXNtNtCsdseA3k6TUM9_8rsonpath5input5sliceRShNtB4_13SliceSeekable27seek_non_whitespace_forwardB6_:
-   56|  16.4k|    fn seek_non_whitespace_forward(&self, from: usize) -> Option<(usize, u8)> {
-   57|  16.4k|        let bytes = self.as_ref();
-   58|  16.4k|        let mut idx = from;
+   56|  15.7k|    fn seek_non_whitespace_forward(&self, from: usize) -> Option<(usize, u8)> {
+   57|  15.7k|        let bytes = self.as_ref();
+   58|  15.7k|        let mut idx = from;
    59|       |
-   60|  16.4k|        if idx >= bytes.len() {
+   60|  15.7k|        if idx >= bytes.len() {
    61|      0|            return None;
-   62|  16.4k|        }
+   62|  15.7k|        }
    63|       |
    64|       |        loop {
-   65|  79.4k|            let b = bytes[idx];
-   66|  79.4k|            if !b.is_ascii_whitespace() {
-   67|  16.0k|                return Some((idx, b));
-   68|  63.4k|            }
-   69|  63.4k|            idx += 1;
-   70|  63.4k|            if idx == bytes.len() {
-   71|    475|                return None;
-   72|  62.9k|            }
+   65|  58.4k|            let b = bytes[idx];
+   66|  58.4k|            if !b.is_ascii_whitespace() {
+   67|  15.4k|                return Some((idx, b));
+   68|  43.0k|            }
+   69|  43.0k|            idx += 1;
+   70|  43.0k|            if idx == bytes.len() {
+   71|    306|                return None;
+   72|  42.7k|            }
    73|       |        }
-   74|  16.4k|    }
+   74|  15.7k|    }
 _RNvXNtNtCsdseA3k6TUM9_8rsonpath5input5sliceRShNtB4_13SliceSeekable28seek_non_whitespace_backwardB6_:
-   77|  2.48k|    fn seek_non_whitespace_backward(&self, from: usize) -> Option<(usize, u8)> {
-   78|  2.48k|        let bytes = self.as_ref();
-   79|  2.48k|        let mut idx = from;
+   77|  2.55k|    fn seek_non_whitespace_backward(&self, from: usize) -> Option<(usize, u8)> {
+   78|  2.55k|        let bytes = self.as_ref();
+   79|  2.55k|        let mut idx = from;
    80|       |
-   81|  2.48k|        if idx >= bytes.len() {
+   81|  2.55k|        if idx >= bytes.len() {
    82|      0|            return None;
-   83|  2.48k|        }
+   83|  2.55k|        }
    84|       |
    85|       |        loop {
-   86|  9.31k|            let b = bytes[idx];
-   87|  9.31k|            if !b.is_ascii_whitespace() {
-   88|  2.44k|                return Some((idx, b));
-   89|  6.86k|            }
-   90|  6.86k|            if idx == 0 {
-   91|     37|                return None;
-   92|  6.82k|            }
-   93|  6.82k|            idx -= 1;
+   86|  7.39k|            let b = bytes[idx];
+   87|  7.39k|            if !b.is_ascii_whitespace() {
+   88|  2.52k|                return Some((idx, b));
+   89|  4.86k|            }
+   90|  4.86k|            if idx == 0 {
+   91|     26|                return None;
+   92|  4.84k|            }
+   93|  4.84k|            idx -= 1;
    94|       |        }
-   95|  2.48k|    }
+   95|  2.55k|    }
 
 _RNvCsdseA3k6TUM9_8rsonpath18is_json_whitespace:
-  309|  8.12k|pub(crate) fn is_json_whitespace(x: u8) -> bool {
-  310|  8.12k|    JSON_WHITESPACE_BYTES.contains(&x)
-  311|  8.12k|}
+  309|  9.58k|pub(crate) fn is_json_whitespace(x: u8) -> bool {
+  310|  9.58k|    JSON_WHITESPACE_BYTES.contains(&x)
+  311|  9.58k|}
 
 _RNvXs2_NtCsdseA3k6TUM9_8rsonpath6resultINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB5_5MatchEINtB5_4SinkB18_E9add_matchCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  145|  7.83k|    fn add_match(&mut self, data: D) -> Result<(), Infallible> {
-  146|  7.83k|        self.push(data);
-  147|  7.83k|        Ok(())
-  148|  7.83k|    }
+  145|  8.00k|    fn add_match(&mut self, data: D) -> Result<(), Infallible> {
+  146|  8.00k|        self.push(data);
+  147|  8.00k|        Ok(())
+  148|  8.00k|    }
 
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_16InternalRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE12record_blockCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  157|  11.4k|    fn record_block(&mut self, block: B) {
-  158|  11.4k|        match self {
-  159|  8.25k|            Self::Simple(r) => r.record_block(block),
-  160|  3.19k|            Self::Stack(r) => r.record_block(block),
+  157|  11.0k|    fn record_block(&mut self, block: B) {
+  158|  11.0k|        match self {
+  159|  7.59k|            Self::Simple(r) => r.record_block(block),
+  160|  3.47k|            Self::Stack(r) => r.record_block(block),
   161|      0|            Self::Transition => unreachable!(),
   162|       |        }
-  163|  11.4k|    }
+  163|  11.0k|    }
 _RNvXs_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB4_13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB6_5MatchEEINtB6_13InputRecorderB13_E18record_block_startCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   42|  11.4k|    fn record_block_start(&self, new_block: B) {
-   43|  11.4k|        self.internal.borrow_mut().record_block(new_block)
-   44|  11.4k|    }
+   42|  11.0k|    fn record_block_start(&self, new_block: B) {
+   43|  11.0k|        self.internal.borrow_mut().record_block(new_block)
+   44|  11.0k|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB2_13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB4_5MatchEE14build_recorderCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
    29|  2.63k|    pub(crate) fn build_recorder(sink: &'s mut S, leading_padding_len: usize) -> Self {
    30|  2.63k|        Self {
@@ -3904,84 +3904,84 @@ _RNvMNtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB2_13NodesRecorderRShINtNtCshDtJ
    32|  2.63k|        }
    33|  2.63k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_16InternalRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE12record_matchCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  166|  33.7k|    fn record_match(&mut self, idx: usize, depth: Depth, ty: MatchedNodeType) {
-  167|  33.7k|        match self {
-  168|  9.74k|            Self::Simple(simple) => {
-  169|  9.74k|                if !simple.try_record_match(idx, depth, ty) {
-  170|  1.89k|                    let simple = match std::mem::replace(self, Self::Transition) {
-  171|  1.89k|                        Self::Simple(s) => s,
+  166|  34.9k|    fn record_match(&mut self, idx: usize, depth: Depth, ty: MatchedNodeType) {
+  167|  34.9k|        match self {
+  168|  10.0k|            Self::Simple(simple) => {
+  169|  10.0k|                if !simple.try_record_match(idx, depth, ty) {
+  170|  1.85k|                    let simple = match std::mem::replace(self, Self::Transition) {
+  171|  1.85k|                        Self::Simple(s) => s,
   172|      0|                        Self::Stack(_) | Self::Transition => unreachable!(),
   173|       |                    };
-  174|  1.89k|                    let mut stack = simple.transform_to_stack();
-  175|  1.89k|                    stack.record_match(idx, depth, ty);
-  176|  1.89k|                    *self = Self::Stack(stack);
-  177|  7.85k|                }
+  174|  1.85k|                    let mut stack = simple.transform_to_stack();
+  175|  1.85k|                    stack.record_match(idx, depth, ty);
+  176|  1.85k|                    *self = Self::Stack(stack);
+  177|  8.21k|                }
   178|       |            }
-  179|  24.0k|            Self::Stack(stack) => stack.record_match(idx, depth, ty),
+  179|  24.9k|            Self::Stack(stack) => stack.record_match(idx, depth, ty),
   180|      0|            Self::Transition => unreachable!(),
   181|       |        }
-  182|  33.7k|    }
+  182|  34.9k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_16InternalRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE23record_value_terminatorCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  186|  13.0k|    fn record_value_terminator(&mut self, idx: usize, depth: Depth) -> Result<(), EngineError> {
-  187|  13.0k|        match self {
-  188|  6.16k|            Self::Simple(r) => r.record_value_terminator(idx, depth),
-  189|  6.89k|            Self::Stack(r) => r.record_value_terminator(idx, depth),
+  186|  12.7k|    fn record_value_terminator(&mut self, idx: usize, depth: Depth) -> Result<(), EngineError> {
+  187|  12.7k|        match self {
+  188|  6.54k|            Self::Simple(r) => r.record_value_terminator(idx, depth),
+  189|  6.24k|            Self::Stack(r) => r.record_value_terminator(idx, depth),
   190|      0|            Self::Transition => unreachable!(),
   191|       |        }
-  192|  13.0k|    }
+  192|  12.7k|    }
 _RNvMs1_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_16InternalRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE3newCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   152|  2.63k|    fn new(sink: &'s mut S, leading_padding_len: usize) -> Self {
   153|  2.63k|        Self::Simple(SimpleRecorder::new(sink, leading_padding_len))
   154|  2.63k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE12record_blockCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  225|  8.25k|    fn record_block(&mut self, block: B) {
-  226|  8.25k|        if let Some(finished) = self.current_block.as_ref() {
-  227|  5.61k|            if let Some(node) = self.node.as_mut() {
+  225|  7.59k|    fn record_block(&mut self, block: B) {
+  226|  7.59k|        if let Some(finished) = self.current_block.as_ref() {
+  227|  4.95k|            if let Some(node) = self.node.as_mut() {
   228|       |                debug!("Continuing node, idx is {}", self.idx);
-  229|  1.62k|                append_block(&mut node.buf, finished, self.idx, node.start_idx)
-  230|  3.99k|            }
+  229|  1.68k|                append_block(&mut node.buf, finished, self.idx, node.start_idx)
+  230|  3.27k|            }
   231|       |
-  232|  5.61k|            self.idx += finished.len();
+  232|  4.95k|            self.idx += finished.len();
   233|  2.63k|        }
   234|       |
-  235|  8.25k|        self.current_block = Some(block);
+  235|  7.59k|        self.current_block = Some(block);
   236|       |        debug!("New block, idx = {}", self.idx);
-  237|  8.25k|    }
+  237|  7.59k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE16try_record_matchCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  269|  9.74k|    fn try_record_match(&mut self, idx: usize, depth: Depth, ty: MatchedNodeType) -> bool {
-  270|  9.74k|        if self.node.is_some() {
+  269|  10.0k|    fn try_record_match(&mut self, idx: usize, depth: Depth, ty: MatchedNodeType) -> bool {
+  270|  10.0k|        if self.node.is_some() {
   271|       |            debug!("nested match detected, switching to stack");
-  272|  1.89k|            return false;
-  273|  7.85k|        }
+  272|  1.85k|            return false;
+  273|  8.21k|        }
   274|       |
-  275|  7.85k|        let node = SimplePartialNode {
-  276|  7.85k|            start_idx: idx,
-  277|  7.85k|            start_depth: depth,
-  278|  7.85k|            buf: vec![],
-  279|  7.85k|            ty,
-  280|  7.85k|        };
-  281|  7.85k|        self.node = Some(node);
+  275|  8.21k|        let node = SimplePartialNode {
+  276|  8.21k|            start_idx: idx,
+  277|  8.21k|            start_depth: depth,
+  278|  8.21k|            buf: vec![],
+  279|  8.21k|            ty,
+  280|  8.21k|        };
+  281|  8.21k|        self.node = Some(node);
   282|       |
-  283|  7.85k|        true
-  284|  9.74k|    }
+  283|  8.21k|        true
+  284|  10.0k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE18transform_to_stackCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  286|  1.89k|    fn transform_to_stack(self) -> StackRecorder<'s, B, S> {
-  287|  1.89k|        match self.node {
-  288|  1.89k|            Some(node) => StackRecorder {
-  289|  1.89k|                idx: self.idx,
-  290|  1.89k|                match_count: 1,
-  291|  1.89k|                current_block: self.current_block,
-  292|  1.89k|                stack: vec![PartialNode {
-  293|  1.89k|                    id: 0,
-  294|  1.89k|                    start_idx: node.start_idx,
-  295|  1.89k|                    start_depth: node.start_depth,
-  296|  1.89k|                    buf: node.buf,
-  297|  1.89k|                    ty: node.ty,
-  298|  1.89k|                }],
-  299|  1.89k|                output_queue: OutputQueue::new(),
-  300|  1.89k|                sink: self.sink,
-  301|  1.89k|                leading_padding_len: self.leading_padding_len,
-  302|  1.89k|            },
+  286|  1.85k|    fn transform_to_stack(self) -> StackRecorder<'s, B, S> {
+  287|  1.85k|        match self.node {
+  288|  1.85k|            Some(node) => StackRecorder {
+  289|  1.85k|                idx: self.idx,
+  290|  1.85k|                match_count: 1,
+  291|  1.85k|                current_block: self.current_block,
+  292|  1.85k|                stack: vec![PartialNode {
+  293|  1.85k|                    id: 0,
+  294|  1.85k|                    start_idx: node.start_idx,
+  295|  1.85k|                    start_depth: node.start_depth,
+  296|  1.85k|                    buf: node.buf,
+  297|  1.85k|                    ty: node.ty,
+  298|  1.85k|                }],
+  299|  1.85k|                output_queue: OutputQueue::new(),
+  300|  1.85k|                sink: self.sink,
+  301|  1.85k|                leading_padding_len: self.leading_padding_len,
+  302|  1.85k|            },
   303|      0|            None => StackRecorder {
   304|      0|                idx: self.idx,
   305|      0|                match_count: 0,
@@ -3992,37 +3992,37 @@ _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCs
   310|      0|                leading_padding_len: self.leading_padding_len,
   311|      0|            },
   312|       |        }
-  313|  1.89k|    }
+  313|  1.85k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE23record_value_terminatorCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  239|  6.16k|    fn record_value_terminator(&mut self, idx: usize, depth: Depth) -> Result<(), EngineError> {
+  239|  6.54k|    fn record_value_terminator(&mut self, idx: usize, depth: Depth) -> Result<(), EngineError> {
   240|       |        debug!("Value terminator at {idx}, depth {depth}");
-  241|  6.16k|        if let Some(node) = self.node.as_ref() {
-  242|  5.65k|            if node.start_depth >= depth {
-  243|  5.42k|                let mut node = self.node.take().expect("node is Some");
+  241|  6.54k|        if let Some(node) = self.node.as_ref() {
+  242|  6.05k|            if node.start_depth >= depth {
+  243|  5.80k|                let mut node = self.node.take().expect("node is Some");
   244|       |                debug!("Mark node as ended at {}", idx + 1);
-  245|  5.42k|                append_final_block(
-  246|  5.42k|                    &mut node.buf,
-  247|  5.42k|                    self.current_block
-  248|  5.42k|                        .as_ref()
-  249|  5.42k|                        .ok_or(EngineError::MissingOpeningCharacter())?,
-  250|  5.42k|                    self.idx,
-  251|  5.42k|                    node.start_idx,
-  252|  5.42k|                    idx + 1,
+  245|  5.80k|                append_final_block(
+  246|  5.80k|                    &mut node.buf,
+  247|  5.80k|                    self.current_block
+  248|  5.80k|                        .as_ref()
+  249|  5.80k|                        .ok_or(EngineError::MissingOpeningCharacter())?,
+  250|  5.80k|                    self.idx,
+  251|  5.80k|                    node.start_idx,
+  252|  5.80k|                    idx + 1,
   253|       |                );
-  254|  5.42k|                finalize_node(&mut node.buf, node.ty);
+  254|  5.80k|                finalize_node(&mut node.buf, node.ty);
   255|       |
   256|       |                debug!("Committing and outputting node");
-  257|  5.42k|                self.sink
-  258|  5.42k|                    .add_match(Match {
-  259|  5.42k|                        span_start: node.start_idx - self.leading_padding_len,
-  260|  5.42k|                        bytes: node.buf,
-  261|  5.42k|                    })
-  262|  5.42k|                    .map_err(|err| EngineError::SinkError(Box::new(err)))?;
-  263|    230|            }
-  264|    514|        }
+  257|  5.80k|                self.sink
+  258|  5.80k|                    .add_match(Match {
+  259|  5.80k|                        span_start: node.start_idx - self.leading_padding_len,
+  260|  5.80k|                        bytes: node.buf,
+  261|  5.80k|                    })
+  262|  5.80k|                    .map_err(|err| EngineError::SinkError(Box::new(err)))?;
+  263|    245|            }
+  264|    499|        }
   265|       |
-  266|  6.16k|        Ok(())
-  267|  6.16k|    }
+  266|  6.54k|        Ok(())
+  267|  6.54k|    }
 _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE3newCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
   215|  2.63k|    fn new(sink: &'s mut S, leading_padding_len: usize) -> Self {
   216|  2.63k|        Self {
@@ -4034,162 +4034,162 @@ _RNvMs2_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_14SimpleRecorderRShINtNtCs
   222|  2.63k|        }
   223|  2.63k|    }
 _RNvMs3_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_13StackRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE12record_blockCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  339|  3.19k|    fn record_block(&mut self, block: B) {
-  340|  3.19k|        if let Some(finished) = self.current_block.as_ref() {
-  341|  66.8k|            for node in &mut self.stack {
+  339|  3.47k|    fn record_block(&mut self, block: B) {
+  340|  3.47k|        if let Some(finished) = self.current_block.as_ref() {
+  341|  72.6k|            for node in &mut self.stack {
   342|       |                debug!("Continuing node: {node:?}, idx is {}", self.idx);
-  343|  63.6k|                append_block(&mut node.buf, finished, self.idx, node.start_idx)
+  343|  69.1k|                append_block(&mut node.buf, finished, self.idx, node.start_idx)
   344|       |            }
   345|       |
-  346|  3.19k|            self.idx += finished.len();
+  346|  3.47k|            self.idx += finished.len();
   347|      0|        }
   348|       |
-  349|  3.19k|        self.current_block = Some(block);
+  349|  3.47k|        self.current_block = Some(block);
   350|       |        debug!("New block, idx = {}", self.idx);
-  351|  3.19k|    }
+  351|  3.47k|    }
 _RNvMs3_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_13StackRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE12record_matchCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  353|  25.9k|    fn record_match(&mut self, idx: usize, depth: Depth, ty: MatchedNodeType) {
-  354|  25.9k|        let node = PartialNode {
-  355|  25.9k|            id: self.match_count,
-  356|  25.9k|            start_idx: idx,
-  357|  25.9k|            start_depth: depth,
-  358|  25.9k|            buf: vec![],
-  359|  25.9k|            ty,
-  360|  25.9k|        };
+  353|  26.7k|    fn record_match(&mut self, idx: usize, depth: Depth, ty: MatchedNodeType) {
+  354|  26.7k|        let node = PartialNode {
+  355|  26.7k|            id: self.match_count,
+  356|  26.7k|            start_idx: idx,
+  357|  26.7k|            start_depth: depth,
+  358|  26.7k|            buf: vec![],
+  359|  26.7k|            ty,
+  360|  26.7k|        };
   361|       |
   362|       |        debug!("New node {node:?}");
-  363|  25.9k|        self.match_count += 1;
-  364|  25.9k|        self.stack.push(node);
-  365|  25.9k|    }
+  363|  26.7k|        self.match_count += 1;
+  364|  26.7k|        self.stack.push(node);
+  365|  26.7k|    }
 _RNvMs3_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_13StackRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEE23record_value_terminatorCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  368|  6.89k|    fn record_value_terminator(&mut self, idx: usize, depth: Depth) -> Result<(), EngineError> {
+  368|  6.24k|    fn record_value_terminator(&mut self, idx: usize, depth: Depth) -> Result<(), EngineError> {
   369|       |        debug!("Value terminator at {idx}, depth {depth}");
-  370|  15.2k|        while let Some(node) = self.stack.last() {
-  371|  14.3k|            if node.start_depth >= depth {
+  370|  14.2k|        while let Some(node) = self.stack.last() {
+  371|  13.5k|            if node.start_depth >= depth {
   372|       |                debug!("Mark node {node:?} as ended at {}", idx + 1);
-  373|  8.35k|                let mut node = self.stack.pop().expect("last was Some, pop must succeed");
-  374|  8.35k|                append_final_block(
-  375|  8.35k|                    &mut node.buf,
-  376|  8.35k|                    self.current_block
-  377|  8.35k|                        .as_ref()
-  378|  8.35k|                        .ok_or(EngineError::MissingOpeningCharacter())?,
-  379|  8.35k|                    self.idx,
-  380|  8.35k|                    node.start_idx,
-  381|  8.35k|                    idx + 1,
+  373|  8.04k|                let mut node = self.stack.pop().expect("last was Some, pop must succeed");
+  374|  8.04k|                append_final_block(
+  375|  8.04k|                    &mut node.buf,
+  376|  8.04k|                    self.current_block
+  377|  8.04k|                        .as_ref()
+  378|  8.04k|                        .ok_or(EngineError::MissingOpeningCharacter())?,
+  379|  8.04k|                    self.idx,
+  380|  8.04k|                    node.start_idx,
+  381|  8.04k|                    idx + 1,
   382|       |                );
-  383|  8.35k|                finalize_node(&mut node.buf, node.ty);
+  383|  8.04k|                finalize_node(&mut node.buf, node.ty);
   384|       |
   385|       |                debug!("Committing node: {node:?}");
-  386|  8.35k|                self.output_queue.insert(
-  387|  8.35k|                    node.id,
-  388|  8.35k|                    Match {
-  389|  8.35k|                        span_start: node.start_idx - self.leading_padding_len,
-  390|  8.35k|                        bytes: node.buf,
-  391|  8.35k|                    },
+  386|  8.04k|                self.output_queue.insert(
+  387|  8.04k|                    node.id,
+  388|  8.04k|                    Match {
+  389|  8.04k|                        span_start: node.start_idx - self.leading_padding_len,
+  390|  8.04k|                        bytes: node.buf,
+  391|  8.04k|                    },
   392|       |                );
   393|       |            } else {
-  394|  6.01k|                break;
+  394|  5.48k|                break;
   395|       |            }
   396|       |        }
   397|       |
-  398|  6.89k|        if self.stack.is_empty() {
+  398|  6.24k|        if self.stack.is_empty() {
   399|       |            debug!("Outputting batch of nodes.");
-  400|    879|            self.output_queue
-  401|    879|                .output_to(self.sink)
-  402|    879|                .map_err(|err| EngineError::SinkError(Box::new(err)))?;
-  403|  6.01k|        }
+  400|    766|            self.output_queue
+  401|    766|                .output_to(self.sink)
+  402|    766|                .map_err(|err| EngineError::SinkError(Box::new(err)))?;
+  403|  5.48k|        }
   404|       |
-  405|  6.89k|        Ok(())
-  406|  6.89k|    }
+  405|  6.24k|        Ok(())
+  406|  6.24k|    }
 _RNvNtNtCsdseA3k6TUM9_8rsonpath6result5nodes12append_block:
-  410|  65.2k|fn append_block(dest: &mut Vec<u8>, src: &[u8], src_start: usize, read_start: usize) {
-  411|  65.2k|    if read_start >= src_start + src.len() {
-  412|    892|        return;
-  413|  64.3k|    }
+  410|  70.8k|fn append_block(dest: &mut Vec<u8>, src: &[u8], src_start: usize, read_start: usize) {
+  411|  70.8k|    if read_start >= src_start + src.len() {
+  412|    945|        return;
+  413|  69.8k|    }
   414|       |
-  415|  64.3k|    let to_extend = if read_start > src_start {
-  416|  18.8k|        let in_block_start = read_start - src_start;
-  417|  18.8k|        &src[in_block_start..]
+  415|  69.8k|    let to_extend = if read_start > src_start {
+  416|  20.3k|        let in_block_start = read_start - src_start;
+  417|  20.3k|        &src[in_block_start..]
   418|       |    } else {
-  419|  45.5k|        src
+  419|  49.5k|        src
   420|       |    };
   421|       |
-  422|  64.3k|    dest.extend(to_extend);
-  423|  65.2k|}
+  422|  69.8k|    dest.extend(to_extend);
+  423|  70.8k|}
 _RNvNtNtCsdseA3k6TUM9_8rsonpath6result5nodes13finalize_node:
-  436|  13.7k|fn finalize_node(buf: &mut Vec<u8>, ty: MatchedNodeType) {
+  436|  13.8k|fn finalize_node(buf: &mut Vec<u8>, ty: MatchedNodeType) {
   437|       |    debug!("Finalizing node");
   438|       |
-  439|  13.7k|    if ty == MatchedNodeType::Atomic {
+  439|  13.8k|    if ty == MatchedNodeType::Atomic {
   440|       |        // Atomic nodes are finished when the next structural character is matched.
   441|       |        // The buffer includes that character and all preceding whitespace.
   442|       |        // We need to remove it before saving the result.
-  443|  10.9k|        if buf.len() <= 1 {
+  443|  11.0k|        if buf.len() <= 1 {
   444|       |            // This should never happen in a valid JSON, but we also don't want to panic if the file is invalid.
-  445|  6.21k|            buf.truncate(0)
+  445|  6.04k|            buf.truncate(0)
   446|       |        } else {
-  447|  4.76k|            let mut i = buf.len() - 2;
-  448|  8.12k|            while is_json_whitespace(buf[i]) {
-  449|  3.36k|                i -= 1;
-  450|  3.36k|            }
+  447|  5.00k|            let mut i = buf.len() - 2;
+  448|  9.58k|            while is_json_whitespace(buf[i]) {
+  449|  4.57k|                i -= 1;
+  450|  4.57k|            }
   451|       |
-  452|  4.76k|            buf.truncate(i + 1);
+  452|  5.00k|            buf.truncate(i + 1);
   453|       |        }
   454|  2.80k|    }
-  455|  13.7k|}
+  455|  13.8k|}
 _RNvNtNtCsdseA3k6TUM9_8rsonpath6result5nodes18append_final_block:
-  426|  13.7k|fn append_final_block(dest: &mut Vec<u8>, src: &[u8], src_start: usize, read_start: usize, read_end: usize) {
+  426|  13.8k|fn append_final_block(dest: &mut Vec<u8>, src: &[u8], src_start: usize, read_start: usize, read_end: usize) {
   427|       |    debug!("src_start: {src_start}, read_start: {read_start}, read_end: {read_end}");
-  428|  13.7k|    debug_assert!(read_end >= src_start, "block cannot end before it starts");
-  429|  13.7k|    let in_block_start = read_start.saturating_sub(src_start);
-  430|  13.7k|    let in_block_end = read_end - src_start;
+  428|  13.8k|    debug_assert!(read_end >= src_start, "block cannot end before it starts");
+  429|  13.8k|    let in_block_start = read_start.saturating_sub(src_start);
+  430|  13.8k|    let in_block_end = read_end - src_start;
   431|       |
-  432|  13.7k|    dest.extend(&src[in_block_start..in_block_end]);
-  433|  13.7k|}
+  432|  13.8k|    dest.extend(&src[in_block_start..in_block_end]);
+  433|  13.8k|}
 _RNvXs0_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEEINtB7_8RecorderB14_E12record_matchCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   53|  33.7k|    fn record_match(&self, idx: usize, depth: Depth, ty: MatchedNodeType) -> Result<(), EngineError> {
+   53|  34.9k|    fn record_match(&self, idx: usize, depth: Depth, ty: MatchedNodeType) -> Result<(), EngineError> {
    54|       |        debug!("Recording match at {idx}");
-   55|  33.7k|        self.internal.borrow_mut().record_match(idx, depth, ty);
-   56|  33.7k|        Ok(())
-   57|  33.7k|    }
+   55|  34.9k|        self.internal.borrow_mut().record_match(idx, depth, ty);
+   56|  34.9k|        Ok(())
+   57|  34.9k|    }
 _RNvXs0_NtNtCsdseA3k6TUM9_8rsonpath6result5nodesINtB5_13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB7_5MatchEEINtB7_8RecorderB14_E23record_value_terminatorCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   60|  13.0k|    fn record_value_terminator(&self, idx: usize, depth: Depth) -> Result<(), EngineError> {
-   61|  13.0k|        self.internal
-   62|  13.0k|            .borrow_mut()
-   63|  13.0k|            .record_value_terminator(idx, depth)
-   64|  13.0k|            .map_err(|err| EngineError::SinkError(Box::new(err)))
-   65|  13.0k|    }
+   60|  12.7k|    fn record_value_terminator(&self, idx: usize, depth: Depth) -> Result<(), EngineError> {
+   61|  12.7k|        self.internal
+   62|  12.7k|            .borrow_mut()
+   63|  12.7k|            .record_value_terminator(idx, depth)
+   64|  12.7k|            .map_err(|err| EngineError::SinkError(Box::new(err)))
+   65|  12.7k|    }
 
 _RINvMNtNtCsdseA3k6TUM9_8rsonpath6result12output_queueINtB3_11OutputQueueNtB5_5MatchE9output_toINtNtCshDtJu3Ru83O_5alloc3vec3VecB18_EECsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   52|    879|    pub(super) fn output_to<S>(&mut self, sink: &mut S) -> Result<(), S::Error>
-   53|    879|    where
-   54|    879|        S: Sink<D>,
+   52|    766|    pub(super) fn output_to<S>(&mut self, sink: &mut S) -> Result<(), S::Error>
+   53|    766|    where
+   54|    766|        S: Sink<D>,
    55|       |    {
-   56|    879|        self.offset += self.nodes.len();
+   56|    766|        self.offset += self.nodes.len();
    57|       |
-   58|  2.40k|        for node in self.nodes.drain(..) {
-   59|  2.40k|            sink.add_match(node.expect("output_to called only after all matches are complete"))?;
+   58|  2.19k|        for node in self.nodes.drain(..) {
+   59|  2.19k|            sink.add_match(node.expect("output_to called only after all matches are complete"))?;
    60|       |        }
    61|       |
-   62|    879|        Ok(())
-   63|    879|    }
+   62|    766|        Ok(())
+   63|    766|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath6result12output_queueINtB2_11OutputQueueNtB4_5MatchE3newCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   18|  1.89k|    pub(super) fn new() -> Self {
-   19|  1.89k|        Self {
-   20|  1.89k|            offset: 0,
-   21|  1.89k|            nodes: vec![],
-   22|  1.89k|        }
-   23|  1.89k|    }
+   18|  1.85k|    pub(super) fn new() -> Self {
+   19|  1.85k|        Self {
+   20|  1.85k|            offset: 0,
+   21|  1.85k|            nodes: vec![],
+   22|  1.85k|        }
+   23|  1.85k|    }
 _RNvMNtNtCsdseA3k6TUM9_8rsonpath6result12output_queueINtB2_11OutputQueueNtB4_5MatchE6insertCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-   29|  8.35k|    pub(super) fn insert(&mut self, id: usize, node: D) {
-   30|  8.35k|        let actual_idx = id - self.offset;
+   29|  8.04k|    pub(super) fn insert(&mut self, id: usize, node: D) {
+   30|  8.04k|        let actual_idx = id - self.offset;
    31|       |
-   32|  24.6k|        while self.nodes.len() <= actual_idx {
-   33|  16.2k|            self.nodes.push(None);
-   34|  16.2k|        }
+   32|  25.2k|        while self.nodes.len() <= actual_idx {
+   33|  17.2k|            self.nodes.push(None);
+   34|  17.2k|        }
    35|       |
-   36|  8.35k|        self.nodes[actual_idx] = Some(node);
-   37|  8.35k|    }
+   36|  8.04k|        self.nodes[actual_idx] = Some(node);
+   37|  8.04k|    }
 
 _RNvMs0_NtCsd77JCpXvqG6_15rsonpath_syntax5errorNtB5_17ParseErrorBuilder3new:
    57|  2.63k|    pub(crate) fn new() -> Self {
@@ -4251,15 +4251,15 @@ _RNvMs_Csd77JCpXvqG6_15rsonpath_syntaxNtB4_13ParserOptions30is_trailing_whitespa
   240|  2.63k|    }
 
 _RNvMs8_NtCsd77JCpXvqG6_15rsonpath_syntax3numNtB5_8JsonUInt13try_incrementCsbDKGoAz4hhA_20fuzz_arbitrary_bytes:
-  424|  8.45k|    pub fn try_increment(&mut self) -> Result<(), JsonIntOverflowError> {
-  425|  8.45k|        let new_index = self.0 + 1;
-  426|  8.45k|        if new_index <= JSON_UINT_UPPER_LIMIT {
-  427|  8.45k|            self.0 = new_index;
-  428|  8.45k|            Ok(())
+  424|  8.44k|    pub fn try_increment(&mut self) -> Result<(), JsonIntOverflowError> {
+  425|  8.44k|        let new_index = self.0 + 1;
+  426|  8.44k|        if new_index <= JSON_UINT_UPPER_LIMIT {
+  427|  8.44k|            self.0 = new_index;
+  428|  8.44k|            Ok(())
   429|       |        } else {
   430|      0|            Err(JsonIntOverflowError::uint_pos_overflow(new_index))
   431|       |        }
-  432|  8.45k|    }
+  432|  8.44k|    }
 
 _RNvMNtCsd77JCpXvqG6_15rsonpath_syntax6parserNtB2_8ParseCtx3new:
    42|  2.63k|    fn new(options: &'a ParserOptions) -> Self {
