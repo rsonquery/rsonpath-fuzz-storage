@@ -2,17 +2,17 @@ WARNING: Failed to find function "__sanitizer_acquire_crash_state".
 WARNING: Failed to find function "__sanitizer_print_stack_trace".
 WARNING: Failed to find function "__sanitizer_set_death_callback".
 INFO: Running with entropic power schedule (0xFF, 100).
-INFO: Seed: 4274725486
-MERGE-OUTER: 996 files, 0 in the initial corpus, 0 processed earlier
+INFO: Seed: 3243873394
+MERGE-OUTER: 992 files, 0 in the initial corpus, 0 processed earlier
 MERGE-OUTER: attempt 1
 WARNING: Failed to find function "__sanitizer_acquire_crash_state".
 WARNING: Failed to find function "__sanitizer_print_stack_trace".
 WARNING: Failed to find function "__sanitizer_set_death_callback".
 INFO: Running with entropic power schedule (0xFF, 100).
-INFO: Seed: 4274741502
+INFO: Seed: 3243890320
 INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 1048576 bytes
-MERGE-INNER: using the control file '/tmp/libFuzzerTemp.Merge295.txt'
-MERGE-INNER: 996 total files; 0 processed earlier; will process 996 files now
+MERGE-INNER: using the control file '/tmp/libFuzzerTemp.Merge297.txt'
+MERGE-INNER: 992 total files; 0 processed earlier; will process 992 files now
 #1	pulse  exec/s: 0 rss: 26Mb
 #2	pulse  exec/s: 0 rss: 26Mb
 #4	pulse  exec/s: 0 rss: 26Mb
@@ -23,8 +23,8 @@ MERGE-INNER: 996 total files; 0 processed earlier; will process 996 files now
 #128	pulse  exec/s: 0 rss: 26Mb
 #256	pulse  exec/s: 0 rss: 26Mb
 #512	pulse  exec/s: 0 rss: 27Mb
-#996	DONE   exec/s: 0 rss: 27Mb
+#992	DONE   exec/s: 0 rss: 27Mb
 MERGE-OUTER: successful in 1 attempt(s)
-MERGE-OUTER: the control file has 124598 bytes
+MERGE-OUTER: the control file has 124087 bytes
 MERGE-OUTER: consumed 0Mb (26Mb rss) to parse the control file
 MERGE-OUTER: 0 new files with 0 new features added; 0 new coverage edges
