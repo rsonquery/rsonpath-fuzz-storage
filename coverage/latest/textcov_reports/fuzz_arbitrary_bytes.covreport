@@ -2277,32 +2277,25 @@ _RNvXs_NtNtCs29MhAWKTduB_8rsonpath9automaton5stateNtB4_15StateAttributesINtNtCs6
    82|  1.68k|        value.build()
    83|  1.68k|    }
 
-_RNvNtNtNtCs29MhAWKTduB_8rsonpath14classification4mask3m6410combine_32:
-   63|  10.4k|    pub(crate) fn combine_32(m1: u32, m2: u32) -> u64 {
-   64|  10.4k|        u64::from(m1) | (u64::from(m2) << 32)
-   65|  10.4k|    }
-
-_RINvMNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64NtB3_19BlockAvx2Classifier8classifyRShECscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   22|  2.58k|    unsafe fn classify<'a, B: InputBlock<'a, 64>>(&mut self, blocks: &B) -> u64 {
-   23|       |        block!(blocks[..64]);
+_RINvMNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes9avx512_64NtB3_21BlockAvx512Classifier8classifyRShECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   22|  2.58k|    unsafe fn classify<'a, B: InputBlock<'a, 64>>(&mut self, block: &B) -> u64 {
+   23|       |        block!(block[..64]);
    24|       |
-   25|  2.58k|        let (block1, block2) = blocks.halves();
-   26|  2.58k|        let classification1 = vector_256::classify_block(block1);
-   27|  2.58k|        let classification2 = vector_256::classify_block(block2);
-   28|       |
-   29|  2.58k|        let slashes = m64::combine_32(classification1.slashes, classification2.slashes);
-   30|  2.58k|        let quotes = m64::combine_32(classification1.quotes, classification2.quotes);
-   31|       |
-   32|  2.58k|        self.internal_classifier.classify(slashes, quotes)
-   33|  2.58k|    }
-_RNvMNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64NtB2_19BlockAvx2Classifier3new:
+   25|  2.58k|        let classification = vector_512::classify_block(block);
+   26|       |
+   27|  2.58k|        let slashes = classification.slashes;
+   28|  2.58k|        let quotes = classification.quotes;
+   29|       |
+   30|  2.58k|        self.internal_classifier.classify(slashes, quotes)
+   31|  2.58k|    }
+_RNvMNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes9avx512_64NtB2_21BlockAvx512Classifier3new:
    15|    563|    fn new() -> Self {
    16|    563|        Self {
    17|    563|            internal_classifier: mask_64::BlockClassifier64Bit::new(),
    18|    563|        }
    19|    563|    }
 
-_RINvXs_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64NtB5_11ConstructorNtB7_10QuotesImpl3newINtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1L_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3d_5MatchEEKj40_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RINvXs_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes9avx512_64NtB5_11ConstructorNtB7_10QuotesImpl3newINtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1N_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3f_5MatchEEKj40_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
    28|    563|            fn new<'i, I>(iter: I) -> Self::Classifier<'i, I>
    29|    563|            where
    30|    563|                I: InputBlockIterator<'i, $size>,
@@ -2313,7 +2306,7 @@ _RINvXs_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64NtB5_11Const
    35|    563|                    phantom: PhantomData,
    36|    563|                }
    37|    563|            }
-_RNvXs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64INtB5_21Avx2QuoteClassifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EENtBb_16FallibleIterator4nextCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes9avx512_64INtB5_23Avx512QuoteClassifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EENtBb_16FallibleIterator4nextCscXExyV5GgSL_20fuzz_arbitrary_bytes:
    86|  2.93k|            fn next(&mut self) -> Result<Option<Self::Item>, Self::Error> {
    87|  2.93k|                match self.iter.next().e()? {
    88|  2.58k|                    Some(block) => {
@@ -2328,7 +2321,7 @@ _RNvXs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64INtB5_21Avx2
    97|    348|                    None => Ok(None),
    98|       |                }
    99|  2.93k|            }
-_RNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes7avx2_64INtB5_21Avx2QuoteClassifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EEINtB7_23QuoteClassifiedIteratorB1w_yKB4p_E10get_offsetCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes9avx512_64INtB5_23Avx512QuoteClassifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EEINtB7_23QuoteClassifiedIteratorB1A_yKB4t_E10get_offsetCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   107|  26.6k|            fn get_offset(&self) -> usize {
   108|  26.6k|                self.iter.get_offset() - $size
   109|  26.6k|            }
@@ -2396,32 +2389,30 @@ _RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared7mask_6411all_o
    14|  2.58k|    _mm_set1_epi8(0xFF_u8 as i8)
    15|  2.58k|}
 
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared10vector_25610quote_mask:
-    7|  5.16k|pub(crate) unsafe fn quote_mask() -> __m256i {
-    8|  5.16k|    _mm256_set1_epi8(b'"' as i8)
-    9|  5.16k|}
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared10vector_25610slash_mask:
-   12|  5.16k|pub(crate) unsafe fn slash_mask() -> __m256i {
-   13|  5.16k|    _mm256_set1_epi8(b'\\' as i8)
-   14|  5.16k|}
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared10vector_25614classify_block:
-   17|  5.16k|pub(crate) unsafe fn classify_block(block: &[u8]) -> BlockClassification256 {
-   18|  5.16k|    let byte_vector = _mm256_loadu_si256(block.as_ptr().cast::<__m256i>());
-   19|       |
-   20|  5.16k|    let slash_cmp = _mm256_cmpeq_epi8(byte_vector, slash_mask());
-   21|  5.16k|    let slashes = _mm256_movemask_epi8(slash_cmp) as u32;
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared10vector_51210quote_mask:
+    7|  2.58k|pub(crate) unsafe fn quote_mask() -> __m512i {
+    8|  2.58k|    _mm512_set1_epi8(b'"' as i8)
+    9|  2.58k|}
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared10vector_51210slash_mask:
+   12|  2.58k|pub(crate) unsafe fn slash_mask() -> __m512i {
+   13|  2.58k|    _mm512_set1_epi8(b'\\' as i8)
+   14|  2.58k|}
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification6quotes6shared10vector_51214classify_block:
+   18|  2.58k|pub(crate) unsafe fn classify_block(block: &[u8]) -> BlockClassification512 {
+   19|  2.58k|    let byte_vector = _mm512_loadu_si512(block.as_ptr().cast());
+   20|       |
+   21|  2.58k|    let slashes = _mm512_cmpeq_epi8_mask(byte_vector, slash_mask());
    22|       |
-   23|  5.16k|    let quote_cmp = _mm256_cmpeq_epi8(byte_vector, quote_mask());
-   24|  5.16k|    let quotes = _mm256_movemask_epi8(quote_cmp) as u32;
-   25|       |
-   26|  5.16k|    BlockClassification256 { slashes, quotes }
-   27|  5.16k|}
+   23|  2.58k|    let quotes = _mm512_cmpeq_epi8_mask(byte_vector, quote_mask());
+   24|       |
+   25|  2.58k|    BlockClassification512 { slashes, quotes }
+   26|  2.58k|}
 
-_RNvMs0_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB5_12ResolvedSimdNtNtNtB7_6quotes7avx2_6411ConstructorNtNtNtB7_10structural7avx2_6411ConstructorNtNtNtB7_5depth7avx2_6411ConstructorNtNtNtB7_6memmem7avx2_6411ConstructorKj2_E3newCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs0_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB5_12ResolvedSimdNtNtNtB7_6quotes9avx512_6411ConstructorNtNtNtB7_10structural9avx512_6411ConstructorNtNtNtB7_5depth9avx512_6411ConstructorNtNtNtB7_6memmem9avx512_6411ConstructorKj1_E3newCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   340|    563|    pub(crate) fn new() -> Self {
   341|    563|        Self { phantom: PhantomData }
   342|    563|    }
-_RNvXs1_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB5_12ResolvedSimdNtNtNtB7_6quotes7avx2_6411ConstructorNtNtNtB7_10structural7avx2_6411ConstructorNtNtNtB7_5depth7avx2_6411ConstructorNtNtNtB7_6memmem7avx2_6411ConstructorKj2_ENtB5_4Simd12dispatch_tagCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs1_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB5_12ResolvedSimdNtNtNtB7_6quotes9avx512_6411ConstructorNtNtNtB7_10structural9avx512_6411ConstructorNtNtNtB7_5depth9avx512_6411ConstructorNtNtNtB7_6memmem9avx512_6411ConstructorKj1_ENtB5_4Simd12dispatch_tagCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   376|    563|    fn dispatch_tag(self) -> usize {
   377|    563|        TARGET
   378|    563|    }
@@ -2455,9 +2446,9 @@ _RNvNtNtCs29MhAWKTduB_8rsonpath14classification4simd9configureCscXExyV5GgSL_20fu
   575|       |            #[cfg(target_arch = "x86_64")]
   576|    563|            let is_64_bit = true;
   577|    563|            let highest_simd = if is_x86_feature_detected!("avx512f") && is_x86_feature_detected!("avx512bw") && is_64_bit {
-  578|      0|                SimdTag::Avx512
-  579|    563|            } else if is_x86_feature_detected!("avx2") {
-  580|    563|                SimdTag::Avx2
+  578|    563|                SimdTag::Avx512
+  579|      0|            } else if is_x86_feature_detected!("avx2") {
+  580|      0|                SimdTag::Avx2
   581|      0|            } else if is_x86_feature_detected!("ssse3") {
   582|      0|                SimdTag::Ssse3
   583|      0|            } else if is_x86_feature_detected!("sse2") {
@@ -2483,14 +2474,14 @@ _RNvNtNtCs29MhAWKTduB_8rsonpath14classification4simd9configureCscXExyV5GgSL_20fu
   603|    563|        fast_popcnt,
   604|    563|    }
   605|    563|}
-_RINvXs1_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB6_12ResolvedSimdNtNtNtB8_6quotes7avx2_6411ConstructorNtNtNtB8_10structural7avx2_6411ConstructorNtNtNtB8_5depth7avx2_6411ConstructorNtNtNtB8_6memmem7avx2_6411ConstructorKj2_ENtB6_4Simd25classify_quoted_sequencesINtNtNtBa_5input8borrowed26BorrowedBytesBlockIteratorNtNtB4p_7padding19TwoSidesPaddedInputINtNtNtBa_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB5R_5MatchEEKj40_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RINvXs1_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB6_12ResolvedSimdNtNtNtB8_6quotes9avx512_6411ConstructorNtNtNtB8_10structural9avx512_6411ConstructorNtNtNtB8_5depth9avx512_6411ConstructorNtNtNtB8_6memmem9avx512_6411ConstructorKj1_ENtB6_4Simd25classify_quoted_sequencesINtNtNtBa_5input8borrowed26BorrowedBytesBlockIteratorNtNtB4x_7padding19TwoSidesPaddedInputINtNtNtBa_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB5Z_5MatchEEKj40_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
   381|    563|    fn classify_quoted_sequences<'i, I>(self, iter: I) -> Self::QuotesClassifier<'i, I>
   382|    563|    where
   383|    563|        I: InputBlockIterator<'i, BLOCK_SIZE>,
   384|       |    {
   385|    563|        Q::new(iter)
   386|    563|    }
-_RINvXs1_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB6_12ResolvedSimdNtNtNtB8_6quotes7avx2_6411ConstructorNtNtNtB8_10structural7avx2_6411ConstructorNtNtNtB8_5depth7avx2_6411ConstructorNtNtNtB8_6memmem7avx2_6411ConstructorKj2_ENtB6_4Simd30classify_structural_charactersINtNtNtBa_5input8borrowed26BorrowedBytesBlockIteratorNtNtB4u_7padding19TwoSidesPaddedInputINtNtNtBa_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB5W_5MatchEEKj40_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RINvXs1_NtNtCs29MhAWKTduB_8rsonpath14classification4simdINtB6_12ResolvedSimdNtNtNtB8_6quotes9avx512_6411ConstructorNtNtNtB8_10structural9avx512_6411ConstructorNtNtNtB8_5depth9avx512_6411ConstructorNtNtNtB8_6memmem9avx512_6411ConstructorKj1_ENtB6_4Simd30classify_structural_charactersINtNtNtBa_5input8borrowed26BorrowedBytesBlockIteratorNtNtB4C_7padding19TwoSidesPaddedInputINtNtNtBa_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB64_5MatchEEKj40_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
   401|    563|    fn classify_structural_characters<'i, I>(
   402|    563|        self,
   403|    563|        iter: Self::QuotesClassifier<'i, I>,
@@ -2523,38 +2514,37 @@ _RNvMNtNtCs29MhAWKTduB_8rsonpath14classification10structuralNtB2_10Structural6of
    75|       |        }
    76|  23.8k|    }
 
-_RINvMNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64NtB3_21BlockAvx2Classifier648classifyRShECscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   28|  5.23k|    unsafe fn classify<'i, B: InputBlock<'i, 64>>(
-   29|  5.23k|        &mut self,
-   30|  5.23k|        quote_classified_block: QuoteClassifiedBlock<B, u64, 64>,
-   31|  5.23k|    ) -> mask_64::StructuralsBlock<B> {
-   32|  5.23k|        let (block1, block2) = quote_classified_block.block.halves();
-   33|  5.23k|        let classification1 = self.internal_classifier.classify_block(block1);
-   34|  5.23k|        let classification2 = self.internal_classifier.classify_block(block2);
+_RINvMNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64NtB3_23BlockAvx512Classifier648classifyRShECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   26|  5.23k|    unsafe fn classify<'i, B: InputBlock<'i, 64>>(
+   27|  5.23k|        &mut self,
+   28|  5.23k|        quote_classified_block: QuoteClassifiedBlock<B, u64, 64>,
+   29|  5.23k|    ) -> mask_64::StructuralsBlock<B> {
+   30|  5.23k|        let block = &quote_classified_block.block;
+   31|  5.23k|        let classification = self.internal_classifier.classify_block(block);
+   32|       |
+   33|  5.23k|        let structural = classification.structural;
+   34|  5.23k|        let nonquoted_structural = structural & !quote_classified_block.within_quotes_mask;
    35|       |
-   36|  5.23k|        let structural = m64::combine_32(classification1.structural, classification2.structural);
-   37|  5.23k|        let nonquoted_structural = structural & !quote_classified_block.within_quotes_mask;
+   36|       |        bin_u64!("structural", structural);
+   37|       |        bin_u64!("nonquoted_structural", nonquoted_structural);
    38|       |
-   39|       |        bin_u64!("structural", structural);
-   40|       |        bin_u64!("nonquoted_structural", nonquoted_structural);
-   41|       |
-   42|  5.23k|        mask_64::StructuralsBlock::new(quote_classified_block, nonquoted_structural)
-   43|  5.23k|    }
-_RNvMNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64NtB2_21BlockAvx2Classifier643new:
-   20|    563|    fn new() -> Self {
-   21|    563|        Self {
-   22|    563|            // SAFETY: target feature invariant
-   23|    563|            internal_classifier: unsafe { vector_256::BlockClassifier256::new() },
-   24|    563|        }
-   25|    563|    }
+   39|  5.23k|        mask_64::StructuralsBlock::new(quote_classified_block, nonquoted_structural)
+   40|  5.23k|    }
+_RNvMNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64NtB2_23BlockAvx512Classifier643new:
+   18|    563|    fn new() -> Self {
+   19|    563|        Self {
+   20|    563|            // SAFETY: target feature invariant
+   21|    563|            internal_classifier: unsafe { vector_512::BlockClassifier512::new() },
+   22|    563|        }
+   23|    563|    }
 
-_RNvMs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EE22current_block_is_spentCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EE22current_block_is_spentCscXExyV5GgSL_20fuzz_arbitrary_bytes:
    55|  26.8k|            fn current_block_is_spent(&self) -> bool {
    56|  26.8k|                self.block
    57|  26.8k|                    .as_ref()
    58|  26.8k|                    .map_or(true, $mask_mod::StructuralsBlock::is_empty)
    59|  26.8k|            }
-_RNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EENtBb_16FallibleIterator4nextCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EENtBb_16FallibleIterator4nextCscXExyV5GgSL_20fuzz_arbitrary_bytes:
    90|  24.2k|            fn next(&mut self) -> Result<Option<Structural>, Self::Error> {
    91|  26.8k|                while self.current_block_is_spent() {
    92|  2.93k|                    match self.iter.next() {
@@ -2575,7 +2565,7 @@ _RNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_1
   107|  24.2k|                    .as_mut()
   108|  24.2k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
   109|  24.2k|            }
-_RINvXs_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64NtB5_11ConstructorNtB7_14StructuralImpl3newINtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1U_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3m_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1P_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RINvXs_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64NtB5_11ConstructorNtB7_14StructuralImpl3newINtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1W_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3o_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1R_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
    27|    563|            fn new<'i, I, Q>(iter: Q) -> Self::Classifier<'i, I, Q>
    28|    563|            where
    29|    563|                I: InputBlockIterator<'i, BLOCK_SIZE>,
@@ -2589,11 +2579,11 @@ _RINvXs_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64NtB5_11
    37|    563|                    are_colons_on: false,
    38|    563|                }
    39|    563|            }
-_RNCNCNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB9_16Avx2Classifier64INtNtNtBf_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBf_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtBd_6quotes7avx2_6421Avx2QuoteClassifier64B1A_EENtBf_16FallibleIterator4next00CscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNCNCNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB9_18Avx512Classifier64INtNtNtBf_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1J_7padding19TwoSidesPaddedInputINtNtNtBf_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB3b_5MatchEEKj40_EINtNtNtBd_6quotes9avx512_6423Avx512QuoteClassifier64B1E_EENtBf_16FallibleIterator4next00CscXExyV5GgSL_20fuzz_arbitrary_bytes:
   108|  23.8k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
-_RNCNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB7_16Avx2Classifier64INtNtNtBd_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1D_7padding19TwoSidesPaddedInputINtNtNtBd_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB35_5MatchEEKj40_EINtNtNtBb_6quotes7avx2_6421Avx2QuoteClassifier64B1y_EENtBd_16FallibleIterator4next0CscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNCNvXs1_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB7_18Avx512Classifier64INtNtNtBd_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1H_7padding19TwoSidesPaddedInputINtNtNtBd_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB39_5MatchEEKj40_EINtNtNtBb_6quotes9avx512_6423Avx512QuoteClassifier64B1C_EENtBd_16FallibleIterator4next0CscXExyV5GgSL_20fuzz_arbitrary_bytes:
   108|  23.8k|                    .and_then(|b| b.next().map(|x| x.offset(self.iter.get_offset()))))
-_RNvMs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EE10reclassifyCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EE10reclassifyCscXExyV5GgSL_20fuzz_arbitrary_bytes:
    62|  2.70k|            fn reclassify(&mut self, idx: usize) {
    63|  2.70k|                if let Some(block) = self.block.take() {
    64|  2.70k|                    let relative_idx = idx + 1 - self.iter.get_offset();
@@ -2611,7 +2601,7 @@ _RNvMs0_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_1
    76|  2.65k|                    }
    77|      0|                }
    78|  2.70k|            }
-_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E14turn_colons_onCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EEINtB7_18StructuralIteratorB1A_B4y_yKB4t_E14turn_colons_onCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   172|  2.14k|            fn turn_colons_on(&mut self, idx: usize) {
   173|  2.14k|                if !self.are_colons_on {
   174|  2.14k|                    self.are_colons_on = true;
@@ -2622,7 +2612,7 @@ _RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_1
   179|  2.14k|                    self.reclassify(idx);
   180|  2.14k|                }
   181|  2.14k|            }
-_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E14turn_commas_onCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EEINtB7_18StructuralIteratorB1A_B4y_yKB4t_E14turn_commas_onCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   150|  6.36k|            fn turn_commas_on(&mut self, idx: usize) {
   151|  6.36k|                if !self.are_commas_on {
   152|    263|                    self.are_commas_on = true;
@@ -2633,7 +2623,7 @@ _RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_1
   157|    263|                    self.reclassify(idx);
   158|  6.10k|                }
   159|  6.36k|            }
-_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E15turn_colons_offCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EEINtB7_18StructuralIteratorB1A_B4y_yKB4t_E15turn_colons_offCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   184|  5.39k|            fn turn_colons_off(&mut self) {
   185|  5.39k|                if self.are_colons_on {
   186|  2.17k|                    self.are_colons_on = false;
@@ -2642,7 +2632,7 @@ _RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_1
   189|  2.17k|                    unsafe { self.classifier.internal_classifier.toggle_colons() }
   190|  3.21k|                }
   191|  5.39k|            }
-_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural7avx2_64INtB5_16Avx2Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1B_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB33_5MatchEEKj40_EINtNtNtB9_6quotes7avx2_6421Avx2QuoteClassifier64B1w_EEINtB7_18StructuralIteratorB1w_B4u_yKB4p_E25turn_colons_and_commas_onCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs2_NtNtNtCs29MhAWKTduB_8rsonpath14classification10structural9avx512_64INtB5_18Avx512Classifier64INtNtNtBb_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1F_7padding19TwoSidesPaddedInputINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB37_5MatchEEKj40_EINtNtNtB9_6quotes9avx512_6423Avx512QuoteClassifier64B1A_EEINtB7_18StructuralIteratorB1A_B4y_yKB4t_E25turn_colons_and_commas_onCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   118|  6.87k|            fn turn_colons_and_commas_on(&mut self, idx: usize) {
   119|  6.87k|                if !self.are_commas_on && !self.are_colons_on {
   120|    295|                    self.are_commas_on = true;
@@ -2714,60 +2704,59 @@ _RNCNvXs_NtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared7mask
    55|       |            }
    56|  23.8k|        })
 
-_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25613toggle_colonsCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   80|  4.32k|    pub(crate) unsafe fn toggle_colons(&mut self) {
-   81|  4.32k|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, colons_toggle_mask());
-   82|  4.32k|    }
-_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25613toggle_commasCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   74|    263|    pub(crate) unsafe fn toggle_commas(&mut self) {
-   75|    263|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, commas_toggle_mask());
-   76|    263|    }
-_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25614classify_blockCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   92|  10.4k|    pub(crate) unsafe fn classify_block(&self, block: &[u8]) -> BlockClassification256 {
-   93|  10.4k|        let byte_vector = _mm256_loadu_si256(block.as_ptr().cast::<__m256i>());
-   94|  10.4k|        let shifted_byte_vector = _mm256_srli_epi16::<4>(byte_vector);
-   95|  10.4k|        let upper_nibble_byte_vector = _mm256_and_si256(shifted_byte_vector, upper_nibble_zeroing_mask());
-   96|  10.4k|        let lower_nibble_lookup = _mm256_shuffle_epi8(lower_nibble_mask(), byte_vector);
-   97|  10.4k|        let upper_nibble_lookup = _mm256_shuffle_epi8(self.upper_nibble_mask, upper_nibble_byte_vector);
-   98|  10.4k|        let structural_vector = _mm256_cmpeq_epi8(lower_nibble_lookup, upper_nibble_lookup);
-   99|  10.4k|        let structural = _mm256_movemask_epi8(structural_vector) as u32;
-  100|       |
-  101|  10.4k|        BlockClassification256 { structural }
-  102|  10.4k|    }
-_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier25624toggle_colons_and_commasCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   86|    295|    pub(crate) unsafe fn toggle_colons_and_commas(&mut self) {
-   87|    295|        self.upper_nibble_mask = _mm256_xor_si256(self.upper_nibble_mask, colons_and_commas_toggle_mask());
-   88|    295|    }
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_25617lower_nibble_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   31|  10.4k|pub(crate) unsafe fn lower_nibble_mask() -> __m256i {
-   32|  10.4k|    _mm256_loadu_si256(LOWER_NIBBLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
-   33|  10.4k|}
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_25618colons_toggle_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   49|  4.61k|pub(crate) unsafe fn colons_toggle_mask() -> __m256i {
-   50|  4.61k|    _mm256_loadu_si256(COLON_TOGGLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
-   51|  4.61k|}
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_25618commas_toggle_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   43|    558|pub(crate) unsafe fn commas_toggle_mask() -> __m256i {
-   44|    558|    _mm256_loadu_si256(COMMAS_TOGGLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
-   45|    558|}
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_25625upper_nibble_zeroing_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   25|  10.4k|pub(crate) unsafe fn upper_nibble_zeroing_mask() -> __m256i {
-   26|  10.4k|    _mm256_set1_epi8(0x0F)
-   27|  10.4k|}
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_25629colons_and_commas_toggle_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-   55|    295|pub(crate) unsafe fn colons_and_commas_toggle_mask() -> __m256i {
-   56|    295|    _mm256_or_si256(colons_toggle_mask(), commas_toggle_mask())
-   57|    295|}
-_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_256NtB2_18BlockClassifier2563newBa_:
-   66|    563|    pub(crate) unsafe fn new() -> Self {
-   67|    563|        Self {
-   68|    563|            upper_nibble_mask: upper_nibble_mask(),
-   69|    563|        }
-   70|    563|    }
-_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_25617upper_nibble_maskB9_:
-   37|    563|pub(crate) unsafe fn upper_nibble_mask() -> __m256i {
-   38|    563|    _mm256_loadu_si256(UPPER_NIBBLE_MASK_ARRAY.as_ptr().cast::<__m256i>())
-   39|    563|}
+_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_512NtB2_18BlockClassifier51213toggle_colonsCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   85|  4.32k|    pub(crate) unsafe fn toggle_colons(&mut self) {
+   86|  4.32k|        self.upper_nibble_mask = _mm512_xor_si512(self.upper_nibble_mask, colons_toggle_mask());
+   87|  4.32k|    }
+_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_512NtB2_18BlockClassifier51213toggle_commasCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   79|    263|    pub(crate) unsafe fn toggle_commas(&mut self) {
+   80|    263|        self.upper_nibble_mask = _mm512_xor_si512(self.upper_nibble_mask, commas_toggle_mask());
+   81|    263|    }
+_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_512NtB2_18BlockClassifier51214classify_blockCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   98|  5.23k|    pub(crate) unsafe fn classify_block(&self, block: &[u8]) -> BlockClassification512 {
+   99|  5.23k|        let byte_vector = _mm512_loadu_si512(block.as_ptr().cast());
+  100|  5.23k|        let shifted_byte_vector = _mm512_srli_epi16::<4>(byte_vector);
+  101|  5.23k|        let upper_nibble_byte_vector = _mm512_and_si512(shifted_byte_vector, upper_nibble_zeroing_mask());
+  102|  5.23k|        let lower_nibble_lookup = _mm512_shuffle_epi8(lower_nibble_mask(), byte_vector);
+  103|  5.23k|        let upper_nibble_lookup = _mm512_shuffle_epi8(self.upper_nibble_mask, upper_nibble_byte_vector);
+  104|  5.23k|        let structural = _mm512_cmpeq_epi8_mask(lower_nibble_lookup, upper_nibble_lookup);
+  105|       |
+  106|  5.23k|        BlockClassification512 { structural }
+  107|  5.23k|    }
+_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_512NtB2_18BlockClassifier51224toggle_colons_and_commasCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   91|    295|    pub(crate) unsafe fn toggle_colons_and_commas(&mut self) {
+   92|    295|        self.upper_nibble_mask = _mm512_xor_si512(self.upper_nibble_mask, colons_and_commas_toggle_mask());
+   93|    295|    }
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_51217lower_nibble_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   36|  5.23k|pub(crate) unsafe fn lower_nibble_mask() -> __m512i {
+   37|  5.23k|    _mm512_loadu_si512(LOWER_NIBBLE_MASK_ARRAY.as_ptr().cast())
+   38|  5.23k|}
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_51218colons_toggle_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   54|  4.61k|pub(crate) unsafe fn colons_toggle_mask() -> __m512i {
+   55|  4.61k|    _mm512_loadu_si512(COLON_TOGGLE_MASK_ARRAY.as_ptr().cast())
+   56|  4.61k|}
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_51218commas_toggle_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   48|    558|pub(crate) unsafe fn commas_toggle_mask() -> __m512i {
+   49|    558|    _mm512_loadu_si512(COMMAS_TOGGLE_MASK_ARRAY.as_ptr().cast())
+   50|    558|}
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_51225upper_nibble_zeroing_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   30|  5.23k|pub(crate) unsafe fn upper_nibble_zeroing_mask() -> __m512i {
+   31|  5.23k|    _mm512_set1_epi8(0x0F)
+   32|  5.23k|}
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_51229colons_and_commas_toggle_maskCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+   60|    295|pub(crate) unsafe fn colons_and_commas_toggle_mask() -> __m512i {
+   61|    295|    _mm512_or_si512(colons_toggle_mask(), commas_toggle_mask())
+   62|    295|}
+_RNvMNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_512NtB2_18BlockClassifier5123newBa_:
+   71|    563|    pub(crate) unsafe fn new() -> Self {
+   72|    563|        Self {
+   73|    563|            upper_nibble_mask: upper_nibble_mask(),
+   74|    563|        }
+   75|    563|    }
+_RNvNtNtNtNtCs29MhAWKTduB_8rsonpath14classification10structural6shared10vector_51217upper_nibble_maskB9_:
+   42|    563|pub(crate) unsafe fn upper_nibble_mask() -> __m512i {
+   43|    563|    _mm512_loadu_si512(UPPER_NIBBLE_MASK_ARRAY.as_ptr().cast())
+   44|    563|}
 
 _RNvMNtCs29MhAWKTduB_8rsonpath5depthNtB2_5Depth9decrement:
    28|  2.54k|    pub fn decrement(&mut self) -> Result<(), DepthError> {
@@ -2795,7 +2784,7 @@ _RNvXse_NtCs29MhAWKTduB_8rsonpath5depthNtB5_5DepthINtNtNtCs6SNw0SRvItZ_4core3ops
    57|  2.54k|                self.0.checked_sub(rhs).ok_or(DepthError::BelowZero).map(Depth)
    58|  2.54k|            }
 
-_RNvMNtNtCs29MhAWKTduB_8rsonpath6engine13head_skippingINtB2_8HeadSkipNtNtNtB6_5input8borrowed13BorrowedBytesINtNtNtB6_14classification4simd12ResolvedSimdNtNtNtB1M_6quotes7avx2_6411ConstructorNtNtNtB1M_10structural7avx2_6411ConstructorNtNtNtB1M_5depth7avx2_6411ConstructorNtNtNtB1M_6memmem7avx2_6411ConstructorKj2_EKj40_E3newCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMNtNtCs29MhAWKTduB_8rsonpath6engine13head_skippingINtB2_8HeadSkipNtNtNtB6_5input8borrowed13BorrowedBytesINtNtNtB6_14classification4simd12ResolvedSimdNtNtNtB1M_6quotes9avx512_6411ConstructorNtNtNtB1M_10structural9avx512_6411ConstructorNtNtNtB1M_5depth9avx512_6411ConstructorNtNtNtB1M_6memmem9avx512_6411ConstructorKj1_EKj40_E3newCscXExyV5GgSL_20fuzz_arbitrary_bytes:
    98|    563|    pub(super) fn new(bytes: &'b I, automaton: &Automaton, simd: V) -> Option<Self> {
    99|    563|        let initial_state = automaton.initial_state();
   100|    563|        let fallback_state = automaton[initial_state].fallback_state();
@@ -2827,7 +2816,7 @@ _RNvXs_NtNtCs29MhAWKTduB_8rsonpath6engine4mainNtB4_10MainEngineNtB6_8Compiler13c
   100|    563|        log::info!("SIMD configuration:\n {simd}");
   101|    563|        Ok(Self { automaton, simd })
   102|    563|    }
-_RINvNtNtCs29MhAWKTduB_8rsonpath6engine4main14query_executorNtNtNtB6_5input8borrowed13BorrowedBytesINtNtNtB6_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1D_5MatchEEINtNtNtB6_14classification4simd12ResolvedSimdNtNtNtB33_6quotes7avx2_6411ConstructorNtNtNtB33_10structural7avx2_6411ConstructorNtNtNtB33_5depth7avx2_6411ConstructorNtNtNtB33_6memmem7avx2_6411ConstructorKj2_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RINvNtNtCs29MhAWKTduB_8rsonpath6engine4main14query_executorNtNtNtB6_5input8borrowed13BorrowedBytesINtNtNtB6_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1D_5MatchEEINtNtNtB6_14classification4simd12ResolvedSimdNtNtNtB33_6quotes9avx512_6411ConstructorNtNtNtB33_10structural9avx512_6411ConstructorNtNtNtB33_5depth9avx512_6411ConstructorNtNtNtB33_6memmem9avx512_6411ConstructorKj1_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
   252|    563|fn query_executor<'i, 'r, I, R, V: Simd>(
   253|    563|    automaton: &'i Automaton,
   254|    563|    input: &'i I,
@@ -2851,7 +2840,7 @@ _RINvNtNtCs29MhAWKTduB_8rsonpath6engine4main14query_executorNtNtNtB6_5input8borr
   272|    563|        array_count: JsonUInt::ZERO,
   273|    563|    }
   274|    563|}
-_RINvNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB8_8ExecutorpppE14run_on_subtree21avx2_pclmulqdq_popcntNtNtNtBc_5input8borrowed13BorrowedBytesINtNtNtBc_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2p_5MatchEEINtNtNtBc_14classification4simd12ResolvedSimdNtNtNtB3P_6quotes7avx2_6411ConstructorNtNtNtB3P_10structural7avx2_6411ConstructorNtNtNtB3P_5depth7avx2_6411ConstructorNtNtNtB3P_6memmem7avx2_6411ConstructorKj2_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RINvNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB8_8ExecutorpppE14run_on_subtree23avx512_pclmulqdq_popcntNtNtNtBc_5input8borrowed13BorrowedBytesINtNtNtBc_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2r_5MatchEEINtNtNtBc_14classification4simd12ResolvedSimdNtNtNtB3R_6quotes9avx512_6411ConstructorNtNtNtB3R_10structural9avx512_6411ConstructorNtNtNtB3R_5depth9avx512_6411ConstructorNtNtNtB3R_6memmem9avx512_6411ConstructorKj1_EECscXExyV5GgSL_20fuzz_arbitrary_bytes:
   319|    563|        {
   320|       |            loop {
   321|       |                // Fetch the next element only if the lookahead is empty.
@@ -2908,11 +2897,11 @@ _RINvXs0_NtNtCs29MhAWKTduB_8rsonpath6engine4mainNtB6_10MainEngineNtB8_6Engine7ma
   206|       |
   207|     27|        Ok(())
   208|    563|    }
-_RNCNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB7_8ExecutorNtNtNtBb_5input8borrowed13BorrowedBytesINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1H_5MatchEEINtNtNtBb_14classification4simd12ResolvedSimdNtNtNtB37_6quotes7avx2_6411ConstructorNtNtNtB37_10structural7avx2_6411ConstructorNtNtNtB37_5depth7avx2_6411ConstructorNtNtNtB37_6memmem7avx2_6411ConstructorKj2_EE14handle_closing0CscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNCNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB7_8ExecutorNtNtNtBb_5input8borrowed13BorrowedBytesINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1H_5MatchEEINtNtNtBb_14classification4simd12ResolvedSimdNtNtNtB37_6quotes9avx512_6411ConstructorNtNtNtB37_10structural9avx512_6411ConstructorNtNtNtB37_5depth9avx512_6411ConstructorNtNtNtB37_6memmem9avx512_6411ConstructorKj1_EE14handle_closing0CscXExyV5GgSL_20fuzz_arbitrary_bytes:
   600|      2|            .map_err(|err| EngineError::DepthBelowZero(idx, err))?;
-_RNCNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB7_8ExecutorNtNtNtBb_5input8borrowed13BorrowedBytesINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1H_5MatchEEINtNtNtBb_14classification4simd12ResolvedSimdNtNtNtB37_6quotes7avx2_6411ConstructorNtNtNtB37_10structural7avx2_6411ConstructorNtNtNtB37_5depth7avx2_6411ConstructorNtNtNtB37_6memmem7avx2_6411ConstructorKj2_EE14handle_opening0CscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNCNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB7_8ExecutorNtNtNtBb_5input8borrowed13BorrowedBytesINtNtNtBb_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1H_5MatchEEINtNtNtBb_14classification4simd12ResolvedSimdNtNtNtB37_6quotes9avx512_6411ConstructorNtNtNtB37_10structural9avx512_6411ConstructorNtNtNtB37_5depth9avx512_6411ConstructorNtNtNtB37_6memmem9avx512_6411ConstructorKj1_EE14handle_opening0CscXExyV5GgSL_20fuzz_arbitrary_bytes:
   535|      3|            .map_err(|err| EngineError::DepthAboveLimit(idx, err))?;
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE12handle_colonCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE12handle_colonCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   361|  4.02k|    fn handle_colon(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
   362|       |        debug!("Colon");
   363|       |
@@ -2968,7 +2957,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   413|       |
   414|  3.46k|        Ok(())
   415|  4.02k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE12handle_commaCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE12handle_commaCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   421|  6.62k|    fn handle_comma(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
   422|       |        debug!("Comma");
   423|       |
@@ -3017,7 +3006,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   466|       |
   467|  5.97k|        Ok(())
   468|  6.62k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE12run_and_exitCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE12run_and_exitCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   297|    563|    fn run_and_exit(mut self) -> Result<(), EngineError> {
   298|    563|        let iter = self.input.iter_blocks(self.recorder);
   299|    563|        let quote_classifier = self.simd.classify_quoted_sequences(iter);
@@ -3028,7 +3017,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   304|       |
   305|    372|        self.verify_subtree_closed()
   306|    563|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE13transition_toCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE13transition_toCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   644|  10.1k|    fn transition_to(&mut self, target: State, opening: BracketType) {
   645|  10.1k|        let target_is_list = opening == BracketType::Square;
   646|       |
@@ -3052,7 +3041,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   664|  10.1k|            self.state = target;
   665|  10.1k|        }
   666|  10.1k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE14handle_closingCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE14handle_closingCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   595|  2.54k|    fn handle_closing(&mut self, classifier: &mut Classifier!(), idx: usize) -> Result<(), EngineError> {
   596|       |        debug!("Closing, decreasing depth and popping stack.");
   597|       |
@@ -3098,7 +3087,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   637|       |
   638|  2.54k|        Ok(())
   639|  2.54k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE14handle_openingCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE14handle_openingCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   472|  10.7k|    fn handle_opening(
   473|  10.7k|        &mut self,
   474|  10.7k|        classifier: &mut Classifier!(),
@@ -3219,7 +3208,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   589|       |
   590|  10.6k|        Ok(())
   591|  10.7k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE14run_on_subtreeCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE14run_on_subtreeCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   311|    563|    fn run_on_subtree(&mut self, classifier: &mut Classifier!()) -> Result<(), EngineError> {
   312|    563|        dispatch_simd!(self.simd; self, classifier =>
   313|       |        fn<'i, 'r, I, R, V>(eng: &mut Executor<'i, 'r, I, R, V>, classifier: &mut Classifier!()) -> Result<(), EngineError>
@@ -3265,7 +3254,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   353|       |            Ok(())
   354|       |        })
   355|    563|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE20find_preceding_colonCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE20find_preceding_colonCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   669|  5.84k|    fn find_preceding_colon(&self, idx: usize) -> Option<usize> {
   670|  5.84k|        if self.depth == Depth::ZERO {
   671|    558|            None
@@ -3275,7 +3264,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   675|  5.28k|            (char == b':').then_some(char_idx)
   676|       |        }
   677|  5.84k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE21verify_subtree_closedCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE21verify_subtree_closedCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   720|    372|    fn verify_subtree_closed(&self) -> Result<(), EngineError> {
   721|    372|        if self.depth != Depth::ZERO {
   722|    345|            Err(EngineError::MissingClosingCharacter())
@@ -3283,7 +3272,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   724|     27|            Ok(())
   725|       |        }
   726|    372|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE24record_match_detected_atCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE24record_match_detected_atCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   703|  20.3k|    fn record_match_detected_at(&self, start_idx: usize, ty: NodeType) -> Result<(), EngineError> {
   704|       |        debug!("Reporting result somewhere after {start_idx} with node type {ty:?}");
   705|       |
@@ -3299,7 +3288,7 @@ _RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8bo
   715|    186|            None => Err(EngineError::MissingItem()),
   716|       |        }
   717|  20.3k|    }
-_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes7avx2_6411ConstructorNtNtNtB35_10structural7avx2_6411ConstructorNtNtNtB35_5depth7avx2_6411ConstructorNtNtNtB35_6memmem7avx2_6411ConstructorKj2_EE3runCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMs1_NtNtCs29MhAWKTduB_8rsonpath6engine4mainINtB5_8ExecutorNtNtNtB9_5input8borrowed13BorrowedBytesINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB1F_5MatchEEINtNtNtB9_14classification4simd12ResolvedSimdNtNtNtB35_6quotes9avx512_6411ConstructorNtNtNtB35_10structural9avx512_6411ConstructorNtNtNtB35_5depth9avx512_6411ConstructorNtNtNtB35_6memmem9avx512_6411ConstructorKj1_EE3runCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   283|    563|    fn run(mut self) -> Result<(), EngineError> {
   284|       |        // First we check if head-skipping is possible for a given query automaton.
   285|       |        // If yes, delegate the control to HeadSkip and give it full access to this Executor.
@@ -3340,7 +3329,7 @@ _RNvMs2_NtNtCs29MhAWKTduB_8rsonpath6engine4mainNtB5_10SmallStack3new:
   755|    563|        Self { contents: smallvec![] }
   756|    563|    }
 
-_RNvMNtNtCs29MhAWKTduB_8rsonpath6engine13tail_skippingINtB2_8TailSkipINtNtNtB6_5input8borrowed26BorrowedBytesBlockIteratorNtNtB19_7padding19TwoSidesPaddedInputINtNtNtB6_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2B_5MatchEEKj40_EINtNtNtNtB6_14classification6quotes7avx2_6421Avx2QuoteClassifier64B14_EINtNtNtB49_10structural7avx2_6416Avx2Classifier64B14_B42_EINtNtB49_4simd12ResolvedSimdNtB45_11ConstructorNtB5e_11ConstructorNtNtNtB49_5depth7avx2_6411ConstructorNtNtNtB49_6memmem7avx2_6411ConstructorKj2_EKB3X_E3newCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvMNtNtCs29MhAWKTduB_8rsonpath6engine13tail_skippingINtB2_8TailSkipINtNtNtB6_5input8borrowed26BorrowedBytesBlockIteratorNtNtB19_7padding19TwoSidesPaddedInputINtNtNtB6_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2B_5MatchEEKj40_EINtNtNtNtB6_14classification6quotes9avx512_6423Avx512QuoteClassifier64B14_EINtNtNtB49_10structural9avx512_6418Avx512Classifier64B14_B42_EINtNtB49_4simd12ResolvedSimdNtB45_11ConstructorNtB5i_11ConstructorNtNtNtB49_5depth9avx512_6411ConstructorNtNtNtB49_6memmem9avx512_6411ConstructorKj1_EKB3X_E3newCscXExyV5GgSL_20fuzz_arbitrary_bytes:
    27|    563|    pub(crate) fn new(classifier: V::StructuralClassifier<'i, I>, simd: V) -> Self {
    28|    563|        Self {
    29|    563|            classifier: Some(classifier),
@@ -3348,18 +3337,13 @@ _RNvMNtNtCs29MhAWKTduB_8rsonpath6engine13tail_skippingINtB2_8TailSkipINtNtNtB6_5
    31|    563|            _phantom: (PhantomData, PhantomData),
    32|    563|        }
    33|    563|    }
-_RNvXs0_NtNtCs29MhAWKTduB_8rsonpath6engine13tail_skippingINtB5_8TailSkipINtNtNtB9_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1c_7padding19TwoSidesPaddedInputINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2E_5MatchEEKj40_EINtNtNtNtB9_14classification6quotes7avx2_6421Avx2QuoteClassifier64B17_EINtNtNtB4c_10structural7avx2_6416Avx2Classifier64B17_B45_EINtNtB4c_4simd12ResolvedSimdNtB48_11ConstructorNtB5h_11ConstructorNtNtNtB4c_5depth7avx2_6411ConstructorNtNtNtB4c_6memmem7avx2_6411ConstructorKj2_EKB40_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref8DerefMut9deref_mutCscXExyV5GgSL_20fuzz_arbitrary_bytes:
+_RNvXs0_NtNtCs29MhAWKTduB_8rsonpath6engine13tail_skippingINtB5_8TailSkipINtNtNtB9_5input8borrowed26BorrowedBytesBlockIteratorNtNtB1c_7padding19TwoSidesPaddedInputINtNtNtB9_6result5nodes13NodesRecorderRShINtNtCshDtJu3Ru83O_5alloc3vec3VecNtB2E_5MatchEEKj40_EINtNtNtNtB9_14classification6quotes9avx512_6423Avx512QuoteClassifier64B17_EINtNtNtB4c_10structural9avx512_6418Avx512Classifier64B17_B45_EINtNtB4c_4simd12ResolvedSimdNtB48_11ConstructorNtB5l_11ConstructorNtNtNtB4c_5depth9avx512_6411ConstructorNtNtNtB4c_6memmem9avx512_6411ConstructorKj1_EKB40_ENtNtNtCs6SNw0SRvItZ_4core3ops5deref8DerefMut9deref_mutCscXExyV5GgSL_20fuzz_arbitrary_bytes:
   141|  42.8k|    fn deref_mut(&mut self) -> &mut Self::Target {
   142|  42.8k|        self.classifier
   143|  42.8k|            .as_mut()
   144|  42.8k|            .expect("tail skip must always hold a classifier")
   145|  42.8k|    }
 
-_RNvXNtCs29MhAWKTduB_8rsonpath5inputRShINtB2_10InputBlockKj40_E6halvesCscXExyV5GgSL_20fuzz_arbitrary_bytes:
-  206|  7.81k|    fn halves(&self) -> (&[u8], &[u8]) {
-  207|  7.81k|        assert!(N.is_multiple_of(2), "block must be a power of two larger than 1");
-  208|  7.81k|        (&self[..N / 2], &self[N / 2..])
-  209|  7.81k|    }
 _RINvNtCs29MhAWKTduB_8rsonpath5input8align_toKj80_ECscXExyV5GgSL_20fuzz_arbitrary_bytes:
   225|    563|fn align_to<const N: usize>(bytes: &[u8]) -> (&[u8], &[u8], &[u8]) {
   226|    563|    let ptr = bytes.as_ptr();
